@@ -3,52 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Huisje in de Branding | Vakantie aan de Kust</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Huisje in de Branding | Jouw Vakantie aan Zee</title>
+    <meta name="description" content="Huur een van onze 4 unieke vakantiehuisjes direct aan de kust. Geniet van luxe, rust, een privé sauna of neem je hond mee. Boek nu jouw strandvakantie!">
+    <meta name="keywords" content="vakantiehuisje zee huren, strandhuisje, vakantiepark kust, huisje in de branding, huisje met sauna aan zee">
+    <meta name="author" content="Huisje in de Branding">
+    
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <style>
-        /* --- KLEURENPALET GEBASEERD OP MOODBOARD --- */
+        /* --- KLEUREN & BASIS --- */
         :root {
-            --ocean-blue: #1b4b5a; /* Donkerblauw/groenblauw van het logo */
-            --sand-light: #f6f3eb; /* Lichte zandkleur achtergrond */
-            --sand-dark: #e1d5c1; /* Iets donkerder zand voor accenten */
-            --coral-sunset: #e6917a; /* Warme zomerse accentkleur */
-            --text-dark: #333333;
+            --ocean-blue: #1b4b5a; 
+            --sand-light: #fdfcf9; /* Nog iets lichtere en frissere zandkleur */
+            --sand-dark: #e6dcc8; 
+            --coral-sunset: #e6917a; 
+            --text-dark: #2c3e45;
             --white: #ffffff;
         }
 
-        /* --- BASIS STYLING --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            background-color: var(--sand-light); 
+            color: var(--text-dark); 
+            line-height: 1.7; 
+            overflow-x: hidden;
         }
 
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--sand-light);
-            color: var(--text-dark);
-            line-height: 1.6;
-        }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; color: var(--ocean-blue); }
 
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
-            color: var(--ocean-blue);
-            font-weight: 700;
-        }
-
-        /* --- HEADER & NAVIGATIE --- */
+        /* --- NAVIGATIE & LOGO --- */
         header {
-            background-color: var(--white);
-            padding: 20px 50px;
+            background-color: rgba(253, 252, 249, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 5vw;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            position: sticky;
+            position: fixed;
+            width: 100%;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
 
         .logo-container {
@@ -58,205 +58,248 @@
             text-decoration: none;
         }
 
-        /* Hier kun je straks je eigen logo URL plaatsen */
+        /* 1. VISUEEL: Ruimte voor het echte logo */
         .logo-img {
-            width: 60px;
-            height: 60px;
+            height: 50px;
+            width: auto;
             border-radius: 50%;
-            background-color: var(--ocean-blue);
-            color: var(--white);
+        }
+
+        .logo-text { font-size: 1.5rem; font-weight: 700; letter-spacing: 1px; }
+
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { 
+            text-decoration: none; 
+            color: var(--text-dark); 
+            font-weight: 500; 
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--coral-sunset); }
+
+        /* --- HERO SECTIE (Minder template-achtig, meer sfeer) --- */
+        .hero {
+            /* 1. VISUEEL: Hero afbeelding */
+            background: linear-gradient(to right, rgba(27, 75, 90, 0.8), rgba(27, 75, 90, 0.3)), url('https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            height: 85vh;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            text-align: center;
+            padding: 0 5vw;
+            margin-top: 80px; /* Ruimte voor header */
         }
 
-        .logo-text {
-            font-size: 24px;
-            color: var(--ocean-blue);
+        .hero-content {
+            max-width: 600px;
+            color: var(--white);
         }
 
-        /* --- HERO SECTIE --- */
-        .hero {
-            /* Vervang deze URL met een mooie strandfoto */
-            background: linear-gradient(rgba(27, 75, 90, 0.4), rgba(27, 75, 90, 0.4)), url('https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
-            height: 60vh;
+        .hero h1 { color: var(--white); font-size: 4rem; line-height: 1.1; margin-bottom: 20px; font-weight: 400; }
+        .hero p { font-size: 1.2rem; font-weight: 300; margin-bottom: 40px; }
+        
+        /* --- HUISJES SECTIE (2 NAast elkaar layout) --- */
+        .huisjes-sectie { padding: 100px 5vw; max-width: 1400px; margin: 0 auto; }
+        .sectie-titel { text-align: center; font-size: 3rem; margin-bottom: 80px; position: relative; }
+        .sectie-titel::after {
+            content: ''; display: block; width: 60px; height: 3px; background-color: var(--coral-sunset); margin: 20px auto 0;
+        }
+
+        /* De vernieuwde 2-kolommen weergave */
+        .huisjes-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* 2 naast elkaar */
+            gap: 60px;
+        }
+
+        .huisje-item {
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: var(--white);
-            padding: 0 20px;
+            group: hover;
         }
 
-        .hero h1 {
-            color: var(--white);
-            font-size: 3rem;
-            margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin-bottom: 30px;
-        }
-
-        /* --- HUISJES SECTIE (De 4 vakantiehuisjes) --- */
-        .huisjes-sectie {
-            padding: 80px 5vw;
-            text-align: center;
-        }
-
-        .huisjes-sectie h2 {
-            font-size: 2.5rem;
-            margin-bottom: 50px;
-        }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* --- HUISJE KAARTEN --- */
-        .card {
-            background-color: var(--white);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease;
-            text-align: left;
-            border: 1px solid var(--sand-dark);
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-        }
-
-        .card img {
+        .huisje-afbeelding {
             width: 100%;
-            height: 220px;
+            height: 400px;
             object-fit: cover;
+            border-radius: 4px;
+            transition: transform 0.5s ease;
         }
 
-        .card-content {
-            padding: 25px;
-        }
-
-        .card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-
-        .card p {
-            color: #666;
-            font-size: 0.95rem;
+        .img-wrapper {
+            overflow: hidden;
+            border-radius: 4px;
             margin-bottom: 25px;
-            height: 60px; /* Houdt de kaarten even hoog */
+            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
         }
 
-        /* --- AFFILIATE KNOP --- */
-        .btn-affiliate {
+        .huisje-item:hover .huisje-afbeelding { transform: scale(1.03); }
+
+        .huisje-info { padding-right: 20px; }
+        .huisje-info h3 { font-size: 2rem; margin-bottom: 15px; }
+        
+        /* Kenmerken lijstje */
+        .kenmerken {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--ocean-blue);
+        }
+        .kenmerk-tag { background-color: var(--sand-dark); padding: 5px 12px; border-radius: 20px; }
+
+        .huisje-info p { margin-bottom: 30px; font-weight: 300; }
+
+        /* --- KNOPPEN --- */
+        .btn-primair {
             display: inline-block;
             background-color: var(--ocean-blue);
             color: var(--white);
-            padding: 12px 24px;
+            padding: 15px 35px;
             text-decoration: none;
-            border-radius: 30px;
-            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
             font-size: 0.9rem;
-            transition: background-color 0.3s ease;
-            width: 100%;
-            text-align: center;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-radius: 2px;
+            transition: background 0.3s;
         }
+        .btn-primair:hover { background-color: var(--coral-sunset); }
 
-        .btn-affiliate:hover {
-            background-color: var(--coral-sunset);
-        }
-
-        .btn-affiliate::after {
-            content: " \2197"; /* Pijltje om aan te geven dat het een externe link is */
-            font-weight: bold;
-        }
-
-        /* --- FOOTER --- */
+        /* --- FOOTER & DISCLAIMER --- */
         footer {
             background-color: var(--ocean-blue);
             color: var(--white);
+            padding: 60px 5vw 40px;
             text-align: center;
-            padding: 40px 20px;
-            margin-top: 40px;
         }
 
-        footer p {
+        .footer-links { margin-bottom: 30px; }
+        .footer-links a { color: var(--sand-light); text-decoration: none; margin: 0 15px; font-size: 0.9rem; }
+        .footer-links a:hover { text-decoration: underline; }
+
+        /* 3. JURIDISCH: Affiliate Disclaimer in de footer */
+        .affiliate-disclaimer {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            padding: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.6;
+        }
+
+        /* 3. JURIDISCH: Cookie Banner */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--white);
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+            padding: 20px 5vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 9999;
             font-size: 0.9rem;
-            opacity: 0.8;
         }
+        .cookie-btn { background: var(--coral-sunset); color: white; border: none; padding: 10px 20px; cursor: pointer; font-weight: bold; border-radius: 2px;}
 
-        /* Responsive aanpassingen */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2rem; }
-            header { padding: 15px 20px; }
+        /* Responsive voor mobiel */
+        @media (max-width: 900px) {
+            .huisjes-grid { grid-template-columns: 1fr; gap: 40px; }
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; /* In een echte site zou dit een hamburger menu worden */ }
+            .cookie-banner { flex-direction: column; text-align: center; gap: 15px; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <a href="#" class="logo-container">
-            <div class="logo-img">Logo</div>
-            <h1 class="logo-text">huisjeindebranding</h1>
+        <a href="index.html" class="logo-container">
+            <img src="logo.png" alt="Huisje in de Branding Logo" class="logo-img" onerror="this.style.display='none'">
+            <span class="logo-text">huisjeindebranding</span>
         </a>
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="over-ons.html">Over Ons</a>
+            <a href="contact.html">Contact & FAQ</a>
+        </nav>
     </header>
 
     <section class="hero">
-        <h1>Kom tot rust aan de kust</h1>
-        <p>Ontdek onze vier unieke, sfeervolle vakantiehuisjes vlakbij het strand. De perfecte uitvalsbasis voor een zomerse ontsnapping.</p>
+        <div class="hero-content">
+            <h1>Ontwaak met het ruisen van de zee</h1>
+            <p>Ontdek onze zorgvuldig geselecteerde vakantiehuisjes. Jouw perfecte uitvalsbasis voor lange strandwandelingen en ultieme ontspanning.</p>
+            <a href="#huisjes" class="btn-primair">Bekijk de huisjes</a>
+        </div>
     </section>
 
-    <section class="huisjes-sectie">
-        <h2>Onze Huisjes</h2>
+    <section id="huisjes" class="huisjes-sectie">
+        <h2 class="sectie-titel">Onze Pareltjes</h2>
         
-        <div class="grid-container">
+        <div class="huisjes-grid">
             
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Beach house 1">
-                <div class="card-content">
+            <div class="huisje-item">
+                <div class="img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="De Strandparel" class="huisje-afbeelding">
+                </div>
+                <div class="huisje-info">
                     <h3>De Strandparel</h3>
-                    <p>Een knus en licht huisje op loopafstand van de branding. Perfect voor een romantisch weekend weg.</p>
-                    <a href="https://link-naar-het-vakantiepark.nl/huisje1?aff=jouwid" target="_blank" class="btn-affiliate">Boek via Park</a>
+                    <div class="kenmerken">
+                        <span class="kenmerk-tag">Slechts 50m van het strand</span>
+                        <span class="kenmerk-tag">Hond toegestaan</span>
+                    </div>
+                    <p>Dit sfeervolle, lichte huisje ademt het ultieme strandgevoel. Geniet van een kopje koffie op je eigen veranda terwijl je de zeelucht opsnuift. Perfect voor een romantisch weekend of een vakantie met je trouwe viervoeter.</p>
+                    <a href="https://link-naar-park.nl/strandparel?aff=JOUW_ID" target="_blank" class="btn-primair">Bekijk prijzen & Boek</a>
                 </div>
             </div>
 
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1521401830884-6c03c1c87ebb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Beach house 2">
-                <div class="card-content">
+            <div class="huisje-item">
+                <div class="img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1521401830884-6c03c1c87ebb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Het Zandkasteel" class="huisje-afbeelding">
+                </div>
+                <div class="huisje-info">
                     <h3>Het Zandkasteel</h3>
-                    <p>Ruim vakantiehuis ideaal voor het hele gezin. Inclusief een groot terras met uitzicht op de duinen.</p>
-                    <a href="https://link-naar-het-vakantiepark.nl/huisje2?aff=jouwid" target="_blank" class="btn-affiliate">Boek via Park</a>
+                    <div class="kenmerken">
+                        <span class="kenmerk-tag">Privé Sauna</span>
+                        <span class="kenmerk-tag">Ideaal voor gezinnen (6 pers.)</span>
+                    </div>
+                    <p>Een ruim, luxe afgewerkt vakantiehuis met een fantastische, omheinde privétuin. Na een frisse strandwandeling warm je heerlijk op in je eigen sauna. Ruimte en comfort voor de hele familie.</p>
+                    <a href="https://link-naar-park.nl/zandkasteel?aff=JOUW_ID" target="_blank" class="btn-primair">Bekijk prijzen & Boek</a>
                 </div>
             </div>
 
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Beach house 3">
-                <div class="card-content">
+            <div class="huisje-item">
+                <div class="img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="De Zeebries" class="huisje-afbeelding">
+                </div>
+                <div class="huisje-info">
                     <h3>De Zeebries</h3>
-                    <p>Modern ingericht met een authentieke maritieme sfeer. Geniet hier van de ultieme rust en natuur.</p>
-                    <a href="https://link-naar-het-vakantiepark.nl/huisje3?aff=jouwid" target="_blank" class="btn-affiliate">Boek via Park</a>
+                    <div class="kenmerken">
+                        <span class="kenmerk-tag">Panoramisch Uitzicht</span>
+                        <span class="kenmerk-tag">Luxe Regendouche</span>
+                    </div>
+                    <p>Modern ingericht met een authentieke maritieme touch. De grote ramen bieden prachtig lichtinval. Een oase van rust waar je direct in de ontspanningsmodus schiet zodra je de drempel over stapt.</p>
+                    <a href="https://link-naar-park.nl/zeebries?aff=JOUW_ID" target="_blank" class="btn-primair">Bekijk prijzen & Boek</a>
                 </div>
             </div>
 
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Beach house 4">
-                <div class="card-content">
-                    <h3>Duinzichtzicht</h3>
-                    <p>Verscholen in de duinen vind je dit luxe chalet. Voorzien van alle gemakken voor een zorgeloze vakantie.</p>
-                    <a href="https://link-naar-het-vakantiepark.nl/huisje4?aff=jouwid" target="_blank" class="btn-affiliate">Boek via Park</a>
+            <div class="huisje-item">
+                <div class="img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Duinzicht" class="huisje-afbeelding">
+                </div>
+                <div class="huisje-info">
+                    <h3>Duinzicht</h3>
+                    <div class="kenmerken">
+                        <span class="kenmerk-tag">Midden in de natuur</span>
+                        <span class="kenmerk-tag">Vrijstaand Chalet</span>
+                    </div>
+                    <p>Verscholen in het duinlandschap vind je dit prachtige vrijstaande chalet. Volledige privacy en een terras op het zuiden. Hier hoor je niets anders dan de vogels en de zee op de achtergrond.</p>
+                    <a href="https://link-naar-park.nl/duinzicht?aff=JOUW_ID" target="_blank" class="btn-primair">Bekijk prijzen & Boek</a>
                 </div>
             </div>
 
@@ -264,10 +307,24 @@
     </section>
 
     <footer>
-        <h2>huisjeindebranding</h2>
-        <p>&copy; 2026 Huisje in de Branding. Alle rechten voorbehouden.</p>
-        <p><em>Boekingen verlopen via onze betrouwbare parkpartners.</em></p>
+        <div class="footer-links">
+            <a href="over-ons.html">Over Ons</a>
+            <a href="contact.html">Contact</a>
+            <a href="privacy.html">Privacyverklaring</a>
+        </div>
+        
+        <div class="affiliate-disclaimer">
+            <strong>Transparantie over ons verdienmodel</strong><br>
+            Huisje in de Branding fungeert als een online etalage. Wanneer je enthousiast bent over een huisje en klikt op "Bekijk prijzen & Boek", word je veilig doorgestuurd naar de officiële website van het vakantiepark. Boek je daar je verblijf, dan ontvangen wij een kleine affiliate-commissie. <strong>Dit kost jou absoluut niets extra</strong>, je betaalt gewoon de normale prijs van het park. Het helpt ons enorm om deze website draaiende te houden. Dankjewel!
+        </div>
+
+        <p>&copy; 2026 huisjeindebranding. Alle rechten voorbehouden.</p>
     </footer>
+
+    <div class="cookie-banner" id="cookieBanner">
+        <span>Wij gebruiken cookies (zoals Google Analytics) om te zien hoeveel mensen onze site bezoeken en om je ervaring te verbeteren. Lees meer in onze <a href="privacy.html" style="color: var(--ocean-blue);">Privacyverklaring</a>.</span>
+        <button class="cookie-btn" onclick="document.getElementById('cookieBanner').style.display='none'">Accepteren</button>
+    </div>
 
 </body>
 </html>
