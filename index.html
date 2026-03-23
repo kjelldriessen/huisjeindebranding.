@@ -9,28 +9,18 @@
     <meta name="keywords" content="vakantiehuisje zee, strandhuisje huren, vakantiepark kust, huisje in de branding, huisje met sauna aan zee, origineel strandhuisje">
     <meta name="author" content="Huisje in de Branding">
     
-    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/png" href="fyxo_logo_flat_teal.png">
     
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <style>
-        /* --- 1. VISUEEL: Kleurenpalet gebaseerd op image_4.png --- */
+        /* --- KLEURENPALET --- */
         :root {
-            /* De donkerste oceaan teal (voor hoofdtekst, koppen, knoppen, footer, logo) */
             --primary-ocean: #1c4b5d;
-            
-            /* De lichtere zandbeige (voor hoofdachtergrond, tags) */
             --bg-sand: #f1e9db;
-            
-            /* De koraal accentkleur (voor accenten, koophulp, hover-effecten) */
             --accent-coral: #e2927c;
-            
-            /* Een subtiele lichte grens/schaduwkleur */
             --subtle-grey: #eaeaea;
-            
-            /* De dominatie donkere kleur voor tekst en koppen */
             --text-dark: #1c4b5d;
-            
             --white: #ffffff;
         }
 
@@ -39,7 +29,6 @@
         
         body { 
             font-family: 'Montserrat', sans-serif; 
-            /* Een lichte, subtiele linnen textuur voor een minder template-achtig gevoel */
             background-color: var(--bg-sand);
             color: var(--text-dark); 
             line-height: 1.7; 
@@ -50,8 +39,6 @@
         h1, h2, h3, h4 { font-family: 'Playfair Display', serif; color: var(--primary-ocean); }
 
         /* --- ANIMATIE CLASSES --- */
-        
-        /* 1. VISUEEL: Openingsanimatie (Intro) */
         .intro-hidden {
             opacity: 0;
             transform: translateY(20px);
@@ -63,7 +50,6 @@
             transform: translateY(0);
         }
 
-        /* 1. VISUEEL: Scroll-animaties */
         .animate-on-scroll {
             opacity: 0;
             transform: translateY(50px);
@@ -95,9 +81,9 @@
             align-items: center;
             gap: 15px;
             text-decoration: none;
-            opacity: 0; /* Verberg voor intro */
+            opacity: 0;
             transform: translateY(-20px);
-            transition: opacity 1s ease, transform 1s ease 0.5s; /* Delay */
+            transition: opacity 1s ease, transform 1s ease 0.5s;
         }
 
         .logo-container.intro-visible {
@@ -105,9 +91,8 @@
             transform: translateY(0);
         }
 
-        /* 1. VISUEEL: Het echte logo toevoegen */
         .logo-img {
-            height: 60px; /* Groter voor originaliteit */
+            height: 60px;
             width: auto;
         }
 
@@ -124,15 +109,14 @@
         }
         .nav-links a:hover { color: var(--accent-coral); }
 
-        /* --- HERO SECTIE (Minder template-achtig, meer sfeer en intro) --- */
+        /* --- HERO SECTIE --- */
         .hero {
-            /* 1. VISUEEL: Hero afbeelding met een diepere, originele sfeer */
             background: linear-gradient(to right, rgba(27, 75, 90, 0.9), rgba(27, 75, 90, 0.4)), url('https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
             height: 85vh;
             display: flex;
             align-items: center;
             padding: 0 5vw;
-            margin-top: 80px; /* Ruimte voor header */
+            margin-top: 80px;
             position: relative;
         }
 
@@ -141,10 +125,9 @@
             color: var(--white);
         }
 
-        /* 1. VISUEEL: Geanimeerde volgorde voor de hero */
         .hero h1 { 
             color: var(--white); 
-            font-size: 5rem; /* Groter en dominanter */
+            font-size: 5rem;
             line-height: 1.05; 
             margin-bottom: 30px; 
             font-weight: 400; 
@@ -172,25 +155,23 @@
         }
         .hero-btn-container.intro-visible { opacity: 1; transform: translateY(0); }
 
-        /* --- HUISJES SECTIE (2 NAast elkaar layout met scroll animaties) --- */
+        /* --- HUISJES SECTIE --- */
         .huisjes-sectie { padding: 100px 5vw; max-width: 1400px; margin: 0 auto; }
         .sectie-titel { text-align: center; font-size: 3.5rem; margin-bottom: 100px; position: relative; }
         .sectie-titel::after {
             content: ''; display: block; width: 80px; height: 4px; background-color: var(--accent-coral); margin: 30px auto 0;
         }
 
-        /* De vernieuwde 2-kolommen weergave */
         .huisjes-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* 2 naast elkaar */
-            gap: 80px; /* Meer ruimte voor originaliteit */
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
         }
 
         .huisje-item {
             display: flex;
             flex-direction: column;
-            group: hover;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.03); /* Subtiel voor originaliteit */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
             border-radius: 6px;
             overflow: hidden;
             background: var(--white);
@@ -210,7 +191,7 @@
         
         .img-wrapper::after {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(28, 75, 93, 0.1); /* Subtiele teal filter */
+            background: rgba(28, 75, 93, 0.1);
             opacity: 1; transition: opacity 0.3s;
         }
 
@@ -220,7 +201,6 @@
         .huisje-info { padding: 35px; flex-grow: 1; display: flex; flex-direction: column;}
         .huisje-info h3 { font-size: 2.2rem; margin-bottom: 20px; letter-spacing: -1px;}
         
-        /* Kenmerken lijstje */
         .kenmerken {
             display: flex;
             flex-wrap: wrap;
@@ -234,7 +214,7 @@
 
         .huisje-info p { margin-bottom: 40px; font-weight: 300; color: #555; flex-grow: 1;}
 
-        /* --- KNOPPEN (Originele, minder template-achtige stijl) --- */
+        /* --- KNOPPEN --- */
         .btn-primair {
             display: inline-block;
             background-color: var(--primary-ocean);
@@ -253,7 +233,7 @@
         .btn-primair:hover { background-color: var(--accent-coral); transform: translateY(-2px);}
         .btn-primair:active { transform: translateY(0); }
 
-        /* --- FOOTER & DISCLAIMER --- */
+        /* --- FOOTER --- */
         footer {
             background-color: var(--primary-ocean);
             color: var(--white);
@@ -262,15 +242,19 @@
         }
         
         .footer-logo {
-            height: 70px; /* Groter voor originaliteit */
+            height: 70px;
             margin-bottom: 40px;
+            transition: transform 0.3s ease;
+        }
+        
+        .footer-logo:hover {
+            transform: scale(1.05);
         }
 
         .footer-links { margin-bottom: 40px; display: flex; justify-content: center; gap: 30px; }
         .footer-links a { color: var(--bg-sand); text-decoration: none; font-size: 0.9rem; transition: color 0.3s; }
         .footer-links a:hover { color: var(--accent-coral); text-decoration: underline; }
 
-        /* 3. JURIDISCH: Affiliate Disclaimer in de footer */
         .affiliate-disclaimer {
             max-width: 800px;
             margin: 0 auto 40px;
@@ -283,7 +267,7 @@
             border-radius: 4px;
         }
 
-        /* 3. JURIDISCH: Cookie Banner */
+        /* --- COOKIE BANNER --- */
         .cookie-banner {
             position: fixed;
             bottom: 0;
@@ -301,7 +285,7 @@
         .cookie-btn { background: var(--primary-ocean); color: white; border: none; padding: 10px 20px; cursor: pointer; font-weight: bold; border-radius: 2px; text-transform: uppercase; letter-spacing: 1px;}
         .cookie-btn:hover { background-color: var(--accent-coral); }
 
-        /* Responsive voor mobiel */
+        /* --- RESPONSIVE --- */
         @media (max-width: 1000px) {
             .hero h1 { font-size: 3.5rem; }
             .huisjes-grid { grid-template-columns: 1fr; gap: 60px; }
@@ -320,7 +304,7 @@
 
     <header>
         <a href="index.html" class="logo-container intro-hidden" id="headerLogo">
-            <img src="image_6.png" alt="Huisje in de Branding Logo" class="logo-img">
+            <img src="fyxo_logo_flat_teal.png" alt="Huisje in de Branding Logo" class="logo-img">
             <span class="logo-text">huisjeindebranding</span>
         </a>
         <nav class="nav-links intro-hidden" id="headerNav">
@@ -413,7 +397,9 @@
     </section>
 
     <footer class="animate-on-scroll">
-        <img src="image_6.png" alt="Huisje in de Branding Logo" class="footer-logo">
+        <a href="index.html">
+            <img src="fyxo_logo_flat_teal.png" alt="Huisje in de Branding Logo" class="footer-logo">
+        </a>
         
         <div class="footer-links">
             <a href="over-ons.html">Over Ons</a>
@@ -433,32 +419,3 @@
         <span>Wij gebruiken cookies (zoals Google Analytics) om te zien hoeveel mensen onze site bezoeken en om je ervaring te verbeteren. Lees meer in onze <a href="privacy.html" style="color: var(--primary-ocean);">Privacyverklaring</a>.</span>
         <button class="cookie-btn" onclick="document.getElementById('cookieBanner').style.display='none'">Accepteren</button>
     </div>
-
-    <script>
-        // 1. VISUEEL: Openingsanimatie (Intro)
-        window.addEventListener('load', function() {
-            // Voeg de zichtbaarheidsclass toe na een korte vertraging
-            setTimeout(() => { document.getElementById('headerLogo').classList.add('intro-visible'); }, 200);
-            setTimeout(() => { document.getElementById('headerNav').classList.add('intro-visible'); }, 500);
-            setTimeout(() => { document.getElementById('heroH1').classList.add('intro-visible'); }, 1000);
-            setTimeout(() => { document.getElementById('heroP').classList.add('intro-visible'); }, 1800);
-            setTimeout(() => { document.getElementById('heroBtn').classList.add('intro-visible'); }, 2200);
-        });
-
-        // 1. VISUEEL: Scroll-animaties (Intersection Observer API)
-        const animateElements = document.querySelectorAll('.animate-on-scroll');
-        const scrollObserver = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('in-view');
-                }
-            });
-        }, { threshold: 0.2 }); // Trigger als 20% zichtbaar is
-
-        animateElements.forEach((element) => {
-            scrollObserver.observe(element);
-        });
-    </script>
-
-</body>
-</html>
