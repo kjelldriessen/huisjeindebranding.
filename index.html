@@ -12,7 +12,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;900&display=swap" rel="stylesheet">
     
     <style>
         /* --- JOUW KLEURENPALET --- */
@@ -109,62 +109,42 @@
         .slider-btn.prev { left: 0; border-radius: 0 4px 4px 0; }
         .slider-btn.next { right: 0; border-radius: 4px 0 0 4px; }
 
-        /* --- BANNERS VOOR SECTIES (Met nieuwe animaties) --- */
+        /* --- BANNERS VOOR SECTIES --- */
         .sectie-banner { 
-            height: 45vh; /* Iets verhoogd voor betere visuele impact */
+            height: 45vh; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
             position: relative; 
             margin-top: 40px; 
             margin-bottom: 80px; 
-            overflow: hidden; /* Cruciaal voor de inzoom-animatie */
+            overflow: hidden; 
         }
         
-        /* Het nieuwe geanimeerde achtergrondelement */
         .banner-background {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center;
             z-index: -2;
-            /* Start de Ken Burns animatie */
             animation: kenBurns 20s ease-in-out infinite alternate;
-            will-change: transform; /* Optimalisatie voor vloeiende animatie */
+            will-change: transform; 
         }
         
         .sectie-banner::after { 
-            content:''; 
-            position: absolute; 
-            top:0; 
-            left:0; 
-            width:100%; 
-            height:100%; 
-            background: linear-gradient(to bottom, rgba(28, 75, 93, 0.3), rgba(28, 75, 93, 0.6)); /* Verbeterde overlay gradient */
+            content:''; position: absolute; top:0; left:0; width:100%; height:100%; 
+            background: linear-gradient(to bottom, rgba(28, 75, 93, 0.3), rgba(28, 75, 93, 0.6)); 
             z-index: -1; 
         }
         
         .sectie-banner h2 { 
-            color: var(--white); 
-            z-index: 2; 
-            font-size: 4rem; /* Iets groter */
-            text-shadow: 0 4px 15px rgba(0,0,0,0.3); /* Diepere schaduw */
-            margin: 0; 
-            opacity: 0;
-            transform: translateY(20px);
+            color: var(--white); z-index: 2; font-size: 4rem; 
+            text-shadow: 0 4px 15px rgba(0,0,0,0.3); margin: 0; 
+            opacity: 0; transform: translateY(20px);
             transition: opacity 1s ease 0.5s, transform 1s ease 0.5s;
         }
         
-        /* Zorgt dat de titel animeert als de sectie in beeld komt */
-        .sectie-banner.zichtbaar h2 {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .sectie-banner.zichtbaar h2 { opacity: 1; transform: translateY(0); }
         
-        /* Specifieke achtergronden gekoppeld aan het nieuwe element */
         #over-ons .banner-background { background-image: url('Tulpenvelden_Zeeland-25.jpg'); }
         #contact .banner-background { background-image: url('IMG_NEDFEAleegloopstadiStock-621906058.jpg'); }
 
@@ -191,20 +171,33 @@
         /* --- FOOTER --- */
         footer { background-color: var(--primary-teal); color: var(--light-blue-bg); padding: 80px 5vw 40px; text-align: center; }
         .footer-logo { height: 60px; margin-bottom: 30px; }
-        .footer-nav { margin-bottom: 40px; }
-        .footer-nav a { color: var(--light-blue-bg); text-decoration: none; margin: 0 15px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+        .footer-nav { margin-bottom: 40px; display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; }
+        .footer-nav a { color: var(--light-blue-bg); text-decoration: none; margin: 0 10px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
         .footer-nav a:hover { color: var(--accent-coral); }
         .disclaimer { max-width: 700px; margin: 0 auto 40px; font-size: 0.85rem; opacity: 0.8; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 30px; }
+
+        /* --- FYXO LOGO FONT --- */
+        .made-by { margin-top: 30px; font-size: 0.9rem; opacity: 0.9; }
+        .fyxo-font { 
+            font-family: 'Montserrat', sans-serif; 
+            font-weight: 900; /* Extra dik font voor de strakke FYXO look */
+            text-transform: uppercase; 
+            letter-spacing: -0.5px; 
+            color: var(--white); 
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: color 0.3s ease;
+        }
+        .fyxo-font:hover { color: var(--accent-coral); }
 
         /* --- COOKIE BAR --- */
         .cookie-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--white); padding: 20px 5vw; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 -5px 20px rgba(0,0,0,0.05); z-index: 9999; }
         .cookie-bar p { font-size: 0.9rem; margin: 0; }
         .cookie-btn { background: var(--accent-coral); color: var(--white); border: none; padding: 12px 25px; cursor: pointer; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
 
-        /* --- NIEUWE ANIMATIE DEFINITIES --- */
+        /* --- ANIMATIES --- */
         @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         
-        /* Ken Burns effect: langzaam inzoomen en bewegen */
         @keyframes kenBurns {
             0% { transform: scale(1) translate(0, 0); }
             100% { transform: scale(1.15) translate(-2%, -1%); }
@@ -374,9 +367,14 @@
             <a href="#collectie">Huisjes</a>
             <a href="#over-ons">Over Ons</a>
             <a href="#contact">Contact</a>
+            <a href="algemene-voorwaarden.html">Algemene Voorwaarden</a>
+            <a href="privacy.html">Privacy</a>
         </div>
         <div class="disclaimer"><strong>Transparantie:</strong> Wij zijn een onafhankelijke etalage voor unieke strandhuisjes. Wanneer je klikt op "Bekijk & Boek" sturen we je door naar het vakantiepark. Bij een boeking ontvangen wij een kleine commissie. Dit kost jou niets extra, maar helpt ons deze website te onderhouden.</div>
+        
         <p>&copy; 2026 huisjeindebranding.</p>
+        
+        <p class="made-by">Made by <a href="https://www.fyxo.online/#home" target="_blank" class="fyxo-font">FYXO</a></p>
     </footer>
 
     <div class="cookie-bar" id="cookieBanner">
@@ -385,36 +383,29 @@
     </div>
 
     <script>
-        // Betrouwbare scroll-animaties via IntersectionObserver
         document.addEventListener('DOMContentLoaded', () => {
             const elements = document.querySelectorAll('.scroll-element');
             
-            // Check of the browser IntersectionObserver ondersteunt
             if ('IntersectionObserver' in window) {
                 const scrollObserver = new IntersectionObserver((entries) => {
                     entries.forEach((entry) => {
                         if (entry.isIntersecting) {
                             entry.target.classList.add('zichtbaar');
-                            // Stop met observeren na de eerste keer laden voor betere prestaties
                             scrollObserver.unobserve(entry.target);
                         }
                     });
-                }, { 
-                    threshold: 0.15 // Activeert als 15% van het element in beeld is
-                });
+                }, { threshold: 0.15 });
 
                 elements.forEach((element) => {
                     scrollObserver.observe(element);
                 });
             } else {
-                // Fallback voor oudere browsers: toon alles direct
                 elements.forEach((element) => {
                     element.classList.add('zichtbaar');
                 });
             }
         });
 
-        // Image Slider Logica
         function moveSlide(sliderId, direction) {
             const slider = document.getElementById(sliderId);
             const slides = slider.querySelectorAll('.slide');
