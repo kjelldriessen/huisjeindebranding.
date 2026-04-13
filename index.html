@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>Huisje in de Branding | Jouw Unieke Strandvakantie</title>
-    <meta name="description" content="Ontdek onze 4 unieke vakantiehuisjes direct aan de kust. Luxe, rust, en een originele strandvakantie boek je via onze betrouwbare parkpartners.">
+    <meta name="description" content="Ontdek onze unieke vakantiehuisjes direct aan de kust. Luxe, rust, en een originele strandvakantie boek je via onze betrouwbare parkpartners.">
     <meta name="author" content="Huisje in de Branding">
     
     <link rel="icon" type="image/png" href="fyxo_logo_flat_teal.png">
@@ -104,7 +104,6 @@
         .huisje-rij { display: flex; align-items: center; gap: 0; margin-bottom: 100px; opacity: 0; transform: translateY(40px); transition: all 1s ease-out; }
         .huisje-rij.zichtbaar { opacity: 1; transform: translateY(0); }
         
-        /* Oplossing 1: Zigzag bug gefixt met specifieke class .omgekeerd ipv :nth-child(even) */
         .huisje-rij.omgekeerd { flex-direction: row-reverse; }
 
         /* FOTO SLIDER CSS */
@@ -128,16 +127,16 @@
             padding: 50px;
             border-radius: 8px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-            margin-left: -100px; /* Schuift over de foto heen */
-            z-index: 2; /* Ligt bovenop de foto */
+            margin-left: -100px; 
+            z-index: 2; 
             position: relative;
             transition: transform 0.4s ease;
         }
         .huisje-rij.omgekeerd .huisje-tekst {
             margin-left: 0;
-            margin-right: -100px; /* Schuift de andere kant op over de foto */
+            margin-right: -100px; 
         }
-        .huisje-tekst:hover { transform: translateY(-10px); } /* Zweef effect */
+        .huisje-tekst:hover { transform: translateY(-10px); } 
 
         .huisje-tekst h3 { font-size: 2.5rem; margin-bottom: 20px; line-height: 1.2; }
         .tags { display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap; }
@@ -250,9 +249,9 @@
         <div class="hero-bg"></div>
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <!-- Oplossing 2: SEO H1 geoptimaliseerd -->
             <h1>De perfecte ontsnapping: Unieke strandhuisjes aan zee.</h1>
-            <p>Vier exclusieve vakantiehuisjes waar de zee altijd dichtbij is. Ontdek jouw originele strandvakantie via onze geselecteerde parkpartners.</p>
+            <!-- Aangepast van 4 naar 5 huisjes -->
+            <p>Vijf exclusieve vakantiehuisjes waar de zee altijd dichtbij is. Ontdek jouw originele strandvakantie via onze geselecteerde parkpartners.</p>
             <a href="#collectie" class="btn">Bekijk de huisjes</a>
         </div>
     </section>
@@ -260,13 +259,31 @@
     <section id="collectie" class="collectie">
         <h2 class="sectie-titel">Onze Pareltjes</h2>
 
-        <!-- HUISJE 1: Normaal -->
+        <!-- NIEUW HUISJE: Branding 104 (Normaal) -->
         <div class="huisje-rij scroll-element">
+            <div class="huisje-foto-container" id="slider-branding104">
+                <img src="https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="slide active" alt="Branding 104 Terras en Buiten">
+                <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="slide" alt="Branding 104 Kookeiland">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="slide" alt="Branding 104 Woonkamer Interieur">
+                <button class="slider-btn prev" aria-label="Vorige foto" onclick="moveSlide('slider-branding104', -1)">&#10094;</button>
+                <button class="slider-btn next" aria-label="Volgende foto" onclick="moveSlide('slider-branding104', 1)">&#10095;</button>
+            </div>
+            <div class="huisje-tekst">
+                <h3>Branding 104 - Ouddorp</h3>
+                <div class="tags"><span class="tag">4 Personen</span><span class="tag">Kookeiland</span><span class="tag">Rustig Park</span></div>
+                <p>Een sfeervolle, moderne bungalow op het kindvriendelijke familiepark Het Oude Nieuwland, dichtbij zee en strand. Geniet van de luxe van een prachtig kookeiland, vloerverwarming en een riant terras om volledig te ontspannen.</p>
+                <a href="https://www.ouddorpconnection.nl/ouddorp-connection/ouddorp/branding-104-het-oude-nieuwland-ouddorp?tag_ids%5B%5D=753758" target="_blank" class="btn">Bekijk & Boek</a>
+            </div>
+        </div>
+
+        <div class="golf-lijn scroll-element"></div>
+
+        <!-- HUISJE 2: De Strandparel (Omgekeerd voor Zigzag) -->
+        <div class="huisje-rij omgekeerd scroll-element">
             <div class="huisje-foto-container" id="slider1">
                 <img src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="slide active" alt="Strandparel 1">
                 <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="slide" alt="Strandparel 2">
                 <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="slide" alt="Strandparel 3">
-                <!-- Oplossing 4: Aria-labels voor de schermlezers toegevoegd -->
                 <button class="slider-btn prev" aria-label="Vorige foto" onclick="moveSlide('slider1', -1)">&#10094;</button>
                 <button class="slider-btn next" aria-label="Volgende foto" onclick="moveSlide('slider1', 1)">&#10095;</button>
             </div>
@@ -280,8 +297,8 @@
 
         <div class="golf-lijn scroll-element"></div>
 
-        <!-- HUISJE 2: Zigzag opgelost met class 'omgekeerd' -->
-        <div class="huisje-rij omgekeerd scroll-element">
+        <!-- HUISJE 3: Het Zandkasteel (Normaal) -->
+        <div class="huisje-rij scroll-element">
             <div class="huisje-foto-container" id="slider2">
                 <img src="https://images.unsplash.com/photo-1521401830884-6c03c1c87ebb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="slide active" alt="Zandkasteel 1">
                 <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="slide" alt="Zandkasteel 2">
@@ -298,8 +315,8 @@
 
         <div class="golf-lijn scroll-element"></div>
 
-        <!-- HUISJE 3: Normaal -->
-        <div class="huisje-rij scroll-element">
+        <!-- HUISJE 4: De Zeebries (Omgekeerd voor Zigzag) -->
+        <div class="huisje-rij omgekeerd scroll-element">
             <div class="huisje-foto-container" id="slider3">
                 <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="slide active" alt="Zeebries 1">
                 <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="slide" alt="Zeebries 2">
@@ -316,8 +333,8 @@
 
         <div class="golf-lijn scroll-element"></div>
 
-        <!-- HUISJE 4: Zigzag opgelost met class 'omgekeerd' -->
-        <div class="huisje-rij omgekeerd scroll-element">
+        <!-- HUISJE 5: Duinzicht (Normaal) -->
+        <div class="huisje-rij scroll-element">
             <div class="huisje-foto-container" id="slider4">
                 <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="slide active" alt="Duinzicht 1">
                 <img src="https://images.unsplash.com/photo-1464146072230-91cabc968266?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="slide" alt="Duinzicht 2">
@@ -378,7 +395,6 @@
             <div class="form-sectie">
                 <h3>Stuur een bericht</h3>
                 <p style="margin-bottom: 20px;">Heb je een andere vraag over de website of een mogelijke samenwerking? Vul het formulier in.</p>
-                <!-- Oplossing 3: Action voor formulier ingesteld (vervang dit nog met je eigen Formspree link) -->
                 <form action="https://formspree.io/f/VUL_HIER_JE_CODE_IN" method="POST">
                     <input type="text" name="Naam" placeholder="Jouw Naam" required>
                     <input type="email" name="Email" placeholder="Jouw E-mailadres" required>
@@ -408,7 +424,6 @@
 
     <div class="cookie-bar" id="cookieBanner">
         <p>Wij gebruiken cookies om je ervaring op onze site te verbeteren. Door gebruik te maken van de site ga je hiermee akkoord.</p>
-        <!-- Aangepaste knop voor de cookie-logica -->
         <button class="cookie-btn" onclick="accepteerCookies()">Prima</button>
     </div>
 
@@ -459,15 +474,13 @@
             slides[activeIndex].classList.add('active');
         }
 
-        // --- Oplossing 5: Cookie Banner onthouden met LocalStorage ---
+        // --- Cookie Banner onthouden met LocalStorage ---
         const cookieBanner = document.getElementById('cookieBanner');
         
-        // Controleer of de gebruiker al eerder akkoord is gegaan
         if (localStorage.getItem('cookiesGeaccepteerd') === 'ja') {
             cookieBanner.style.display = 'none';
         }
 
-        // Functie die wordt aangeroepen als op 'Prima' wordt geklikt
         function accepteerCookies() {
             localStorage.setItem('cookiesGeaccepteerd', 'ja');
             cookieBanner.style.display = 'none';
