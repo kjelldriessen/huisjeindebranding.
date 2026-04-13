@@ -42,7 +42,7 @@
             position: relative;
         }
 
-        /* DYNAMISCHE ACHTERGROND: Subtiele gloed die blank space opvult */
+        /* DYNAMISCHE ACHTERGROND */
         body::before {
             content: ''; position: absolute; top: 120vh; left: -10vw;
             width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(132, 205, 235, 0.2) 0%, rgba(241, 233, 219, 0) 70%);
@@ -97,13 +97,12 @@
         .hero-content h1 { font-size: 4.5rem; line-height: 1.1; margin-bottom: 25px; }
         .hero-content p { font-size: 1.2rem; margin-bottom: 40px; color: var(--primary-teal); }
 
-        /* --- HUISJES (Magazinestijl met overlapping) --- */
+        /* --- HUISJES --- */
         .collectie { padding: 120px 5vw; max-width: 1300px; margin: 0 auto; position: relative; z-index: 1; }
         .sectie-titel { text-align: center; font-size: 3.5rem; margin-bottom: 100px; }
         
         .huisje-rij { display: flex; align-items: center; gap: 0; margin-bottom: 100px; opacity: 0; transform: translateY(40px); transition: all 1s ease-out; }
         .huisje-rij.zichtbaar { opacity: 1; transform: translateY(0); }
-        
         .huisje-rij.omgekeerd { flex-direction: row-reverse; }
 
         /* FOTO SLIDER CSS */
@@ -120,7 +119,7 @@
         .slider-btn.prev { left: 0; border-radius: 0 4px 4px 0; }
         .slider-btn.next { right: 0; border-radius: 4px 0 0 4px; }
 
-        /* DE DYNAMISCHE OVERLAP VAN DE TEKST */
+        /* DYNAMISCHE OVERLAP TEKST */
         .huisje-tekst { 
             flex: 0.8; 
             background: var(--white);
@@ -132,10 +131,7 @@
             position: relative;
             transition: transform 0.4s ease;
         }
-        .huisje-rij.omgekeerd .huisje-tekst {
-            margin-left: 0;
-            margin-right: -100px; 
-        }
+        .huisje-rij.omgekeerd .huisje-tekst { margin-left: 0; margin-right: -100px; }
         .huisje-tekst:hover { transform: translateY(-10px); } 
 
         .huisje-tekst h3 { font-size: 2.5rem; margin-bottom: 20px; line-height: 1.2; }
@@ -143,7 +139,7 @@
         .tag { background: var(--light-blue-bg); color: var(--primary-teal); padding: 8px 18px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; border-radius: 30px; border: 1px solid var(--light-blue); }
         .huisje-tekst p { margin-bottom: 40px; font-size: 1.05rem; color: #4a6a75; }
 
-        /* --- GOLVEN SCHEIDINGSLIJN --- */
+        /* --- GOLVEN --- */
         .golf-lijn {
             height: 18px; max-width: 200px; margin: 0 auto 100px auto;
             background-image: url('data:image/svg+xml;utf8,<svg width="100" height="20" xmlns="http://www.w3.org/2000/svg"><path d="M0,10 Q25,20 50,10 T100,10" fill="none" stroke="%2384cdeb" stroke-width="3" stroke-linecap="round"/></svg>');
@@ -151,7 +147,7 @@
         }
         .golf-lijn.zichtbaar { opacity: 0.8; transform: scaleX(1); }
 
-        /* --- BANNERS VOOR SECTIES --- */
+        /* --- BANNERS --- */
         .sectie-banner { height: 45vh; display: flex; align-items: center; justify-content: center; position: relative; margin-top: 40px; margin-bottom: 80px; overflow: hidden; border-radius: 8px; margin-left: 5vw; margin-right: 5vw;}
         .banner-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; z-index: -2; animation: kenBurns 20s ease-in-out infinite alternate; will-change: transform; }
         .sectie-banner::after { content:''; position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(to bottom, rgba(28, 75, 93, 0.2), rgba(28, 75, 93, 0.7)); z-index: -1; }
@@ -161,14 +157,14 @@
         #over-ons .banner-background { background-image: url('Tulpenvelden_Zeeland-25.jpg'); }
         #contact .banner-background { background-image: url('IMG_NEDFEAleegloopstadiStock-621906058.jpg'); }
 
-        /* --- OVER ONS SECTIE --- */
+        /* --- OVER ONS --- */
         .content-wrap { max-width: 900px; margin: 0 auto 100px; padding: 0 5vw; }
         .text-block { background: var(--white); padding: 50px; border-radius: 8px; margin-bottom: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); border-left: 6px solid var(--primary-teal); transition: transform 0.4s ease;}
         .text-block:hover { transform: translateY(-5px); }
         .text-block h3 { font-size: 2.2rem; margin-bottom: 20px; }
         .text-block p { font-size: 1.1rem; margin-bottom: 20px; color: #4a6a75; }
 
-        /* --- CONTACT & FAQ SECTIE --- */
+        /* --- CONTACT --- */
         .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; max-width: 1200px; margin: 0 auto 100px; padding: 0 5vw; }
         .faq-sectie h3, .form-sectie h3 { font-size: 2.5rem; margin-bottom: 30px; }
         .faq-item { background: var(--white); padding: 25px; margin-bottom: 20px; border-radius: 8px; border-left: 4px solid var(--light-blue); box-shadow: 0 5px 15px rgba(0,0,0,0.03);}
@@ -200,7 +196,7 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes kenBurns { 0% { transform: scale(1) translate(0, 0); } 100% { transform: scale(1.15) translate(-2%, -1%); } }
 
-        /* --- RESPONSIVE & MOBILE MENU --- */
+        /* --- RESPONSIVE --- */
         @media (max-width: 900px) {
             .hamburger { display: flex; }
             .nav-menu { position: fixed; top: 0; right: -100%; width: 70vw; height: 100vh; background-color: rgba(255,255,255,0.98); backdrop-filter: blur(10px); flex-direction: column; justify-content: center; align-items: center; transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1); box-shadow: -5px 0 15px rgba(0,0,0,0.05); }
@@ -210,7 +206,6 @@
             .hamburger.active span:nth-child(2) { opacity: 0; }
             .hamburger.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
 
-            /* MOBIELE EDITORIAL OVERLAP */
             .huisje-rij, .huisje-rij.omgekeerd { flex-direction: column; gap: 0; margin-bottom: 60px; }
             .huisje-foto-container { height: 400px; width: 100%; border-radius: 8px;}
             .huisje-tekst { margin: -60px 20px 0 20px; text-align: center; padding: 35px 20px; }
@@ -250,7 +245,6 @@
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1>De perfecte ontsnapping: Unieke strandhuisjes aan zee.</h1>
-            <!-- Aangepast van 4 naar 5 huisjes -->
             <p>Vijf exclusieve vakantiehuisjes waar de zee altijd dichtbij is. Ontdek jouw originele strandvakantie via onze geselecteerde parkpartners.</p>
             <a href="#collectie" class="btn">Bekijk de huisjes</a>
         </div>
@@ -259,12 +253,15 @@
     <section id="collectie" class="collectie">
         <h2 class="sectie-titel">Onze Pareltjes</h2>
 
-        <!-- NIEUW HUISJE: Branding 104 (Normaal) -->
+        <!-- BRANDING 104 (Met echte foto's) -->
         <div class="huisje-rij scroll-element">
             <div class="huisje-foto-container" id="slider-branding104">
-                <img src="https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="slide active" alt="Branding 104 Terras en Buiten">
-                <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="slide" alt="Branding 104 Kookeiland">
-                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="slide" alt="Branding 104 Woonkamer Interieur">
+                <img src="https://cdn.bookingexperts.com/uploads/image/image/759834/cover_Signature_stay_Branding_104.png" class="slide active" alt="Branding 104 Buiten">
+                <img src="https://cdn.bookingexperts.com/uploads/image/image/268707/cover_2._Woonkamer__5_.jpg" class="slide" alt="Branding 104 Woonkamer 1">
+                <img src="https://cdn.bookingexperts.com/uploads/image/image/268704/cover_2._Woonkamer__1_.jpg" class="slide" alt="Branding 104 Woonkamer 2">
+                <img src="https://cdn.bookingexperts.com/uploads/image/image/268718/cover_3._Keuken__5_.jpg" class="slide" alt="Branding 104 Keuken">
+                <img src="https://cdn.bookingexperts.com/uploads/image/image/268727/cover_4._Slaapkamers__9_.jpg" class="slide" alt="Branding 104 Slaapkamer">
+                
                 <button class="slider-btn prev" aria-label="Vorige foto" onclick="moveSlide('slider-branding104', -1)">&#10094;</button>
                 <button class="slider-btn next" aria-label="Volgende foto" onclick="moveSlide('slider-branding104', 1)">&#10095;</button>
             </div>
@@ -278,7 +275,7 @@
 
         <div class="golf-lijn scroll-element"></div>
 
-        <!-- HUISJE 2: De Strandparel (Omgekeerd voor Zigzag) -->
+        <!-- HUISJE 2: De Strandparel -->
         <div class="huisje-rij omgekeerd scroll-element">
             <div class="huisje-foto-container" id="slider1">
                 <img src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="slide active" alt="Strandparel 1">
@@ -297,7 +294,7 @@
 
         <div class="golf-lijn scroll-element"></div>
 
-        <!-- HUISJE 3: Het Zandkasteel (Normaal) -->
+        <!-- HUISJE 3: Het Zandkasteel -->
         <div class="huisje-rij scroll-element">
             <div class="huisje-foto-container" id="slider2">
                 <img src="https://images.unsplash.com/photo-1521401830884-6c03c1c87ebb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="slide active" alt="Zandkasteel 1">
@@ -315,7 +312,7 @@
 
         <div class="golf-lijn scroll-element"></div>
 
-        <!-- HUISJE 4: De Zeebries (Omgekeerd voor Zigzag) -->
+        <!-- HUISJE 4: De Zeebries -->
         <div class="huisje-rij omgekeerd scroll-element">
             <div class="huisje-foto-container" id="slider3">
                 <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="slide active" alt="Zeebries 1">
@@ -333,7 +330,7 @@
 
         <div class="golf-lijn scroll-element"></div>
 
-        <!-- HUISJE 5: Duinzicht (Normaal) -->
+        <!-- HUISJE 5: Duinzicht -->
         <div class="huisje-rij scroll-element">
             <div class="huisje-foto-container" id="slider4">
                 <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="slide active" alt="Duinzicht 1">
@@ -428,7 +425,6 @@
     </div>
 
     <script>
-        // --- Hamburger Menu Logica ---
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('nav-menu');
         const navLinks = document.querySelectorAll('.nav-menu a');
@@ -445,7 +441,6 @@
             });
         });
 
-        // --- Scroll & Animatie Observers ---
         document.addEventListener('DOMContentLoaded', () => {
             const elements = document.querySelectorAll('.scroll-element');
             if ('IntersectionObserver' in window) {
@@ -464,7 +459,6 @@
             }
         });
 
-        // --- Image Slider Logica ---
         function moveSlide(sliderId, direction) {
             const slider = document.getElementById(sliderId);
             const slides = slider.querySelectorAll('.slide');
@@ -474,13 +468,10 @@
             slides[activeIndex].classList.add('active');
         }
 
-        // --- Cookie Banner onthouden met LocalStorage ---
         const cookieBanner = document.getElementById('cookieBanner');
-        
         if (localStorage.getItem('cookiesGeaccepteerd') === 'ja') {
             cookieBanner.style.display = 'none';
         }
-
         function accepteerCookies() {
             localStorage.setItem('cookiesGeaccepteerd', 'ja');
             cookieBanner.style.display = 'none';
