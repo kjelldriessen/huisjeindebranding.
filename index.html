@@ -2,7 +2,7 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>Puur Natuur Lodges | Vakantie in Zuid-Holland</title>
     <meta name="description" content="Ontsnap aan de waan van de dag. Ontdek onze unieke, zorgvuldig geselecteerde vakantiehuisjes in de natuur van Zuid-Holland.">
@@ -19,25 +19,29 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Montserrat:wght@300;400;500;600;800&display=swap" rel="stylesheet">
     
+    <!-- Lenis Smooth Scroll bibliotheek (Zeer lichtgewicht) -->
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
 
     <style>
         :root {
             --primary-dark-green: #1F3625; 
-            --bg-body: #E6DFD3; 
-            --bg-sand: #FDFBF7;            
+            --bg-body: #E6DFD3; /* NIEUW: Een warme, iets diepere zand/leem tint voor de achtergrond */
+            --bg-sand: #FDFBF7; /* De oude, lichte tint gebruiken we nu om de tekstvakken te laten 'poppen' */            
             --accent-terra: #DE6B48;       
             --accent-gold: #E5B15D;        
             --light-green: #81B29A;        
             --light-green-bg: #F0F4F1;     
             --text-dark: #2B4232;
             --white: #ffffff;
+            /* Subtiele, levendige tinten toegevoegd */
             --bg-sage: #EEF3F0;
             --bg-peach: #FDF3EE;
             --gradient-sunrise: linear-gradient(135deg, #DE6B48 0%, #E5B15D 100%);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html { scroll-behavior: auto; /* Uitgezet voor Lenis smooth scroll */ }
         
         body { 
             font-family: 'Montserrat', sans-serif; 
@@ -50,17 +54,16 @@
 
         /* --- PRELOADER --- */
         #preloader {
-            position: fixed; inset: 0; background-color: var(--bg-body);
-            z-index: 9999999; display: flex; align-items: center; justify-content: center;
+            position: fixed; inset: 0; background-color: var(--bg-body); /* Aangepast */
+            z-index: 999999; display: flex; align-items: center; justify-content: center;
             transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
             transform-origin: top;
-            pointer-events: auto;
         }
         #preloader img { height: 80px; animation: pulse 2s infinite ease-in-out; }
         body.loaded #preloader { transform: translateY(-100%); pointer-events: none; }
         @keyframes pulse { 0% { opacity: 0.5; transform: scale(0.95); } 50% { opacity: 1; transform: scale(1); } 100% { opacity: 0.5; transform: scale(0.95); } }
 
-        /* --- CURSOR (Desktop Only) --- */
+        /* --- CUSTOM MAGNETIC CURSOR (Alleen Desktop) --- */
         @media (pointer: fine) {
             body, a, button, input, textarea { cursor: none !important; }
             .cursor-dot {
@@ -68,26 +71,33 @@
                 background-color: var(--primary-dark-green); border-radius: 50%;
                 pointer-events: none; z-index: 100000;
                 transform: translate(-50%, -50%); transition: opacity 0.2s;
+                will-change: transform; /* Activeert hardware versnelling */
             }
             .cursor-outline {
                 position: fixed; top: 0; left: 0; width: 32px; height: 32px;
                 border: 1px solid rgba(31, 54, 37, 0.5); border-radius: 50%;
                 pointer-events: none; z-index: 99999;
                 transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s, background-color 0.2s, border-color 0.2s, opacity 0.2s;
+                will-change: transform, width, height; /* Activeert hardware versnelling */
             }
-            body.cursor-hover .cursor-outline { width: 50px; height: 50px; background-color: rgba(31, 54, 37, 0.06); border-color: transparent; }
-            body.cursor-hover .cursor-dot { opacity: 0; }
-            body.cursor-on-dark .cursor-dot { background-color: var(--white); }
-            body.cursor-on-dark .cursor-outline { border-color: rgba(255, 255, 255, 0.5); }
+            body.cursor-hover .cursor-outline {
+                width: 50px; height: 50px; background-color: rgba(31, 54, 37, 0.06); border-color: transparent;
+            }
+            body.cursor-hover .cursor-dot {
+                opacity: 0;
+            }
+            body.cursor-on-dark .cursor-dot {
+                background-color: var(--white);
+            }
+            body.cursor-on-dark .cursor-outline {
+                border-color: rgba(255, 255, 255, 0.5);
+            }
+            body.cursor-hover.cursor-on-dark .cursor-outline {
+                background-color: rgba(255, 255, 255, 0.1);
+            }
         }
 
-        /* Verberg cursor elementen op touch devices om interactie niet te blokkeren */
-        @media (pointer: coarse) {
-            .cursor-dot, .cursor-outline { display: none !important; }
-            body, a, button { cursor: auto !important; }
-        }
-
-        /* ACHTERGROND */
+        /* ORGANISCHE ACHTERGROND */
         body::before {
             content: ''; position: fixed; top: 10vh; left: -15vw;
             width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(229, 177, 93, 0.12) 0%, rgba(253, 251, 247, 0) 70%);
@@ -98,164 +108,323 @@
             width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(129, 178, 154, 0.15) 0%, rgba(253, 251, 247, 0) 70%);
             border-radius: 50%; z-index: -1; pointer-events: none;
         }
+        .bg-orb-3 {
+            position: fixed; top: 50vh; left: 50vw;
+            width: 80vw; height: 80vw; background: radial-gradient(circle, rgba(222, 107, 72, 0.05) 0%, rgba(253, 251, 247, 0) 70%);
+            border-radius: 50%; z-index: -1; transform: translate(-50%, -50%); pointer-events: none;
+        }
 
         h1, h2, h3 { font-family: 'Playfair Display', serif; color: var(--primary-dark-green); font-weight: 700; }
+
+        /* --- TEKST SPLIT ANIMATIES --- */
+        .word-wrap { display: inline-block; overflow: hidden; vertical-align: top; padding-right: 0.2em; margin-right: -0.2em; padding-bottom: 0.1em; margin-bottom: -0.1em;}
+        .word { display: inline-block; transform: translateY(110%); transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1); }
+        .zichtbaar .word { transform: translateY(0); }
+
+        .levende-tekst {
+            background: var(--primary-dark-green) url('https://images.unsplash.com/photo-1542718610-a1d656d1884c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80') center/cover;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; 
+            filter: saturate(1.6) contrast(1.2); display: inline-block; padding-bottom: 5px;
+        }
 
         /* --- NAVIGATIE --- */
         header {
             position: fixed; top: 0; width: 100%; padding: 15px 5vw; display: flex; justify-content: space-between; align-items: center;
-            background: transparent; z-index: 1000; transition: all 0.5s ease;
+            background: transparent; z-index: 1000; border-bottom: 1px solid transparent;
+            transition: padding 0.5s ease, background 0.5s ease, border-bottom 0.5s ease;
         }
         header.scrolled {
+            /* Achtergrond van menu afgestemd op de nieuwe body tint (in RGB) */
             padding: 8px 5vw; background: rgba(230, 223, 211, 0.95); backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(31, 54, 37, 0.05);
         }
-        .logo-box { display: flex; align-items: center; text-decoration: none; z-index: 1002; }
-        .logo-img { height: 75px; width: auto; transition: height 0.5s ease; }
-        header.scrolled .logo-img { height: 50px; }
+        .logo-box { display: flex; align-items: center; text-decoration: none; transition: transform 0.3s; z-index: 1002; }
+        .logo-box:hover { transform: scale(1.05); }
+        .logo-img { height: 75px; width: auto; transition: height 0.5s ease; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));}
+        header.scrolled .logo-img { height: 50px; filter: none;}
 
         .nav-menu { display: flex; gap: 45px; }
         .nav-menu a { 
-            text-decoration: none; color: var(--white); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; position: relative; font-weight: 600; text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            text-decoration: none; color: var(--white); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; position: relative; font-weight: 600; text-shadow: 0 2px 5px rgba(0,0,0,0.3); transition: color 0.4s;
         }
         header.scrolled .nav-menu a { color: var(--text-dark); text-shadow: none; }
+        .nav-menu a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -6px; left: 0; background-color: var(--accent-terra); transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .nav-menu a:hover::after { width: 100%; }
 
         .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 1002; }
-        .hamburger span { display: block; width: 28px; height: 2px; background-color: var(--white); transition: 0.3s; }
-        header.scrolled .hamburger span { background-color: var(--primary-dark-green); }
+        .hamburger span { display: block; width: 28px; height: 2px; background-color: var(--white); transition: all 0.3s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.3);}
+        header.scrolled .hamburger span { background-color: var(--primary-dark-green); box-shadow: none;}
 
         /* --- HERO --- */
         .hero { position: relative; height: 100vh; display: flex; align-items: center; justify-content: flex-end; padding: 0 5vw; overflow: hidden; }
+        
         .hero-bg {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;
-            object-position: 15% center; z-index: -2;
+            /* Object-position houdt de vuurtoren (op links) prachtig in beeld */
+            object-position: 15% center;
+            z-index: -2; filter: saturate(1.2) contrast(1.1) brightness(0.9);
         }
         .hero-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            /* Gradient afgestemd op de nieuwe body tint */
             background: linear-gradient(90deg, rgba(230, 223, 211, 0) 0%, rgba(230, 223, 211, 0.6) 40%, rgba(230, 223, 211, 0.95) 100%); z-index: -1;
         }
-        .hero-content { max-width: 650px; z-index: 2; }
-        .hero-content h1 { font-size: 4.8rem; line-height: 1.05; margin-bottom: 25px; }
-        .hero-content p { font-size: 1.25rem; margin-bottom: 45px; opacity: 0; transform: translateY(30px); transition: 0.6s 0.1s forwards; }
+        
+        .hero-content { max-width: 650px; position: relative; z-index: 2; }
+        .hero-content h1 { font-size: 4.8rem; line-height: 1.05; margin-bottom: 25px; letter-spacing: -1px; }
+        .hero-content p { font-size: 1.25rem; margin-bottom: 45px; color: var(--text-dark); font-weight: 400; opacity: 0; transform: translateY(30px); transition: opacity 0.6s 0.1s, transform 0.6s 0.1s; }
         body.loaded .hero-content p { opacity: 0.9; transform: translateY(0); }
+        
+        .hero-content .btn { opacity: 0; transform: translateY(30px); transition: opacity 0.6s 0.2s, transform 0.6s 0.2s; }
+        body.loaded .hero-content .btn { opacity: 1; transform: translateY(0); }
 
-        /* --- COLLECTIE --- */
+        /* --- HUISJES MET IMAGE REVEAL --- */
         .collectie { padding: 120px 5vw; max-width: 1300px; margin: 0 auto; position: relative; z-index: 1; }
-        .sectie-titel { text-align: center; font-size: 4.5rem; margin-bottom: 60px; } 
+        .sectie-titel { text-align: center; font-size: 4.5rem; margin-bottom: 20px; letter-spacing: -0.5px; } 
+        .sectie-subtitel { text-align: center; font-size: 1.1rem; color: var(--light-green); text-transform: uppercase; letter-spacing: 2px; font-weight: 600; margin-bottom: 100px; display: block; opacity: 0; transform: translateY(20px); transition: all 1s;}
+        .zichtbaar.sectie-subtitel { opacity: 1; transform: translateY(0); }
 
         .huisje-rij { display: flex; align-items: center; gap: 0; margin-bottom: 120px; }
         .huisje-rij.omgekeerd { flex-direction: row-reverse; }
 
+        /* Strakke en Professionele Reveal Animatie */
         .huisje-foto-container { 
             flex: 1.3; position: relative; width: 100%; height: 600px; overflow: hidden; border-radius: 12px;
-            background-color: var(--light-green-bg); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
-            opacity: 0; transform: translateY(40px); transition: 0.8s ease-out;
+            background-color: var(--light-green-bg); 
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+            opacity: 0; transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease;
         }
-        .zichtbaar.huisje-foto-container { opacity: 1; transform: translateY(0); }
+        .zichtbaar.huisje-foto-container, .huisje-foto-container.zichtbaar { opacity: 1; transform: translateY(0); }
+        .huisje-foto-container:hover { box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12); }
 
-        .slide-track { display: flex; width: 100%; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+        .slide-track { 
+            display: flex; width: 100%; height: 100%; overflow-x: auto; 
+            scroll-snap-type: x mandatory; 
+            -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none;  
+        }
         .slide-track::-webkit-scrollbar { display: none; }
-        .slide { flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; scroll-snap-align: start; }
+        
+        .slide { 
+            flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; object-position: center center; 
+            scroll-snap-align: start; 
+            filter: saturate(1.05) contrast(1.02); transition: filter 0.8s ease;
+        }
+        .huisje-foto-container:hover .slide.active { filter: saturate(1.2) contrast(1.05); }
 
-        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.8); color: var(--primary-dark-green); border: none; width: 50px; height: 50px; border-radius: 50%; z-index: 10; display: flex; align-items: center; justify-content: center; }
+        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.8); color: var(--primary-dark-green); border: none; width: 50px; height: 50px; border-radius: 50%; /* Hide cursor on buttons to let magnetic dot take over */ cursor: none; font-size: 1.2rem; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: 10; backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         .slider-btn.prev { left: 20px; }
         .slider-btn.next { right: 20px; }
+        .huisje-rij:not(.omgekeerd) .slider-btn.next { right: 120px; }
+        .huisje-rij.omgekeerd .slider-btn.prev { left: 120px; }
 
+        .slider-dots { position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 10; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.5); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 1px 3px rgba(0,0,0,0.2);}
+        .dot.active { background: var(--white); transform: scale(1.4); }
+
+        /* DYNAMISCHE OVERLAP TEKST (Editorial stijl) */
         .huisje-tekst { 
-            flex: 0.7; background: var(--bg-sand); padding: 60px 50px; border-radius: 12px;
+            flex: 0.7; background: var(--bg-sand); padding: 60px 50px; border-radius: 12px; /* Zorgt dat de kaart nu popt! */
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.06); margin-left: -120px; z-index: 3; position: relative;
-            opacity: 0; transform: translateY(40px); transition: 0.8s 0.1s forwards;
+            border: 1px solid rgba(255,255,255,0.8);
+            opacity: 0; transform: translateY(40px); transition: opacity 0.8s 0.1s, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.1s;
         }
-        .zichtbaar.huisje-tekst { opacity: 1; transform: translateY(0); }
+        .huisje-tekst.zichtbaar { opacity: 1; transform: translateY(0); }
         .huisje-rij.omgekeerd .huisje-tekst { margin-left: 0; margin-right: -120px; }
 
-        .huisje-tekst h3 { font-size: 2.8rem; margin-bottom: 25px; }
+        .huisje-tekst h3 { font-size: 2.8rem; margin-bottom: 25px; line-height: 1.1; letter-spacing: -0.5px; }
         .tags { display: flex; gap: 8px; margin-bottom: 30px; flex-wrap: wrap; }
-        .tag { background: rgba(129, 178, 154, 0.15); padding: 6px 14px; font-size: 0.7rem; text-transform: uppercase; font-weight: 700; border-radius: 30px; }
+        /* Subtiel gekleurde pastel tags in plaats van wit */
+        .tag { background: rgba(129, 178, 154, 0.15); color: var(--primary-dark-green); padding: 6px 14px; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; border-radius: 30px; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease, background 0.3s; }
+        .tag:nth-child(2) { background: rgba(229, 177, 93, 0.15); }
+        .tag:nth-child(3) { background: rgba(222, 107, 72, 0.1); }
+        .tag:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 5px 15px rgba(129, 178, 154, 0.2); background: var(--white); }
+        
+        .huisje-tekst p { margin-bottom: 40px; font-size: 1.1rem; color: #5a7563; }
+
+        .button-group { display: flex; gap: 15px; flex-wrap: wrap; }
+
+        /* --- ZWEVENDE SCHEIDINGSLIJN --- */
+        @keyframes zweef { 0% { transform: scaleX(1) translateY(0); } 50% { transform: scaleX(1.05) translateY(-8px); } 100% { transform: scaleX(1) translateY(0); } }
+        .organische-lijn {
+            height: 24px; max-width: 150px; margin: 0 auto 100px auto;
+            background-image: url('data:image/svg+xml;utf8,<svg width="100" height="24" xmlns="http://www.w3.org/2000/svg"><path d="M0,12 C25,0 25,24 50,12 C75,0 75,24 100,12" fill="none" stroke="%23E5B15D" stroke-width="2" stroke-linecap="round"/></svg>');
+            background-repeat: repeat-x; opacity: 0; transform: scaleX(0.2); transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .organische-lijn.zichtbaar { opacity: 1; transform: scaleX(1); animation: zweef 6s ease-in-out infinite alternate 1.2s; }
 
         /* --- BANNERS --- */
-        .sectie-banner { height: 35vh; display: flex; align-items: center; justify-content: center; position: relative; margin: 60px 5vw; border-radius: 12px; overflow: hidden; }
-        .banner-background { position: absolute; inset: 0; background-size: cover; background-position: center; z-index: -2; }
-        .sectie-banner h2 { color: var(--white); font-size: 4.5rem; text-shadow: 0 5px 20px rgba(0,0,0,0.8); }
+        .sectie-banner { height: 35vh; display: flex; align-items: center; justify-content: center; position: relative; margin-top: 60px; margin-bottom: 80px; overflow: hidden; border-radius: 12px; margin-left: 5vw; margin-right: 5vw; opacity: 0; transform: translateY(30px); transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);}
+        .sectie-banner.zichtbaar { opacity: 1; transform: translateY(0); }
+        .banner-background { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+            background-size: cover; background-position: center; z-index: -2; 
+            filter: saturate(1.2) contrast(1.1); 
+        }
+        .sectie-banner h2 { color: var(--white); z-index: 2; font-size: 4.5rem; text-shadow: 0 5px 20px rgba(0,0,0,0.8); margin: 0; letter-spacing: -1px;}
+        
+        #contact .banner-background { background-image: url('https://images.ctfassets.net/a26vcxaqtbwm/2mpQmoLrDBQeeuzOM1MX8C/204dbedf9b7c09bcb0a99f5960274319/Tulpenvelden_Zeeland-25.jpg'); }
+        #collectie-banner .banner-background { background-image: url('https://cloud01.topsite.nl/beleefbrielle.nl/header/72/0000-adobestock-612481439-1880_3840x1800.jpg.webp'); }
 
         /* --- CONTACT --- */
-        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; max-width: 1200px; margin: 0 auto 100px; padding: 0 5vw; }
-        .form-sectie { background: linear-gradient(145deg, #ffffff, var(--bg-peach)); padding: 50px; border-radius: 12px; border-top: 6px solid var(--accent-terra); }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; max-width: 1200px; margin: 0 auto 100px; padding: 0 5vw; opacity: 0; transform: translateY(40px); transition: all 1s ease;}
+        .zichtbaar.contact-grid { opacity: 1; transform: translateY(0); }
+        .faq-sectie h3, .form-sectie h3 { font-size: 2.5rem; margin-bottom: 30px; letter-spacing: -0.5px;}
+        .faq-item { background: transparent; padding: 25px 0; border-bottom: 1px solid rgba(129, 178, 154, 0.3); margin-bottom: 10px; transition: transform 0.3s ease;}
+        .faq-item:hover { transform: translateX(5px); } 
+        .faq-item h4 { font-size: 1.25rem; margin-bottom: 10px; color: var(--primary-dark-green); font-weight: 700;}
+        .faq-item p { color: #5a7563; }
+        
+        .form-sectie { background: linear-gradient(145deg, #ffffff, var(--bg-peach)); padding: 50px; border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.04); border-top: 6px solid var(--accent-terra); transition: transform 0.5s ease;}
+        .form-sectie:hover { transform: translateY(-5px); }
+        
         form { display: flex; flex-direction: column; gap: 20px; }
-        input, textarea { padding: 18px; border: 1px solid rgba(129, 178, 154, 0.3); border-radius: 8px; font-family: inherit; }
-
-        /* --- BUTTONS --- */
+        /* Input velden wit gemaakt zodat ze extra opvallen in de gekleurde sectie */
+        input, textarea { padding: 18px 20px; border: 1px solid rgba(129, 178, 154, 0.3); border-radius: 8px; font-family: 'Montserrat', sans-serif; background: var(--white); outline: none; transition: all 0.3s; font-size: 1rem; color: var(--text-dark);}
+        input:focus, textarea:focus { border-color: var(--accent-terra); background: var(--white); box-shadow: 0 0 0 4px rgba(222, 107, 72, 0.1); transform: translateY(-2px);}
+        
+        /* --- GEANIMEERDE MAGNEET KNOPPEN --- */
         .btn { 
             display: inline-block; background-color: var(--primary-dark-green); color: var(--white); 
             padding: 18px 40px; text-decoration: none; text-transform: uppercase; letter-spacing: 2px; 
-            font-size: 0.85rem; border-radius: 50px; font-weight: 600; transition: 0.3s; border: none; cursor: pointer;
+            font-size: 0.85rem; border: none; border-radius: 50px; font-weight: 600; 
+            text-align: center; position: relative; overflow: hidden; z-index: 1;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease, color 0.3s;
         }
-        .btn:hover { background-color: var(--accent-terra); transform: translateY(-3px); }
+        .btn::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: var(--gradient-sunrise); transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: -1;
+        }
+        .btn:hover::before { left: 0; }
+        .btn:hover { color: var(--white); box-shadow: 0 10px 25px rgba(222, 107, 72, 0.4); transform: translateY(-3px); }
 
         /* --- FOOTER --- */
-        footer { background-color: var(--primary-dark-green); color: var(--bg-sand); padding: 60px 5vw; text-align: center; }
-        .footer-logo { height: 45px; filter: brightness(0) invert(1); margin-bottom: 20px; }
-        .footer-nav { margin-bottom: 30px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
-        .footer-nav a { color: white; text-decoration: none; font-size: 0.8rem; text-transform: uppercase; opacity: 0.7; }
+        footer { background-color: var(--primary-dark-green); color: var(--bg-sand); padding: 60px 5vw 30px; text-align: center; position: relative;}
+        .footer-logo { height: 45px; filter: brightness(0) invert(1); opacity: 0.9; transition: transform 0.3s;}
+        .footer-logo:hover { transform: scale(1.05); }
+        .footer-nav { margin-bottom: 40px; display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; }
+        .footer-nav a { color: rgba(253, 251, 247, 0.7); text-decoration: none; margin: 0 10px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; transition: color 0.3s, transform 0.3s;}
+        .footer-nav a:hover { color: var(--accent-gold); transform: translateY(-2px); display: inline-block;}
+        .disclaimer { max-width: 700px; margin: 0 auto; font-size: 0.8rem; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 30px; line-height: 1.6; text-align: left;}
+        .disclaimer summary { cursor: pointer; list-style: none; text-align: center; font-size: 0.9rem; opacity: 0.8; outline: none; }
+        .disclaimer summary::-webkit-details-marker { display: none; }
+        .disclaimer p { margin-top: 15px; text-align: center; opacity: 0.7; }
+        .dropdown-icon { display: inline-block; font-size: 0.7rem; transition: transform 0.3s; margin-left: 5px; }
+        .disclaimer[open] .dropdown-icon { transform: rotate(180deg); }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 30px; margin-top: 40px; flex-wrap: wrap; gap: 20px; }
+        .footer-bottom p { margin: 0; font-size: 0.85rem; opacity: 0.8; }
+        .made-by { font-size: 0.85rem; opacity: 0.8; }
+        .fyxo-font { font-family: 'Montserrat', sans-serif; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--white); text-decoration: none; font-size: 1rem; transition: color 0.3s ease; }
+        .fyxo-font:hover { color: var(--accent-gold); }
 
-        /* --- COOKIE BAR (GEFIXED VOOR MOBIEL) --- */
-        .cookie-bar { 
-            position: fixed; bottom: -200px; left: 0; width: 100%; 
-            background: var(--primary-dark-green); color: var(--white); 
-            padding: 25px 5vw; padding-bottom: calc(25px + env(safe-area-inset-bottom));
-            display: flex; justify-content: space-between; align-items: center; 
-            z-index: 999999; transition: bottom 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-            pointer-events: auto; /* Zorg dat clicks altijd worden geregistreerd */
-        }
+        .cookie-bar { position: fixed; bottom: -100px; left: 0; width: 100%; background: var(--primary-dark-green); color: var(--white); padding: 20px 5vw; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 -10px 30px rgba(0,0,0,0.1); z-index: 9999; transition: bottom 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
         .cookie-bar.show { bottom: 0; }
-        .cookie-btn { 
-            background: var(--accent-gold); color: var(--primary-dark-green); 
-            border: none; padding: 12px 30px; cursor: pointer; 
-            text-transform: uppercase; font-size: 0.8rem; font-weight: 700; 
-            border-radius: 50px; flex-shrink: 0;
-        }
+        .cookie-bar p { font-size: 0.9rem; margin: 0; opacity: 0.9;}
+        .cookie-btn { background: var(--accent-gold); color: var(--primary-dark-green); border: none; padding: 12px 30px; cursor: pointer; text-transform: uppercase; font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; border-radius: 50px; transition: transform 0.3s;}
+        .cookie-btn:hover { transform: scale(1.05); }
 
-        /* --- RESPONSIVE --- */
+        /* --- RESPONSIVE LAYOUT --- */
         @media (max-width: 1024px) {
             .hamburger { display: flex; }
-            .nav-menu { position: fixed; top: 0; right: -100%; width: 100%; height: 100vh; background: var(--bg-body); flex-direction: column; justify-content: center; align-items: center; transition: 0.4s; }
+            /* Menu achtergrond op mobiel ook afgestemd op de nieuwe tint */
+            .nav-menu { position: fixed; top: 0; right: -100%; width: 100vw; height: 100vh; background-color: rgba(230, 223, 211, 0.98); backdrop-filter: blur(15px); flex-direction: column; justify-content: center; align-items: center; transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1); }
             .nav-menu.active { right: 0; }
-            .nav-menu a { color: var(--text-dark); font-size: 1.5rem; margin: 15px 0; text-shadow: none; }
-            .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); background: var(--text-dark); }
+            .nav-menu a { font-size: 1.5rem; margin: 20px 0; color: var(--text-dark); text-shadow: none;}
+            .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); background-color: var(--text-dark);}
             .hamburger.active span:nth-child(2) { opacity: 0; }
-            .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: var(--text-dark); }
+            .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background-color: var(--text-dark);}
 
-            .hero { justify-content: center; text-align: center; }
-            .hero-content h1 { font-size: 3rem; }
-            .huisje-rij { flex-direction: column; background: var(--bg-sand); border-radius: 16px; margin-bottom: 60px; }
-            .huisje-foto-container { height: 350px; width: 100%; border-radius: 16px 16px 0 0; }
-            .huisje-tekst { margin: 0 !important; padding: 40px 20px; width: 100%; box-shadow: none; }
-            .contact-grid { grid-template-columns: 1fr; }
-            .cookie-bar { flex-direction: column; gap: 20px; text-align: center; }
+            .hero { justify-content: center; align-items: flex-end; padding-bottom: 12vh; }
+            /* Mobile gradient overloop: Laat de top transparant om de vuurtoren te tonen */
+            .hero-overlay { background: linear-gradient(180deg, rgba(230, 223, 211, 0) 0%, rgba(230, 223, 211, 0) 40%, rgba(230, 223, 211, 0.8) 70%, rgba(230, 223, 211, 0.98) 100%); }
+            .hero-content { text-align: center; }
+
+            /* Ook op tablets en telefoons moeten de kaarten lichter blijven dan de achtergrond */
+            .huisje-rij { flex-direction: column; margin-bottom: 80px; box-shadow: 0 15px 40px rgba(0,0,0,0.06); border-radius: 16px; background: var(--bg-sand); }
+            .huisje-rij.omgekeerd { flex-direction: column; }
+            
+            .huisje-foto-container { height: 400px; border-radius: 16px 16px 0 0; box-shadow: none; flex: none; width: 100%;}
+            .slider-btn { width: 40px; height: 40px; font-size: 1rem; }
+            .huisje-rij:not(.omgekeerd) .slider-btn.next { right: 15px; }
+            .huisje-rij.omgekeerd .slider-btn.prev { left: 15px; }
+            
+            .slide-track { display: block; overflow-x: visible; scroll-snap-type: none; }
+            .slide { position: absolute; flex: none; width: 100%; height: 100%; opacity: 0; scroll-snap-align: none; border-radius: 16px 16px 0 0;}
+            .slide.active { opacity: 1; }
+
+            .huisje-tekst { margin: 0 !important; text-align: center; padding: 40px 30px; box-shadow: none; border: none; background: transparent; transform: none; opacity: 1; transition: none;}
+            .huisje-rij.omgekeerd .huisje-tekst { margin: 0 !important; }
+            .huisje-tekst:hover { transform: none; box-shadow: none; }
+            
+            .button-group { justify-content: center; }
+            .tags { justify-content: center; }
+            .hero-content h1 { font-size: 3.5rem; }
+            .sectie-banner { height: 25vh; margin-left: 0; margin-right: 0; border-radius: 0; }
+            .contact-grid { grid-template-columns: 1fr; gap: 60px; }
+            .cookie-bar { flex-direction: column; gap: 15px; text-align: center; }
         }
 
-        /* Split-text helpers */
-        .word-wrap { display: inline-block; overflow: hidden; vertical-align: top; }
-        .word { display: inline-block; transform: translateY(110%); transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1); }
-        .zichtbaar .word { transform: translateY(0); }
+        @media (max-width: 768px) {
+            .hero { padding-bottom: 12vh; }
+            .hero-bg { 
+                /* FIX: Verschuif de vuurtoren naar het midden en schuif de afbeelding omhoog om lucht te verwijderen */
+                object-position: 32% 100%; 
+            }
+            .hero-content h1 { font-size: 2.5rem; margin-bottom: 15px; }
+            .hero-content p { font-size: 1rem; margin-bottom: 30px; }
+            
+            /* Overlay gradient aanpassing: meer transparant bovenin voor de vuurtoren */
+            .hero-overlay { background: linear-gradient(180deg, rgba(230, 223, 211, 0) 0%, rgba(230, 223, 211, 0.4) 50%, rgba(230, 223, 211, 0.9) 80%, rgba(230, 223, 211, 1) 100%); }
+
+            .collectie { padding: 60px 5vw; }
+            .sectie-titel { font-size: 2.2rem; margin-bottom: 15px; }
+            .sectie-subtitel { margin-bottom: 50px; font-size: 0.9rem;}
+            
+            .huisje-foto-container { height: 280px; } /* Minder hoog op mobiel zodat er minder gescrolld hoeft te worden */
+            .slider-btn { width: 38px; height: 38px; font-size: 0.9rem; }
+            .slider-dots { bottom: 15px; }
+            
+            .huisje-tekst { padding: 30px 20px; }
+            .huisje-tekst h3 { font-size: 1.8rem; margin-bottom: 15px; }
+            .huisje-tekst p { font-size: 0.95rem; margin-bottom: 25px; }
+            
+            .btn { width: 100%; padding: 16px 20px; font-size: 0.8rem; }
+            .button-group { flex-direction: column; width: 100%; gap: 10px; }
+            
+            .organische-lijn { margin: 0 auto 50px auto; }
+            
+            .sectie-banner { height: 25vh; margin-bottom: 40px; }
+            .sectie-banner h2 { font-size: 2.2rem; }
+            
+            footer { padding: 50px 5vw 30px; }
+            .footer-nav { flex-direction: column; gap: 15px; align-items: center; }
+            .footer-bottom { flex-direction: column; justify-content: center; text-align: center; gap: 15px; }
+        }
     </style>
 </head>
 <body>
 
+    <!-- Geanimeerde Preloader -->
     <div id="preloader">
         <img src="logo.png?v=2" alt="Laden...">
     </div>
 
+    <!-- Extra levendige, subtiele achtergrond gloed -->
+    <div class="bg-orb-3"></div>
+
+    <!-- Magnetische Cursor -->
     <div class="cursor-dot" id="cursor-dot"></div>
     <div class="cursor-outline" id="cursor-outline"></div>
 
     <header id="main-header">
         <a href="#home" class="logo-box">
-            <img src="logo.png?v=2" alt="Logo" class="logo-img">
+            <img src="logo.png?v=2" alt="Puur Natuur Lodges Logo" class="logo-img">
         </a>
+        
         <div class="hamburger" id="hamburger">
             <span></span><span></span><span></span>
         </div>
+
         <nav class="nav-menu" id="nav-menu">
             <a href="#home">Home</a>
             <a href="#collectie">Lodges</a>
@@ -264,160 +433,336 @@
     </header>
 
     <section id="home" class="hero">
-        <img src="https://assets.plaece.nl/kuma-goereeoverflakkee/uploads/media/60a64b1adf234/homepage-header.jpg" alt="Zuid-Holland" class="hero-bg">
+        <!-- Hero Background Image met focus op de vuurtoren -->
+        <img src="https://assets.plaece.nl/kuma-goereeoverflakkee/uploads/media/60a64b1adf234/homepage-header.jpg" alt="Zuid-Holland Natuur" class="hero-bg" id="hero-bg-parallax">
+        
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1 class="split-text">Ontsnap aan de waan van de dag.</h1>
-            <p>Ontdek zorgvuldig geselecteerde lodges in Zuid-Holland waar de tijd even stilstaat.</p>
-            <a href="#collectie" class="btn">Vind jouw hideaway</a>
+            <p>Ontdek zorgvuldig geselecteerde lodges in Zuid-Holland waar de tijd even stilstaat. Van huisjes aan het water tot verstopte parels in het groen.</p>
+            <a href="#collectie" class="btn mag-btn">Vind jouw hideaway</a>
         </div>
     </section>
 
     <div id="collectie" style="padding-top: 80px;">
-        <div class="sectie-banner reveal-target" id="collectie-banner">
-            <div class="banner-background" style="background-image: url('https://cloud01.topsite.nl/beleefbrielle.nl/header/72/0000-adobestock-612481439-1880_3840x1800.jpg.webp');"></div>
-            <h2>Lodges</h2>
+        <!-- Nieuwe banner met het Tulpenveld op de plek van de subtitel -->
+        <div class="sectie-banner reveal-target" id="collectie-banner" style="margin-top: 0; margin-bottom: 40px;">
+            <div class="banner-background"></div>
+            <h2 class="split-text">Lodges</h2>
         </div>
 
-        <section class="collectie">
-            <h2 class="sectie-titel split-text reveal-target">Onze Collectie</h2>
+        <section class="collectie" style="padding-top: 20px;">
+            <h2 class="sectie-titel levende-tekst split-text reveal-target">Onze Collectie</h2>
 
-            <!-- LODGE 1 -->
-            <div class="huisje-rij">
-                <div class="huisje-foto-container reveal-target" id="slider-branding104">
-                    <div class="slide-track">
-                        <img src="https://a0.muscache.com/im/pictures/prohost-api/Hosting-980271721982717540/original/621c1713-d1cf-4211-8cf9-098e900f6906.jpeg?im_w=1200" class="slide" alt="Branding 104">
-                        <img src="https://cdn.bookingexperts.com/uploads/image/image/268707/cover_2._Woonkamer__5_.jpg" class="slide" alt="Woonkamer">
-                    </div>
-                    <button class="slider-btn prev" onclick="moveSlide('slider-branding104', -1)">&#10094;</button>
-                    <button class="slider-btn next" onclick="moveSlide('slider-branding104', 1)">&#10095;</button>
+        <!-- LODGE 1: BRANDING 104 -->
+        <div class="huisje-rij">
+            <div class="huisje-foto-container hover-swipe reveal-target" id="slider-branding104">
+                <div class="slide-track">
+                    <img src="https://a0.muscache.com/im/pictures/prohost-api/Hosting-980271721982717540/original/621c1713-d1cf-4211-8cf9-098e900f6906.jpeg?im_w=1200" class="slide active" alt="Branding 104 Bungalow Buiten">
+                    <img src="https://cdn.bookingexperts.com/uploads/image/image/268707/cover_2._Woonkamer__5_.jpg" class="slide" alt="Branding 104 Woonkamer 1" loading="lazy">
+                    <img src="https://cdn.bookingexperts.com/uploads/image/image/268704/cover_2._Woonkamer__1_.jpg" class="slide" alt="Branding 104 Woonkamer 2" loading="lazy">
+                    <img src="https://cdn.bookingexperts.com/uploads/image/image/268718/cover_3._Keuken__5_.jpg" class="slide" alt="Branding 104 Keuken" loading="lazy">
+                    <img src="https://cdn.bookingexperts.com/uploads/image/image/268727/cover_4._Slaapkamers__9_.jpg" class="slide" alt="Branding 104 Slaapkamer" loading="lazy">
                 </div>
-                <div class="huisje-tekst reveal-target">
-                    <h3>Branding 104, Ouddorp</h3>
-                    <div class="tags"><span class="tag">4 Personen</span><span class="tag">Kustlijn</span></div>
-                    <p>Moderne bungalow met luxe kookeiland en riant terras bij de kust.</p>
-                    <a href="https://www.ouddorpconnection.nl/ouddorp-connection/ouddorp/branding-104-het-oude-nieuwland-ouddorp" target="_blank" class="btn">Bekijk Beschikbaarheid</a>
+                <button class="slider-btn prev" aria-label="Vorige foto" onclick="moveSlide('slider-branding104', -1)">&#10094;</button>
+                <button class="slider-btn next" aria-label="Volgende foto" onclick="moveSlide('slider-branding104', 1)">&#10095;</button>
+                <div class="slider-dots" id="dots-branding104"></div>
+            </div>
+            <div class="huisje-tekst reveal-target">
+                <h3 class="split-text">Branding 104, Ouddorp</h3>
+                <div class="tags"><span class="tag">4 Personen</span><span class="tag">Kustlijn</span><span class="tag">Kookeiland</span></div>
+                <p>Een sfeervolle, moderne bungalow verscholen op een rustig familiepark. Zet de openslaande deuren open naar het riante terras, voel de vloerverwarming na een lange strandwandeling en geniet van de luxe van een prachtig vrijstaand kookeiland.</p>
+                <a href="https://www.ouddorpconnection.nl/ouddorp-connection/ouddorp/branding-104-het-oude-nieuwland-ouddorp?tag_ids%5B%5D=753758" target="_blank" class="btn">Bekijk Beschikbaarheid</a>
+            </div>
+        </div>
+
+        <div class="organische-lijn reveal-target"></div>
+
+        <!-- LODGE 2: SUMMIO HERKINGEN -->
+        <div class="huisje-rij omgekeerd">
+            <div class="huisje-foto-container hover-swipe reveal-target" id="slider-herkingen">
+                <div class="slide-track">
+                    <img src="https://cdn.bookzoapi.nl/summiozeedijk/145_1400.webp" class="slide active" alt="Bungalow 4C Herkingen Slaapkamer">
+                    <img src="https://cdn.bookzoapi.nl/summiozeedijk/143_1400.webp" class="slide" alt="Bungalow 4C Herkingen Woonkamer" loading="lazy">
+                    <img src="https://cdn.bookzoapi.nl/summiozeedijk/144_1400.webp" class="slide" alt="Bungalow 4C Herkingen Keuken" loading="lazy">
+                    <img src="https://cdn.bookzoapi.nl/summiozeedijk/142_1400.webp" class="slide" alt="Bungalow 4C Herkingen Buiten" loading="lazy">
+                    <img src="https://cdn.bookzoapi.nl/summiozeedijk/146_1400.webp" class="slide" alt="Bungalow 4C Herkingen Badkamer" loading="lazy">
+                </div>
+                <button class="slider-btn prev" aria-label="Vorige foto" onclick="moveSlide('slider-herkingen', -1)">&#10094;</button>
+                <button class="slider-btn next" aria-label="Volgende foto" onclick="moveSlide('slider-herkingen', 1)">&#10095;</button>
+                <div class="slider-dots" id="dots-herkingen"></div>
+            </div>
+            <div class="huisje-tekst reveal-target">
+                <h3 class="split-text">Bungalow 4C, Herkingen</h3>
+                <div class="tags"><span class="tag">4 Personen</span><span class="tag">Natuurgebied</span><span class="tag">Aan het water</span></div>
+                <p>Kies uit twee identieke, riante bungalows op een fluisterstil park. Een waar paradijs voor rustzoekers en watersporters. Stap je deur uit en je wordt omringd door de rijke, ongerepte waternatuur van Zuid-Holland.</p>
+                
+                <div class="button-group">
+                    <a href="#contact" class="btn">Vraag naar Nr. 36</a>
+                    <a href="#contact" class="btn">Vraag naar Nr. 37</a>
                 </div>
             </div>
+        </div>
 
-            <!-- LODGE 2 -->
-            <div class="huisje-rij omgekeerd">
-                <div class="huisje-foto-container reveal-target" id="slider-herkingen">
-                    <div class="slide-track">
-                        <img src="https://cdn.bookzoapi.nl/summiozeedijk/145_1400.webp" class="slide" alt="Herkingen">
-                        <img src="https://cdn.bookzoapi.nl/summiozeedijk/143_1400.webp" class="slide" alt="Herkingen 2">
-                    </div>
-                    <button class="slider-btn prev" onclick="moveSlide('slider-herkingen', -1)">&#10094;</button>
-                    <button class="slider-btn next" onclick="moveSlide('slider-herkingen', 1)">&#10095;</button>
+        <div class="organische-lijn reveal-target"></div>
+
+        <!-- LODGE 3: LANDAL BRIELLE -->
+        <div class="huisje-rij">
+            <div class="huisje-foto-container hover-swipe reveal-target" id="slider-brielle">
+                <div class="slide-track">
+                    <img src="https://s3.eu-central-1.amazonaws.com/media.vakantiehuistekoop.nl/media/63292/vakantiehuisje-kopen-zwartewaal-modern-architectuur-2025.webp028___media_library_original_1600_1070.jpg" class="slide active" alt="Lodge Meadow 6 Buiten">
+                    <img src="https://mss-p-014-delivery.stylelabs.cloud/api/public/content/9201741-4x5?t=w540" class="slide" alt="Lodge Meadow 6 Woonkamer" loading="lazy">
+                    <img src="https://api.landalmakelaardij.nl/uploads/object/1024x/d4c1450ec43a42351e6a86611526c83524a24dc9.jpg" class="slide" alt="Lodge Meadow 6 Overzicht" loading="lazy">
+                    <img src="https://mss-p-014-delivery.stylelabs.cloud/api/public/content/9201595-original?t=w1024" class="slide" alt="Lodge Meadow 6 Interieur" loading="lazy">
                 </div>
-                <div class="huisje-tekst reveal-target">
-                    <h3>Bungalow 4C, Herkingen</h3>
-                    <div class="tags"><span class="tag">4 Personen</span><span class="tag">Aan het water</span></div>
-                    <p>Riant verblijf voor rustzoekers aan de Zeeuwse wateren.</p>
-                    <a href="#contact" class="btn">Vraag informatie</a>
-                </div>
+                <button class="slider-btn prev" aria-label="Vorige foto" onclick="moveSlide('slider-brielle', -1)">&#10094;</button>
+                <button class="slider-btn next" aria-label="Volgende foto" onclick="moveSlide('slider-brielle', 1)">&#10095;</button>
+                <div class="slider-dots" id="dots-brielle"></div>
             </div>
-        </section>
+            <div class="huisje-tekst reveal-target">
+                <h3 class="split-text">Meadow Lodge 6, Brielle</h3>
+                <div class="tags"><span class="tag">6 Personen</span><span class="tag">Bosrijk</span><span class="tag">Design</span></div>
+                <p>Een architectonische houten lodge die ademt met de natuur van Voorne-Putten. Met gigantische raampartijen vervaagt de grens tussen binnen en buiten. Ontwaak met vogelgezang, geniet van de robuuste inrichting en verken het nabijgelegen historische Brielle.</p>
+                <a href="#contact" class="btn">Bekijk Beschikbaarheid</a>
+            </div>
+        </div>
+    </section>
     </div>
 
     <section id="contact">
         <div class="sectie-banner reveal-target">
-            <div class="banner-background" style="background-image: url('https://images.ctfassets.net/a26vcxaqtbwm/2mpQmoLrDBQeeuzOM1MX8C/204dbedf9b7c09bcb0a99f5960274319/Tulpenvelden_Zeeland-25.jpg');"></div>
-            <h2>Let's Connect</h2>
+            <div class="banner-background"></div>
+            <h2 class="split-text">Let's Connect</h2>
         </div>
         <div class="contact-grid reveal-target">
             <div class="faq-sectie">
-                <h3>Vragen</h3>
-                <div class="form-sectie">
-                    <form action="https://formsubmit.co/bionda.de.wit@gmail.com" method="POST">
-                        <input type="text" name="Naam" placeholder="Jouw Naam" required>
-                        <input type="email" name="Email" placeholder="E-mail" required>
-                        <textarea rows="4" name="Bericht" placeholder="Bericht..." required></textarea>
-                        <button type="submit" class="btn">Verstuur</button>
-                    </form>
+                <h3 class="split-text">Goed om te weten</h3>
+                <div class="faq-item">
+                    <h4>Zijn er extra boekingskosten via jullie?</h4>
+                    <p>Helemaal niets. Je betaalt exact dezelfde eerlijke prijs als wanneer je rechtstreeks bij onze parkpartners zou reserveren.</p>
                 </div>
+                <div class="faq-item">
+                    <h4>Waar regel ik mijn praktische zaken?</h4>
+                    <p>Wij brengen je naar de perfecte plek, maar je sluit de boeking direct af bij het park. Zij sturen je netjes de routebeschrijving, incheckcodes en praktische informatie.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Mag de trouwe viervoeter mee?</h4>
+                    <p>Natuur is natuurlijk nog leuker met een hond! Dit verschilt echter per specifieke lodge. Check altijd even de huisdier-voorwaarden op de definitieve boekingspagina van het huisje.</p>
+                </div>
+            </div>
+
+            <div class="form-sectie">
+                <h3 class="split-text">Stel je vraag</h3>
+                <p style="margin-bottom: 25px; color: #5a7563;">Hulp nodig bij het kiezen van de juiste lodge? Of een andere prangende vraag? Laat een berichtje achter.</p>
+                <form action="https://formsubmit.co/bionda.de.wit@gmail.com" method="POST">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_next" value="https://huisjeindebranding.vercel.app/#contact">
+                    
+                    <label for="naamInput" style="display: none;">Jouw Naam</label>
+                    <input type="text" id="naamInput" name="Naam" placeholder="Jouw Naam" required aria-label="Jouw Naam">
+                    
+                    <label for="emailInput" style="display: none;">Jouw E-mailadres</label>
+                    <input type="email" id="emailInput" name="Email" placeholder="Jouw E-mailadres" required aria-label="Jouw E-mailadres">
+                    
+                    <label for="berichtInput" style="display: none;">Waar kunnen we je mee helpen?</label>
+                    <textarea rows="5" id="berichtInput" name="Bericht" placeholder="Typ hier je bericht..." required aria-label="Jouw bericht"></textarea>
+                    
+                    <button type="submit" class="btn mag-btn" style="width: 100%;">Verstuur Bericht</button>
+                    <p style="font-size: 0.75rem; margin-top: 15px; color: #81B29A; text-align: center;"><strong>Tip voor livegang:</strong> Beveilig je mailadres via FormSubmit instellingen tegen spam.</p>
+                </form>
             </div>
         </div>
     </section>
 
     <footer>
-        <img src="logo.png?v=2" alt="Logo" class="footer-logo">
         <div class="footer-nav">
             <a href="#home">Home</a>
             <a href="#collectie">Lodges</a>
             <a href="#contact">Contact</a>
+            <a href="algemene-voorwaarden.html">Voorwaarden</a>
+            <a href="privacy.html">Privacy</a>
         </div>
-        <p>&copy; 2026 Puur Natuur Lodges</p>
+        <details class="disclaimer">
+            <summary><strong>Transparantie Disclaimer</strong> <span class="dropdown-icon">▼</span></summary>
+            <p>Puur Natuur Lodges is een onafhankelijke curator van vakantiehuisjes. Wanneer je reserveert via de "Bekijk Beschikbaarheid" knoppen, word je doorverwezen naar onze geverifieerde parkpartners (zoals Landal of Summio). Bij een succesvolle boeking ontvangen wij een kleine commissie. Dit kost jou niets extra, beïnvloedt de prijs niet, maar helpt ons wel om onafhankelijk te blijven speuren naar de mooiste pareltjes in de natuur.</p>
+        </details>
+        
+        <div class="footer-bottom">
+            <a href="#home">
+                <img src="logo.png?v=2" alt="Puur Natuur Lodges Logo" class="footer-logo">
+            </a>
+            <p>&copy; 2026 Puur Natuur Lodges. Alle rechten voorbehouden.</p>
+            <p class="made-by">Made by <a href="https://www.fyxo.online/#home" target="_blank" class="fyxo-font">FYXO</a></p>
+        </div>
     </footer>
 
     <div class="cookie-bar" id="cookieBanner">
-        <p>Wij gebruiken cookies om de site soepel te laten werken.</p>
-        <button class="cookie-btn" onclick="accepteerCookies()">Akkoord</button>
+        <p>Wij gebruiken essentiële cookies om de site soepel te laten werken. Door verder te gaan ga je hiermee akkoord.</p>
+        <button class="cookie-btn mag-btn" onclick="accepteerCookies()">Akkoord</button>
     </div>
 
     <script>
-        const lenis = new Lenis({ duration: 1.2 });
+        // --- 1. INITIALISEER LENIS SMOOTH SCROLL & PARALLAX SYNC ---
+        const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true });
+        
+        const header = document.getElementById('main-header');
+        const heroBg = document.getElementById('hero-bg-parallax');
+
+        // FIX: Koppel de parallax en header direct aan de Lenis tick (verwijdert scroll 'glitches' en stotteren)
+        lenis.on('scroll', (e) => {
+            const scrollPos = e.animatedScroll;
+            if (scrollPos > 50) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
+        });
+
         function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
 
+        // --- 2. PRELOADER LOGICA ---
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.body.classList.add('loaded');
-                document.querySelectorAll('.split-text').forEach(el => el.classList.add('zichtbaar'));
-            }, 300);
+                document.querySelectorAll('.hero-content .split-text').forEach(el => el.classList.add('zichtbaar'));
+            }, 100); // FIX: Wachttijd verwijderd voor directe snelle laadtijd
         });
 
-        // Split text logic
+        // --- 3. SPLIT TEXT SETUP ---
         document.querySelectorAll('.split-text').forEach(el => {
             const words = el.innerText.split(' ');
-            el.innerHTML = words.map((w, i) => `<span class="word-wrap"><span class="word" style="transition-delay:${i*0.05}s">${w}&nbsp;</span></span>`).join('');
+            el.innerHTML = '';
+            words.forEach((word, index) => {
+                const wrapper = document.createElement('span');
+                wrapper.className = 'word-wrap';
+                const inner = document.createElement('span');
+                inner.className = 'word';
+                inner.style.transitionDelay = `${index * 0.08}s`;
+                inner.innerHTML = word + '&nbsp;';
+                wrapper.appendChild(inner);
+                el.appendChild(wrapper);
+            });
         });
 
-        // Header scroll
-        window.addEventListener('scroll', () => {
-            if(window.scrollY > 50) document.getElementById('main-header').classList.add('scrolled');
-            else document.getElementById('main-header').classList.remove('scrolled');
+        // --- 4. MAGNETIC CURSOR LOGICA (Verfijnd en Professioneler) ---
+        if (window.matchMedia("(pointer: fine)").matches) {
+            const cursorDot = document.getElementById('cursor-dot');
+            const cursorOutline = document.getElementById('cursor-outline');
+            
+            let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+            let outlineX = mouseX, outlineY = mouseY;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                
+                // FIX: Gebruik translate3d (GPU geaccelereerd) in plaats van CSS left/top voor 0% lag
+                cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+                
+                // Cursor zichtbaar maken als hij het scherm in komt
+                cursorDot.style.opacity = 1;
+                cursorOutline.style.opacity = 1;
+            });
+
+            document.addEventListener('mouseleave', () => {
+                // Verberg cursor netjes als we het venster verlaten
+                cursorDot.style.opacity = 0;
+                cursorOutline.style.opacity = 0;
+            });
+
+            function animateCursor() {
+                outlineX += (mouseX - outlineX) * 0.35; // FIX: De vertraging flink verlaagd zodat hij snappier volgt
+                outlineY += (mouseY - outlineY) * 0.35;
+                
+                // FIX: Gebruik translate3d (GPU geaccelereerd)
+                cursorOutline.style.transform = `translate3d(${outlineX}px, ${outlineY}px, 0) translate(-50%, -50%)`;
+                
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            document.querySelectorAll('a, button, input, textarea, .hover-swipe').forEach(el => {
+                el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+                el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+            });
+
+            // FIX: Zorg dat cursor zichtbaar is op donkere secties (footer, cookie-bar, knoppen)
+            document.querySelectorAll('footer, .cookie-bar, .btn').forEach(el => {
+                el.addEventListener('mouseenter', () => document.body.classList.add('cursor-on-dark'));
+                el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-on-dark'));
+            });
+        }
+
+        // --- 5. INTERSECTION OBSERVER ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('zichtbaar', 'is-revealed');
+                        if(entry.target.classList.contains('split-text')) entry.target.classList.add('zichtbaar');
+                        entry.target.querySelectorAll('.split-text').forEach(st => st.classList.add('zichtbaar'));
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            document.querySelectorAll('.reveal-target').forEach(el => observer.observe(el));
+            
+            initSliders();
+            
+            setTimeout(() => {
+                if (localStorage.getItem('cookiesGeaccepteerd') !== 'ja') {
+                    document.getElementById('cookieBanner').classList.add('show');
+                }
+            }, 1000); // FIX: Cookie banner komt sneller tevoorschijn
         });
 
-        // Hamburger
+        // --- 6. HAMBURGER MENU ---
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('nav-menu');
-        hamburger.onclick = () => { hamburger.classList.toggle('active'); navMenu.classList.toggle('active'); };
+        const navLinks = document.querySelectorAll('.nav-menu a');
 
-        // Observer
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('zichtbaar'); });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal-target').forEach(el => observer.observe(el));
+        hamburger.addEventListener('click', () => { hamburger.classList.toggle('active'); navMenu.classList.toggle('active'); });
+        navLinks.forEach(link => { link.addEventListener('click', () => { hamburger.classList.remove('active'); navMenu.classList.remove('active'); }); });
 
-        // Slider
-        function moveSlide(sliderId, dir) {
-            const track = document.getElementById(sliderId).querySelector('.slide-track');
-            track.scrollBy({ left: dir * track.clientWidth, behavior: 'smooth' });
+        // --- 7. NATIVE SCROLL SLIDERS ---
+        function initSliders() {
+            const sliders = ['slider-branding104', 'slider-herkingen', 'slider-brielle'];
+            sliders.forEach(sliderId => {
+                const slider = document.getElementById(sliderId);
+                if(!slider) return;
+                
+                const track = slider.querySelector('.slide-track');
+                const slides = track.querySelectorAll('.slide');
+                const dotsContainer = document.getElementById(sliderId.replace('slider-', 'dots-'));
+
+                if(dotsContainer && slides.length > 0) {
+                    slides.forEach((_, index) => {
+                        const dot = document.createElement('div');
+                        dot.classList.add('dot');
+                        if(index === 0) dot.classList.add('active');
+                        dot.addEventListener('click', () => { track.scrollTo({ left: index * track.clientWidth, behavior: 'smooth' }); });
+                        dotsContainer.appendChild(dot);
+                    });
+
+                    track.addEventListener('scroll', () => {
+                        const index = Math.round(track.scrollLeft / track.clientWidth);
+                        const dots = dotsContainer.querySelectorAll('.dot');
+                        dots.forEach(d => d.classList.remove('active'));
+                        if(dots[index]) dots[index].classList.add('active');
+                    });
+                }
+            });
         }
 
-        // Cursor logic (Desktop only)
-        if (window.matchMedia("(pointer: fine)").matches) {
-            const dot = document.getElementById('cursor-dot');
-            const outline = document.getElementById('cursor-outline');
-            window.addEventListener('mousemove', (e) => {
-                dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px';
-                outline.style.left = e.clientX + 'px'; outline.style.top = e.clientY + 'px';
-            });
-            document.querySelectorAll('a, button').forEach(el => {
-                el.onmouseenter = () => document.body.classList.add('cursor-hover');
-                el.onmouseleave = () => document.body.classList.remove('cursor-hover');
-            });
+        function moveSlide(sliderId, direction) {
+            const slider = document.getElementById(sliderId);
+            const track = slider.querySelector('.slide-track');
+            track.scrollBy({ left: direction * track.clientWidth, behavior: 'smooth' });
         }
 
-        // Cookies
+        // --- 8. COOKIES ---
         function accepteerCookies() {
             localStorage.setItem('cookiesGeaccepteerd', 'ja');
             document.getElementById('cookieBanner').classList.remove('show');
-        }
-
-        if(localStorage.getItem('cookiesGeaccepteerd') !== 'ja') {
-            setTimeout(() => document.getElementById('cookieBanner').classList.add('show'), 1500);
         }
     </script>
 </body>
