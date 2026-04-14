@@ -126,16 +126,16 @@
             border-radius: 4px; box-shadow: 0 25px 50px rgba(43, 66, 50, 0.15); 
             z-index: 1; 
             background-color: var(--light-green-bg); /* FIX: Zachte tijdelijke achtergrondkleur als de foto nog laadt */
+            -webkit-mask-image: -webkit-radial-gradient(white, black); /* Cruciale fix voor Apple/iOS apparaten */
         }
         .slide-track { width: 100%; height: 100%; position: relative; } 
         .slide { 
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-            object-fit: cover; object-position: center center; opacity: 0; 
-            transition: opacity 0.6s ease-in-out; 
-            -webkit-transform: translateZ(0); /* FIX: Voorkomt onzichtbare foto's bug op iOS Safari */
-            transform: translateZ(0); 
+            object-fit: cover; object-position: center center; 
+            opacity: 0; visibility: hidden; /* Fix voor onzichtbare foto's op mobiel */
+            transition: opacity 0.6s ease-in-out, visibility 0.6s ease-in-out; 
         }
-        .slide.active { opacity: 1; z-index: 2; }
+        .slide.active { opacity: 1; visibility: visible; z-index: 2; }
         .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(43, 66, 50, 0.6); color: var(--white); border: none; padding: 15px; cursor: pointer; font-size: 1.2rem; transition: 0.3s; z-index: 10; backdrop-filter: blur(5px); }
         .slider-btn:hover { background: var(--accent-terra); }
         .slider-btn.prev { left: 0; border-radius: 0 4px 4px 0; }
@@ -249,10 +249,6 @@
             .huisje-rij:not(.omgekeerd) .slider-btn.next { right: 0; }
             .huisje-rij.omgekeerd .slider-btn.prev { left: 0; }
             
-            .slide-track { display: block; overflow-x: visible; scroll-snap-type: none; }
-            .slide { position: absolute; flex: none; width: 100%; height: 100%; opacity: 0; scroll-snap-align: none; border-radius: 8px;}
-            .slide.active { opacity: 1; }
-
             /* Minder agressieve overlap op tablets voor rustiger beeld */
             .huisje-tekst { margin: -50px 30px 0 30px; text-align: center; padding: 40px 30px; }
             .huisje-rij.omgekeerd .huisje-tekst { margin: -50px 30px 0 30px; }
