@@ -17,11 +17,11 @@
     <style>
         /* --- NIEUW KLEURENPALET "PUUR NATUUR" --- */
         :root {
-            --primary-dark-green: #2B4232; /* Donker Bosgroen */
-            --bg-sand: #F7F5F0;            /* Warm Linnen / Zand */
-            --accent-terra: #D47B5A;       /* Aards Terracotta */
-            --light-green: #A3B8A8;        /* Saliegroen */
-            --light-green-bg: #EAEFEA;     /* Zeer licht Saliegroen */
+            --primary-dark-green: #2B4232; 
+            --bg-sand: #F7F5F0;            
+            --accent-terra: #D47B5A;       
+            --light-green: #A3B8A8;        
+            --light-green-bg: #EAEFEA;     
             --text-dark: #2B4232;
             --white: #ffffff;
         }
@@ -42,7 +42,7 @@
             position: relative;
         }
 
-        /* DYNAMISCHE ACHTERGROND MET NATUURLIJKE GLOED */
+        /* DYNAMISCHE ACHTERGROND */
         body::before {
             content: ''; position: absolute; top: 120vh; left: -10vw;
             width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(163, 184, 168, 0.25) 0%, rgba(247, 245, 240, 0) 70%);
@@ -85,7 +85,6 @@
         .hero { position: relative; height: 100vh; display: flex; align-items: center; padding: 0 5vw; }
         .hero-bg {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            /* Deze hoofdfoto kan je later eventueel ook vervangen voor een natuurfoto! */
             background: url('https://assets.plaece.nl/kuma-goereeoverflakkee/uploads/media/60a64b1adf234/homepage-header.jpg') center/cover;
             z-index: -2;
         }
@@ -139,10 +138,12 @@
         .tag { background: var(--light-green-bg); color: var(--primary-dark-green); padding: 8px 18px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; border-radius: 30px; border: 1px solid var(--light-green); }
         .huisje-tekst p { margin-bottom: 40px; font-size: 1.05rem; color: #4a6a75; }
 
-        /* --- GOLVEN / SCHEIDINGSLIJN --- */
+        /* KNOPPEN GROEP VOOR MEERDERE OPTIES */
+        .button-group { display: flex; gap: 15px; flex-wrap: wrap; }
+
+        /* --- GOLVEN --- */
         .golf-lijn {
             height: 18px; max-width: 200px; margin: 0 auto 100px auto;
-            /* De golflijn heeft nu de Saliegroen kleur (%23A3B8A8) */
             background-image: url('data:image/svg+xml;utf8,<svg width="100" height="20" xmlns="http://www.w3.org/2000/svg"><path d="M0,10 Q25,20 50,10 T100,10" fill="none" stroke="%23A3B8A8" stroke-width="3" stroke-linecap="round"/></svg>');
             background-repeat: repeat-x; opacity: 0; transform: scaleX(0.2); transition: all 1.2s ease-out;
         }
@@ -212,6 +213,7 @@
             .huisje-tekst { margin: -60px 20px 0 20px; text-align: center; padding: 35px 20px; }
             .huisje-rij.omgekeerd .huisje-tekst { margin: -60px 20px 0 20px; }
             
+            .button-group { justify-content: center; }
             .tags { justify-content: center; }
             .hero-content h1 { font-size: 3.2rem; }
             .sectie-banner { height: 30vh; margin-left: 0; margin-right: 0; border-radius: 0; }
@@ -279,9 +281,11 @@
         <!-- LODGE 2: SUMMIO HERKINGEN (Omgekeerd voor design) -->
         <div class="huisje-rij omgekeerd scroll-element">
             <div class="huisje-foto-container" id="slider-herkingen">
-                <!-- VUL HIER JOUW EIGEN FOTO VAN HERKINGEN IN -->
-                <img src="https://images.unsplash.com/photo-1587061949409-02df41d5e562?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="slide active" alt="Summio Herkingen Bungalow">
-                <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="slide" alt="Summio Herkingen Interieur">
+                <img src="https://cdn.bookzoapi.nl/summiozeedijk/142_1400.webp" class="slide active" alt="Bungalow 4C Herkingen Buiten">
+                <img src="https://cdn.bookzoapi.nl/summiozeedijk/143_1400.webp" class="slide" alt="Bungalow 4C Herkingen Woonkamer">
+                <img src="https://cdn.bookzoapi.nl/summiozeedijk/144_1400.webp" class="slide" alt="Bungalow 4C Herkingen Keuken">
+                <img src="https://cdn.bookzoapi.nl/summiozeedijk/145_1400.webp" class="slide" alt="Bungalow 4C Herkingen Slaapkamer">
+                <img src="https://cdn.bookzoapi.nl/summiozeedijk/146_1400.webp" class="slide" alt="Bungalow 4C Herkingen Badkamer">
                 
                 <button class="slider-btn prev" aria-label="Vorige foto" onclick="moveSlide('slider-herkingen', -1)">&#10094;</button>
                 <button class="slider-btn next" aria-label="Volgende foto" onclick="moveSlide('slider-herkingen', 1)">&#10095;</button>
@@ -289,9 +293,13 @@
             <div class="huisje-tekst">
                 <h3>Bungalow 4C - Herkingen</h3>
                 <div class="tags"><span class="tag">Nummer 36 & 37</span><span class="tag">Nabij Water</span><span class="tag">Summio Park</span></div>
-                <p>Een comfortabele, ruime bungalow gelegen op een rustig park in Herkingen. Ideaal voor rustzoekers, fietsers en watersporters die willen genieten van de rijke natuur en het water van Zuid-Holland.</p>
-                <!-- Vul hier eventueel de Summio link in -->
-                <a href="#" target="_blank" class="btn">Bekijk Beschikbaarheid</a>
+                <p>Twee identieke, comfortabele en ruime bungalows gelegen op een rustig park in Herkingen. Ideaal voor rustzoekers, fietsers en watersporters die willen genieten van de rijke natuur en het water van Zuid-Holland.</p>
+                
+                <!-- Twee losse knoppen voor nummer 36 en 37 -->
+                <div class="button-group">
+                    <a href="#" target="_blank" class="btn">Boek Nr. 36</a>
+                    <a href="#" target="_blank" class="btn">Boek Nr. 37</a>
+                </div>
             </div>
         </div>
 
@@ -300,9 +308,10 @@
         <!-- LODGE 3: LANDAL BRIELLE -->
         <div class="huisje-rij scroll-element">
             <div class="huisje-foto-container" id="slider-brielle">
-                <!-- VUL HIER JOUW EIGEN FOTO VAN BRIELLE IN -->
-                <img src="https://images.unsplash.com/photo-1449844908441-8829872d2607?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="slide active" alt="Landal Brielle Lodge">
-                <img src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="slide" alt="Landal Brielle Natuur">
+                <img src="https://mss-p-014-delivery.stylelabs.cloud/api/public/content/9201634-4x3?t=cw800" class="slide active" alt="Lodge Meadow 6 Buiten">
+                <img src="https://mss-p-014-delivery.stylelabs.cloud/api/public/content/9201741-4x5?t=w540" class="slide" alt="Lodge Meadow 6 Woonkamer">
+                <img src="https://api.landalmakelaardij.nl/uploads/object/1024x/d4c1450ec43a42351e6a86611526c83524a24dc9.jpg" class="slide" alt="Lodge Meadow 6 Overzicht">
+                <img src="https://mss-p-014-delivery.stylelabs.cloud/api/public/content/9201595-original?t=w1024" class="slide" alt="Lodge Meadow 6 Interieur">
                 
                 <button class="slider-btn prev" aria-label="Vorige foto" onclick="moveSlide('slider-brielle', -1)">&#10094;</button>
                 <button class="slider-btn next" aria-label="Volgende foto" onclick="moveSlide('slider-brielle', 1)">&#10095;</button>
@@ -311,8 +320,7 @@
                 <h3>Lodge Meadow 6 - Brielle</h3>
                 <div class="tags"><span class="tag">Lodge Nummer 31</span><span class="tag">Midden in Natuur</span><span class="tag">Landal Park</span></div>
                 <p>Een moderne en sfeervolle houten lodge die perfect opgaat in de omgeving van Voorne-Putten. Word wakker met het gezang van vogels, omringd door veel groen en de historische charme van Brielle om de hoek.</p>
-                <!-- Vul hier eventueel de Landal link in -->
-                <a href="#" target="_blank" class="btn">Bekijk Beschikbaarheid</a>
+                <a href="#" target="_blank" class="btn">Bekijk & Boek</a>
             </div>
         </div>
     </section>
