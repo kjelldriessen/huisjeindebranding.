@@ -8,7 +8,8 @@
     <meta name="description" content="Ontdek onze unieke vakantiehuisjes in de natuur van Zuid-Holland. Rust, ruimte en ontspanning boek je via onze betrouwbare parkpartners.">
     <meta name="author" content="Puur Natuur Lodges">
     
-    <link rel="icon" type="image/png" href="Photoroom_20260328_185630.png">
+    <!-- Punt 6: Nette bestandsnaam voor logo en favicon -->
+    <link rel="icon" type="image/png" href="logo.png">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -104,15 +105,16 @@
         .huisje-rij.zichtbaar { opacity: 1; transform: translateY(0); }
         .huisje-rij.omgekeerd { flex-direction: row-reverse; }
 
-        /* FOTO SLIDER CSS */
+        /* FOTO SLIDER CSS (Punt 2: Voorbereid voor mobiel swipen) */
         .huisje-foto-container { 
             flex: 1.2; 
             position: relative; width: 100%; height: 550px; overflow: hidden; 
             border-radius: 4px; box-shadow: 0 25px 50px rgba(43, 66, 50, 0.15); 
             z-index: 1; 
         }
+        .slide-track { width: 100%; height: 100%; position: relative; } /* Extra track voor desktop fade */
         .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: center center; opacity: 0; transition: opacity 0.6s ease-in-out; }
-        .slide.active { opacity: 1; }
+        .slide.active { opacity: 1; z-index: 2; }
         .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(43, 66, 50, 0.6); color: var(--white); border: none; padding: 15px; cursor: pointer; font-size: 1.2rem; transition: 0.3s; z-index: 10; backdrop-filter: blur(5px); }
         .slider-btn:hover { background: var(--accent-terra); }
         .slider-btn.prev { left: 0; border-radius: 0 4px 4px 0; }
@@ -126,7 +128,7 @@
             border-radius: 8px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
             margin-left: -100px; 
-            z-index: 2; 
+            z-index: 3; 
             position: relative;
             transition: transform 0.4s ease;
         }
@@ -141,13 +143,13 @@
         /* KNOPPEN GROEP VOOR MEERDERE OPTIES */
         .button-group { display: flex; gap: 15px; flex-wrap: wrap; }
 
-        /* --- GOLVEN --- */
-        .golf-lijn {
-            height: 18px; max-width: 200px; margin: 0 auto 100px auto;
-            background-image: url('data:image/svg+xml;utf8,<svg width="100" height="20" xmlns="http://www.w3.org/2000/svg"><path d="M0,10 Q25,20 50,10 T100,10" fill="none" stroke="%23A3B8A8" stroke-width="3" stroke-linecap="round"/></svg>');
-            background-repeat: repeat-x; opacity: 0; transform: scaleX(0.2); transition: all 1.2s ease-out;
+        /* --- SCHEIDINGSLIJN (Punt 4: Rechte lijn ipv golfjes) --- */
+        .strakke-lijn {
+            height: 4px; max-width: 150px; margin: 0 auto 100px auto;
+            background-color: var(--light-green); border-radius: 2px;
+            opacity: 0; transform: scaleX(0.2); transition: all 1.2s ease-out;
         }
-        .golf-lijn.zichtbaar { opacity: 0.8; transform: scaleX(1); }
+        .strakke-lijn.zichtbaar { opacity: 0.8; transform: scaleX(1); }
 
         /* --- BANNERS --- */
         .sectie-banner { height: 45vh; display: flex; align-items: center; justify-content: center; position: relative; margin-top: 40px; margin-bottom: 80px; overflow: hidden; border-radius: 8px; margin-left: 5vw; margin-right: 5vw;}
@@ -156,8 +158,9 @@
         .sectie-banner h2 { color: var(--white); z-index: 2; font-size: 4rem; text-shadow: 0 10px 30px rgba(0,0,0,0.4); margin: 0; opacity: 0; transform: translateY(20px); transition: opacity 1s ease 0.5s, transform 1s ease 0.5s; }
         .sectie-banner.zichtbaar h2 { opacity: 1; transform: translateY(0); }
         
-        #over-ons .banner-background { background-image: url('Tulpenvelden_Zeeland-25.jpg'); }
-        #contact .banner-background { background-image: url('IMG_NEDFEAleegloopstadiStock-621906058.jpg'); }
+        /* Punt 4: Betrouwbare natuurlijke Unsplash links voor de banners */
+        #over-ons .banner-background { background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80'); }
+        #contact .banner-background { background-image: url('https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80'); }
 
         /* --- OVER ONS --- */
         .content-wrap { max-width: 900px; margin: 0 auto 100px; padding: 0 5vw; }
@@ -198,7 +201,7 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes kenBurns { 0% { transform: scale(1) translate(0, 0); } 100% { transform: scale(1.15) translate(-2%, -1%); } }
 
-        /* --- RESPONSIVE --- */
+        /* --- RESPONSIVE & MOBIELE OPTIMALISATIE (Punt 2) --- */
         @media (max-width: 900px) {
             .hamburger { display: flex; }
             .nav-menu { position: fixed; top: 0; right: -100%; width: 70vw; height: 100vh; background-color: rgba(255,255,255,0.98); backdrop-filter: blur(10px); flex-direction: column; justify-content: center; align-items: center; transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1); box-shadow: -5px 0 15px rgba(0,0,0,0.05); }
@@ -209,9 +212,19 @@
             .hamburger.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
 
             .huisje-rij, .huisje-rij.omgekeerd { flex-direction: column; gap: 0; margin-bottom: 60px; }
-            .huisje-foto-container { height: 400px; width: 100%; border-radius: 8px;}
-            .huisje-tekst { margin: -60px 20px 0 20px; text-align: center; padding: 35px 20px; }
-            .huisje-rij.omgekeerd .huisje-tekst { margin: -60px 20px 0 20px; }
+            
+            /* Mobiele Swiper Setup */
+            .huisje-foto-container { height: 350px; width: 100%; border-radius: 8px;}
+            .slider-btn { display: none; } /* Pijltjes verbergen op mobiel */
+            
+            /* Zorgt dat afbeeldingen horizontaal scrollbaar worden */
+            .slide-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+            .slide-track::-webkit-scrollbar { display: none; }
+            .slide { position: relative; flex: 0 0 100%; width: 100%; height: 100%; opacity: 1; scroll-snap-align: center; border-radius: 8px;}
+
+            /* Minder agressieve overlap op mobiel voor rustiger beeld */
+            .huisje-tekst { margin: -30px 10px 0 10px; text-align: center; padding: 30px 15px; }
+            .huisje-rij.omgekeerd .huisje-tekst { margin: -30px 10px 0 10px; }
             
             .button-group { justify-content: center; }
             .tags { justify-content: center; }
@@ -227,7 +240,8 @@
 
     <header>
         <a href="#home" class="logo-box">
-            <img src="Photoroom_20260328_185630.png" alt="Puur Natuur Lodges Logo" class="logo-img">
+            <!-- Punt 6: logo.png in de header -->
+            <img src="logo.png" alt="Puur Natuur Lodges Logo" class="logo-img">
         </a>
         
         <div class="hamburger" id="hamburger">
@@ -246,8 +260,9 @@
         <div class="hero-bg"></div>
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <h1>Ontspan in het groen: Jouw vakantie in Zuid-Holland.</h1>
-            <p>Van huisjes dichtbij het strand tot lodges midden in de natuur. Ontdek onze zorgvuldig geselecteerde verblijven via onze betrouwbare parkpartners.</p>
+            <!-- Punt 5: Nieuwe wervende H1 titel -->
+            <h1>Word wakker in de natuur. Exclusieve lodges in Zuid-Holland.</h1>
+            <p>Van huisjes dichtbij het strand tot lodges midden in het groen. Ontdek onze zorgvuldig geselecteerde verblijven via onze betrouwbare parkpartners.</p>
             <a href="#collectie" class="btn">Bekijk onze Lodges</a>
         </div>
     </section>
@@ -258,73 +273,80 @@
         <!-- LODGE 1: BRANDING 104 -->
         <div class="huisje-rij scroll-element">
             <div class="huisje-foto-container" id="slider-branding104">
-                <img src="https://a0.muscache.com/im/pictures/prohost-api/Hosting-980271721982717540/original/621c1713-d1cf-4211-8cf9-098e900f6906.jpeg?im_w=1200" class="slide active" alt="Branding 104 Bungalow Buiten">
-                <img src="https://cdn.bookingexperts.com/uploads/image/image/759834/cover_Signature_stay_Branding_104.png" class="slide" alt="Branding 104 Terras en Buiten">
-                <img src="https://cdn.bookingexperts.com/uploads/image/image/268707/cover_2._Woonkamer__5_.jpg" class="slide" alt="Branding 104 Woonkamer 1">
-                <img src="https://cdn.bookingexperts.com/uploads/image/image/268704/cover_2._Woonkamer__1_.jpg" class="slide" alt="Branding 104 Woonkamer 2">
-                <img src="https://cdn.bookingexperts.com/uploads/image/image/268718/cover_3._Keuken__5_.jpg" class="slide" alt="Branding 104 Keuken">
-                <img src="https://cdn.bookingexperts.com/uploads/image/image/268727/cover_4._Slaapkamers__9_.jpg" class="slide" alt="Branding 104 Slaapkamer">
-                
+                <div class="slide-track">
+                    <img src="https://a0.muscache.com/im/pictures/prohost-api/Hosting-980271721982717540/original/621c1713-d1cf-4211-8cf9-098e900f6906.jpeg?im_w=1200" class="slide active" alt="Branding 104 Bungalow Buiten">
+                    <img src="https://cdn.bookingexperts.com/uploads/image/image/759834/cover_Signature_stay_Branding_104.png" class="slide" alt="Branding 104 Terras en Buiten">
+                    <img src="https://cdn.bookingexperts.com/uploads/image/image/268707/cover_2._Woonkamer__5_.jpg" class="slide" alt="Branding 104 Woonkamer 1">
+                    <img src="https://cdn.bookingexperts.com/uploads/image/image/268704/cover_2._Woonkamer__1_.jpg" class="slide" alt="Branding 104 Woonkamer 2">
+                    <img src="https://cdn.bookingexperts.com/uploads/image/image/268718/cover_3._Keuken__5_.jpg" class="slide" alt="Branding 104 Keuken">
+                    <img src="https://cdn.bookingexperts.com/uploads/image/image/268727/cover_4._Slaapkamers__9_.jpg" class="slide" alt="Branding 104 Slaapkamer">
+                </div>
                 <button class="slider-btn prev" aria-label="Vorige foto" onclick="moveSlide('slider-branding104', -1)">&#10094;</button>
                 <button class="slider-btn next" aria-label="Volgende foto" onclick="moveSlide('slider-branding104', 1)">&#10095;</button>
             </div>
             <div class="huisje-tekst">
                 <h3>Branding 104 - Ouddorp</h3>
-                <div class="tags"><span class="tag">4 Personen</span><span class="tag">Dichtbij strand</span><span class="tag">Kookeiland</span></div>
+                <!-- Punt 5: Gestructureerde tags -->
+                <div class="tags"><span class="tag">4 Personen</span><span class="tag">Nabij Strand</span><span class="tag">Luxe Kookeiland</span></div>
                 <p>Een sfeervolle, moderne bungalow op het kindvriendelijke familiepark Het Oude Nieuwland. Geniet van de luxe van een prachtig kookeiland, vloerverwarming en een riant terras om volledig te ontspannen.</p>
-                <a href="https://www.ouddorpconnection.nl/ouddorp-connection/ouddorp/branding-104-het-oude-nieuwland-ouddorp?tag_ids%5B%5D=753758" target="_blank" class="btn">Bekijk & Boek</a>
+                <!-- Punt 5: Nieuwe call-to-action -->
+                <a href="https://www.ouddorpconnection.nl/ouddorp-connection/ouddorp/branding-104-het-oude-nieuwland-ouddorp?tag_ids%5B%5D=753758" target="_blank" class="btn">Prijzen & Beschikbaarheid</a>
             </div>
         </div>
 
-        <div class="golf-lijn scroll-element"></div>
+        <div class="strakke-lijn scroll-element"></div>
 
         <!-- LODGE 2: SUMMIO HERKINGEN (Omgekeerd voor design) -->
         <div class="huisje-rij omgekeerd scroll-element">
             <div class="huisje-foto-container" id="slider-herkingen">
-                <img src="https://cdn.bookzoapi.nl/summiozeedijk/142_1400.webp" class="slide active" alt="Bungalow 4C Herkingen Buiten">
-                <img src="https://cdn.bookzoapi.nl/summiozeedijk/143_1400.webp" class="slide" alt="Bungalow 4C Herkingen Woonkamer">
-                <img src="https://cdn.bookzoapi.nl/summiozeedijk/144_1400.webp" class="slide" alt="Bungalow 4C Herkingen Keuken">
-                <img src="https://cdn.bookzoapi.nl/summiozeedijk/145_1400.webp" class="slide" alt="Bungalow 4C Herkingen Slaapkamer">
-                <img src="https://cdn.bookzoapi.nl/summiozeedijk/146_1400.webp" class="slide" alt="Bungalow 4C Herkingen Badkamer">
-                
+                <div class="slide-track">
+                    <img src="https://cdn.bookzoapi.nl/summiozeedijk/142_1400.webp" class="slide active" alt="Bungalow 4C Herkingen Buiten">
+                    <img src="https://cdn.bookzoapi.nl/summiozeedijk/143_1400.webp" class="slide" alt="Bungalow 4C Herkingen Woonkamer">
+                    <img src="https://cdn.bookzoapi.nl/summiozeedijk/144_1400.webp" class="slide" alt="Bungalow 4C Herkingen Keuken">
+                    <img src="https://cdn.bookzoapi.nl/summiozeedijk/145_1400.webp" class="slide" alt="Bungalow 4C Herkingen Slaapkamer">
+                    <img src="https://cdn.bookzoapi.nl/summiozeedijk/146_1400.webp" class="slide" alt="Bungalow 4C Herkingen Badkamer">
+                </div>
                 <button class="slider-btn prev" aria-label="Vorige foto" onclick="moveSlide('slider-herkingen', -1)">&#10094;</button>
                 <button class="slider-btn next" aria-label="Volgende foto" onclick="moveSlide('slider-herkingen', 1)">&#10095;</button>
             </div>
             <div class="huisje-tekst">
                 <h3>Bungalow 4C - Herkingen</h3>
-                <div class="tags"><span class="tag">Nummer 36 & 37</span><span class="tag">Nabij Water</span><span class="tag">Summio Park</span></div>
+                <!-- Punt 5: Gestructureerde tags -->
+                <div class="tags"><span class="tag">4 Personen</span><span class="tag">Nabij Water</span><span class="tag">Summio Park</span></div>
                 <p>Twee identieke, comfortabele en ruime bungalows gelegen op een rustig park in Herkingen. Ideaal voor rustzoekers, fietsers en watersporters die willen genieten van de rijke natuur en het water van Zuid-Holland.</p>
                 
-                <!-- Twee losse knoppen voor nummer 36 en 37 -->
                 <div class="button-group">
-                    <a href="#" target="_blank" class="btn">Boek Nr. 36</a>
-                    <a href="#" target="_blank" class="btn">Boek Nr. 37</a>
+                    <a href="#" target="_blank" class="btn">Prijzen Nr. 36</a>
+                    <a href="#" target="_blank" class="btn">Prijzen Nr. 37</a>
                 </div>
             </div>
         </div>
 
-        <div class="golf-lijn scroll-element"></div>
+        <div class="strakke-lijn scroll-element"></div>
 
         <!-- LODGE 3: LANDAL BRIELLE -->
         <div class="huisje-rij scroll-element">
             <div class="huisje-foto-container" id="slider-brielle">
-                <img src="https://mss-p-014-delivery.stylelabs.cloud/api/public/content/9201634-4x3?t=cw800" class="slide active" alt="Lodge Meadow 6 Buiten">
-                <img src="https://mss-p-014-delivery.stylelabs.cloud/api/public/content/9201741-4x5?t=w540" class="slide" alt="Lodge Meadow 6 Woonkamer">
-                <img src="https://api.landalmakelaardij.nl/uploads/object/1024x/d4c1450ec43a42351e6a86611526c83524a24dc9.jpg" class="slide" alt="Lodge Meadow 6 Overzicht">
-                <img src="https://mss-p-014-delivery.stylelabs.cloud/api/public/content/9201595-original?t=w1024" class="slide" alt="Lodge Meadow 6 Interieur">
-                
+                <div class="slide-track">
+                    <img src="https://mss-p-014-delivery.stylelabs.cloud/api/public/content/9201634-4x3?t=cw800" class="slide active" alt="Lodge Meadow 6 Buiten">
+                    <img src="https://mss-p-014-delivery.stylelabs.cloud/api/public/content/9201741-4x5?t=w540" class="slide" alt="Lodge Meadow 6 Woonkamer">
+                    <img src="https://api.landalmakelaardij.nl/uploads/object/1024x/d4c1450ec43a42351e6a86611526c83524a24dc9.jpg" class="slide" alt="Lodge Meadow 6 Overzicht">
+                    <img src="https://mss-p-014-delivery.stylelabs.cloud/api/public/content/9201595-original?t=w1024" class="slide" alt="Lodge Meadow 6 Interieur">
+                </div>
                 <button class="slider-btn prev" aria-label="Vorige foto" onclick="moveSlide('slider-brielle', -1)">&#10094;</button>
                 <button class="slider-btn next" aria-label="Volgende foto" onclick="moveSlide('slider-brielle', 1)">&#10095;</button>
             </div>
             <div class="huisje-tekst">
                 <h3>Lodge Meadow 6 - Brielle</h3>
-                <div class="tags"><span class="tag">Lodge Nummer 31</span><span class="tag">Midden in Natuur</span><span class="tag">Landal Park</span></div>
-                <p>Een moderne en sfeervolle houten lodge die perfect opgaat in de omgeving van Voorne-Putten. Word wakker met het gezang van vogels, omringd door veel groen en de historische charme van Brielle om de hoek.</p>
-                <a href="#" target="_blank" class="btn">Bekijk & Boek</a>
+                <!-- Punt 5: Gestructureerde tags -->
+                <div class="tags"><span class="tag">6 Personen</span><span class="tag">Midden in Natuur</span><span class="tag">Landal Park</span></div>
+                <p>Een moderne en sfeervolle houten lodge (Nummer 31) die perfect opgaat in de omgeving van Voorne-Putten. Word wakker met het gezang van vogels, omringd door veel groen en de historische charme van Brielle om de hoek.</p>
+                <a href="#" target="_blank" class="btn">Prijzen & Beschikbaarheid</a>
             </div>
         </div>
     </section>
 
+    <!-- Punt 3: Dubbele Over Ons sectie is verwijderd (er staat er nu netjes één) -->
     <section id="over-ons">
         <div class="sectie-banner scroll-element">
             <div class="banner-background"></div>
@@ -370,7 +392,12 @@
             <div class="form-sectie">
                 <h3>Stuur een bericht</h3>
                 <p style="margin-bottom: 20px;">Heb je een specifieke vraag over één van onze lodges? Vul het formulier in.</p>
-                <form action="https://formspree.io/f/VUL_HIER_JE_CODE_IN" method="POST">
+                <!-- Punt 1: Formulier actie naar formsubmit gezet voor bionda.de.wit@gmail.com -->
+                <form action="https://formsubmit.co/bionda.de.wit@gmail.com" method="POST">
+                    <!-- Bezoeker krijgt geen lelijke captcha en blijft op de pagina met een bedankje -->
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_next" value="https://huisjeindebranding.vercel.app/#contact">
+                    
                     <input type="text" name="Naam" placeholder="Jouw Naam" required>
                     <input type="email" name="Email" placeholder="Jouw E-mailadres" required>
                     <textarea rows="5" name="Bericht" placeholder="Waar kunnen we je mee helpen?" required></textarea>
@@ -382,7 +409,8 @@
 
     <footer>
         <a href="#home">
-            <img src="Photoroom_20260328_185630.png" alt="Puur Natuur Lodges Logo" class="footer-logo">
+            <!-- Punt 6: logo.png in de footer -->
+            <img src="logo.png" alt="Puur Natuur Lodges Logo" class="footer-logo">
         </a>
         <div class="footer-nav">
             <a href="#home">Home</a>
@@ -392,7 +420,7 @@
             <a href="algemene-voorwaarden.html">Algemene Voorwaarden</a>
             <a href="privacy.html">Privacy</a>
         </div>
-        <div class="disclaimer"><strong>Transparantie:</strong> Wij zijn een digitale etalage voor unieke natuurhuisjes in Zuid-Holland. Wanneer je klikt op "Bekijk & Boek" sturen we je door naar de parkpartner. Bij een boeking ontvangen wij een commissie. Dit kost jou niets extra, maar helpt ons deze website te onderhouden.</div>
+        <div class="disclaimer"><strong>Transparantie:</strong> Wij zijn een digitale etalage voor unieke natuurhuisjes in Zuid-Holland. Wanneer je klikt op "Prijzen & Beschikbaarheid" sturen we je door naar de parkpartner. Bij een boeking ontvangen wij een commissie. Dit kost jou niets extra, maar helpt ons deze website te onderhouden.</div>
         
         <p>&copy; 2026 Puur Natuur Lodges.</p>
         
@@ -405,6 +433,7 @@
     </div>
 
     <script>
+        // --- Hamburger Menu ---
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('nav-menu');
         const navLinks = document.querySelectorAll('.nav-menu a');
@@ -421,6 +450,7 @@
             });
         });
 
+        // --- Scroll Animaties ---
         document.addEventListener('DOMContentLoaded', () => {
             const elements = document.querySelectorAll('.scroll-element');
             if ('IntersectionObserver' in window) {
@@ -439,7 +469,11 @@
             }
         });
 
+        // --- Slider Logica (Alleen voor Desktop, mobiel is native swipe) ---
         function moveSlide(sliderId, direction) {
+            // Check of we op mobiel zitten, zo ja, doe niets met de knoppen.
+            if(window.innerWidth <= 900) return;
+
             const slider = document.getElementById(sliderId);
             const slides = slider.querySelectorAll('.slide');
             let activeIndex = Array.from(slides).findIndex(slide => slide.classList.contains('active'));
@@ -448,6 +482,7 @@
             slides[activeIndex].classList.add('active');
         }
 
+        // --- Cookies ---
         const cookieBanner = document.getElementById('cookieBanner');
         if (localStorage.getItem('cookiesGeaccepteerd') === 'ja') {
             cookieBanner.style.display = 'none';
