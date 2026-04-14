@@ -266,20 +266,6 @@
         #contact .banner-background { background-image: url('https://images.ctfassets.net/a26vcxaqtbwm/2mpQmoLrDBQeeuzOM1MX8C/204dbedf9b7c09bcb0a99f5960274319/Tulpenvelden_Zeeland-25.jpg'); }
         #collectie-banner .banner-background { background-image: url('https://cloud01.topsite.nl/beleefbrielle.nl/header/72/0000-adobestock-612481439-1880_3840x1800.jpg.webp'); }
 
-        /* --- OVER ONS --- */
-        .content-wrap { max-width: 900px; margin: 0 auto 100px; padding: 0 5vw; }
-        .text-block { background: var(--bg-sage); padding: 60px; border-radius: 12px; margin-bottom: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.04); position: relative; overflow: hidden; opacity: 0; transform: translateY(40px); transition: opacity 1s, transform 1s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s ease;}
-        .zichtbaar.text-block { opacity: 1; transform: translateY(0); }
-        .text-block::before { content: ''; position: absolute; top: 0; left: 0; width: 6px; height: 100%; background: var(--primary-dark-green); transition: width 0.3s ease; }
-        .text-block-alt { background: var(--bg-peach); }
-        .text-block-alt::before { background: var(--accent-gold); }
-        
-        .text-block:hover { transform: translateY(-5px); box-shadow: 0 30px 60px rgba(0,0,0,0.08); }
-        .text-block:hover::before { width: 10px; } 
-        
-        .text-block h3 { font-size: 2.2rem; margin-bottom: 20px; }
-        .text-block p { font-size: 1.1rem; margin-bottom: 20px; color: #5a7563; }
-
         /* --- CONTACT --- */
         .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; max-width: 1200px; margin: 0 auto 100px; padding: 0 5vw; opacity: 0; transform: translateY(40px); transition: all 1s ease;}
         .zichtbaar.contact-grid { opacity: 1; transform: translateY(0); }
@@ -380,10 +366,16 @@
 
         @media (max-width: 768px) {
             .hero { padding-bottom: 12vh; }
-            .hero-bg { object-position: 28% 50%; /* Positioneer de vuurtoren perfect in het midden van de lege ruimte op mobiel */ }
+            .hero-bg { 
+                /* FIX: Verschuif de vuurtoren naar het midden en schuif de afbeelding omhoog om lucht te verwijderen */
+                object-position: 32% 100%; 
+            }
             .hero-content h1 { font-size: 2.5rem; margin-bottom: 15px; }
             .hero-content p { font-size: 1rem; margin-bottom: 30px; }
             
+            /* Overlay gradient aanpassing: meer transparant bovenin voor de vuurtoren */
+            .hero-overlay { background: linear-gradient(180deg, rgba(230, 223, 211, 0) 0%, rgba(230, 223, 211, 0.4) 50%, rgba(230, 223, 211, 0.9) 80%, rgba(230, 223, 211, 1) 100%); }
+
             .collectie { padding: 60px 5vw; }
             .sectie-titel { font-size: 2.2rem; margin-bottom: 15px; }
             .sectie-subtitel { margin-bottom: 50px; font-size: 0.9rem;}
@@ -403,15 +395,6 @@
             
             .sectie-banner { height: 25vh; margin-bottom: 40px; }
             .sectie-banner h2 { font-size: 2.2rem; }
-            
-            .content-wrap { padding: 0 5vw; margin-bottom: 60px; }
-            .text-block { padding: 30px 20px; margin-bottom: 30px; }
-            .text-block h3 { font-size: 1.6rem; }
-            .text-block p { font-size: 0.95rem; }
-            
-            .contact-grid { margin-bottom: 60px; }
-            .faq-sectie h3, .form-sectie h3 { font-size: 1.8rem; margin-bottom: 20px; }
-            .form-sectie { padding: 30px 20px; }
             
             footer { padding: 50px 5vw 30px; }
             .footer-nav { flex-direction: column; gap: 15px; align-items: center; }
