@@ -8,6 +8,11 @@
     <meta name="description" content="Ontdek onze unieke vakantiehuisjes in de natuur van Zuid-Holland. Rust, ruimte en ontspanning boek je via onze betrouwbare parkpartners.">
     <meta name="author" content="Puur Natuur Lodges">
     
+    <!-- SEO Open Graph Tags toegevoegd -->
+    <meta property="og:title" content="Puur Natuur Lodges | Vakantie in Zuid-Holland">
+    <meta property="og:description" content="Ontdek onze unieke vakantiehuisjes in de natuur van Zuid-Holland. Rust, ruimte en ontspanning.">
+    <meta property="og:type" content="website">
+    
     <!-- Aangepast: Verwijzing naar het juiste bestand voor het icoontje in de tab -->
     <link rel="icon" type="image/png" href="logo.png">
     
@@ -43,16 +48,22 @@
             position: relative;
         }
 
-        /* DYNAMISCHE ACHTERGROND */
+        /* DYNAMISCHE ACHTERGROND (Gefixeerd zodat ze meescrollen en altijd zichtbaar zijn) */
         body::before {
-            content: ''; position: absolute; top: 120vh; left: -10vw;
+            content: ''; position: fixed; top: 20vh; left: -10vw;
             width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(163, 184, 168, 0.25) 0%, rgba(247, 245, 240, 0) 70%);
             border-radius: 50%; z-index: -1;
         }
         body::after {
-            content: ''; position: absolute; top: 220vh; right: -10vw;
+            content: ''; position: fixed; bottom: -10vh; right: -10vw;
             width: 40vw; height: 40vw; background: radial-gradient(circle, rgba(212, 123, 90, 0.15) 0%, rgba(247, 245, 240, 0) 70%);
             border-radius: 50%; z-index: -1;
+        }
+
+        /* TOEGANKELIJKHEID: Duidelijke focus state voor toetsenbordgebruikers */
+        a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+            outline: 3px solid var(--accent-terra);
+            outline-offset: 4px;
         }
 
         h1, h2, h3 { font-family: 'Playfair Display', serif; color: var(--primary-dark-green); font-weight: 600; }
@@ -122,6 +133,10 @@
         .slider-btn.prev { left: 0; border-radius: 0 4px 4px 0; }
         .slider-btn.next { right: 0; border-radius: 4px 0 0 4px; }
 
+        /* Zorgt dat overlappende tekst de pijltjes op de computerversie niet verbergt */
+        .huisje-rij:not(.omgekeerd) .slider-btn.next { right: 100px; }
+        .huisje-rij.omgekeerd .slider-btn.prev { left: 100px; }
+
         /* DYNAMISCHE OVERLAP TEKST */
         .huisje-tekst { 
             flex: 0.8; 
@@ -166,6 +181,7 @@
         /* --- OVER ONS --- */
         .content-wrap { max-width: 900px; margin: 0 auto 100px; padding: 0 5vw; }
         .text-block { background: var(--white); padding: 50px; border-radius: 8px; margin-bottom: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); border-left: 6px solid var(--primary-dark-green); transition: transform 0.4s ease;}
+        .text-block-alt { border-left-color: var(--accent-terra); }
         .text-block:hover { transform: translateY(-5px); }
         .text-block h3 { font-size: 2.2rem; margin-bottom: 20px; }
         .text-block p { font-size: 1.1rem; margin-bottom: 20px; color: #4a6a75; }
@@ -205,8 +221,8 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes kenBurns { 0% { transform: scale(1) translate(0, 0); } 100% { transform: scale(1.15) translate(-2%, -1%); } }
 
-        /* --- RESPONSIVE & MOBIELE OPTIMALISATIE --- */
-        @media (max-width: 900px) {
+        /* --- RESPONSIVE & MOBIELE OPTIMALISATIE (Breakpoint naar 1024px voor tablets) --- */
+        @media (max-width: 1024px) {
             .hamburger { display: flex; }
             .nav-menu { position: fixed; top: 0; right: -100%; width: 70vw; height: 100vh; background-color: rgba(255,255,255,0.98); backdrop-filter: blur(10px); flex-direction: column; justify-content: center; align-items: center; transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1); box-shadow: -5px 0 15px rgba(0,0,0,0.05); }
             .nav-menu.active { right: 0; }
@@ -217,14 +233,17 @@
 
             .huisje-rij, .huisje-rij.omgekeerd { flex-direction: column; gap: 0; margin-bottom: 60px; }
             
-            /* Mobiele Swiper Setup */
+            /* Mobiele Swiper Setup met knoppen */
             .huisje-foto-container { height: 350px; width: 100%; border-radius: 8px;}
-            .slider-btn { display: none; } /* Pijltjes verbergen op mobiel */
+            .slider-btn { padding: 10px; font-size: 1rem; }
             
-            /* Zorgt dat afbeeldingen horizontaal scrollbaar worden */
-            .slide-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
-            .slide-track::-webkit-scrollbar { display: none; }
-            .slide { position: relative; flex: 0 0 100%; width: 100%; height: 100%; opacity: 1; scroll-snap-align: center; border-radius: 8px;}
+            /* Pijltjes op mobiel weer netjes aan de randen */
+            .huisje-rij:not(.omgekeerd) .slider-btn.next { right: 0; }
+            .huisje-rij.omgekeerd .slider-btn.prev { left: 0; }
+            
+            .slide-track { display: block; overflow-x: visible; scroll-snap-type: none; }
+            .slide { position: absolute; flex: none; width: 100%; height: 100%; opacity: 0; scroll-snap-align: none; border-radius: 8px;}
+            .slide.active { opacity: 1; }
 
             /* Minder agressieve overlap op mobiel voor rustiger beeld */
             .huisje-tekst { margin: -30px 10px 0 10px; text-align: center; padding: 30px 15px; }
@@ -277,12 +296,11 @@
         <div class="huisje-rij scroll-element">
             <div class="huisje-foto-container" id="slider-branding104">
                 <div class="slide-track">
-                    <img src="https://a0.muscache.com/im/pictures/prohost-api/Hosting-980271721982717540/original/621c1713-d1cf-4211-8cf9-098e900f6906.jpeg?im_w=1200" class="slide active" alt="Branding 104 Bungalow Buiten">
-                    <img src="https://cdn.bookingexperts.com/uploads/image/image/759834/cover_Signature_stay_Branding_104.png" class="slide" alt="Branding 104 Terras en Buiten">
-                    <img src="https://cdn.bookingexperts.com/uploads/image/image/268707/cover_2._Woonkamer__5_.jpg" class="slide" alt="Branding 104 Woonkamer 1">
-                    <img src="https://cdn.bookingexperts.com/uploads/image/image/268704/cover_2._Woonkamer__1_.jpg" class="slide" alt="Branding 104 Woonkamer 2">
-                    <img src="https://cdn.bookingexperts.com/uploads/image/image/268718/cover_3._Keuken__5_.jpg" class="slide" alt="Branding 104 Keuken">
-                    <img src="https://cdn.bookingexperts.com/uploads/image/image/268727/cover_4._Slaapkamers__9_.jpg" class="slide" alt="Branding 104 Slaapkamer">
+                    <img src="https://a0.muscache.com/im/pictures/prohost-api/Hosting-980271721982717540/original/621c1713-d1cf-4211-8cf9-098e900f6906.jpeg?im_w=1200" class="slide active" alt="Branding 104 Bungalow Buiten" loading="lazy">
+                    <img src="https://cdn.bookingexperts.com/uploads/image/image/268707/cover_2._Woonkamer__5_.jpg" class="slide" alt="Branding 104 Woonkamer 1" loading="lazy">
+                    <img src="https://cdn.bookingexperts.com/uploads/image/image/268704/cover_2._Woonkamer__1_.jpg" class="slide" alt="Branding 104 Woonkamer 2" loading="lazy">
+                    <img src="https://cdn.bookingexperts.com/uploads/image/image/268718/cover_3._Keuken__5_.jpg" class="slide" alt="Branding 104 Keuken" loading="lazy">
+                    <img src="https://cdn.bookingexperts.com/uploads/image/image/268727/cover_4._Slaapkamers__9_.jpg" class="slide" alt="Branding 104 Slaapkamer" loading="lazy">
                 </div>
                 <button class="slider-btn prev" aria-label="Vorige foto" onclick="moveSlide('slider-branding104', -1)">&#10094;</button>
                 <button class="slider-btn next" aria-label="Volgende foto" onclick="moveSlide('slider-branding104', 1)">&#10095;</button>
@@ -301,11 +319,11 @@
         <div class="huisje-rij omgekeerd scroll-element">
             <div class="huisje-foto-container" id="slider-herkingen">
                 <div class="slide-track">
-                    <img src="https://cdn.bookzoapi.nl/summiozeedijk/142_1400.webp" class="slide active" alt="Bungalow 4C Herkingen Buiten">
-                    <img src="https://cdn.bookzoapi.nl/summiozeedijk/143_1400.webp" class="slide" alt="Bungalow 4C Herkingen Woonkamer">
-                    <img src="https://cdn.bookzoapi.nl/summiozeedijk/144_1400.webp" class="slide" alt="Bungalow 4C Herkingen Keuken">
-                    <img src="https://cdn.bookzoapi.nl/summiozeedijk/145_1400.webp" class="slide" alt="Bungalow 4C Herkingen Slaapkamer">
-                    <img src="https://cdn.bookzoapi.nl/summiozeedijk/146_1400.webp" class="slide" alt="Bungalow 4C Herkingen Badkamer">
+                    <img src="https://cdn.bookzoapi.nl/summiozeedijk/142_1400.webp" class="slide active" alt="Bungalow 4C Herkingen Buiten" loading="lazy">
+                    <img src="https://cdn.bookzoapi.nl/summiozeedijk/143_1400.webp" class="slide" alt="Bungalow 4C Herkingen Woonkamer" loading="lazy">
+                    <img src="https://cdn.bookzoapi.nl/summiozeedijk/144_1400.webp" class="slide" alt="Bungalow 4C Herkingen Keuken" loading="lazy">
+                    <img src="https://cdn.bookzoapi.nl/summiozeedijk/145_1400.webp" class="slide" alt="Bungalow 4C Herkingen Slaapkamer" loading="lazy">
+                    <img src="https://cdn.bookzoapi.nl/summiozeedijk/146_1400.webp" class="slide" alt="Bungalow 4C Herkingen Badkamer" loading="lazy">
                 </div>
                 <button class="slider-btn prev" aria-label="Vorige foto" onclick="moveSlide('slider-herkingen', -1)">&#10094;</button>
                 <button class="slider-btn next" aria-label="Volgende foto" onclick="moveSlide('slider-herkingen', 1)">&#10095;</button>
@@ -316,8 +334,9 @@
                 <p>Twee identieke, comfortabele en ruime bungalows gelegen op een rustig park in Herkingen. Ideaal voor rustzoekers, fietsers en watersporters die willen genieten van de rijke natuur en het water van Zuid-Holland.</p>
                 
                 <div class="button-group">
-                    <a href="#" target="_blank" class="btn">Prijzen Nr. 36</a>
-                    <a href="#" target="_blank" class="btn">Prijzen Nr. 37</a>
+                    <!-- Dode links gerepareerd -->
+                    <a href="#contact" class="btn">Vraag naar Nr. 36</a>
+                    <a href="#contact" class="btn">Vraag naar Nr. 37</a>
                 </div>
             </div>
         </div>
@@ -328,10 +347,10 @@
         <div class="huisje-rij scroll-element">
             <div class="huisje-foto-container" id="slider-brielle">
                 <div class="slide-track">
-                    <img src="https://mss-p-014-delivery.stylelabs.cloud/api/public/content/9201634-4x3?t=cw800" class="slide active" alt="Lodge Meadow 6 Buiten">
-                    <img src="https://mss-p-014-delivery.stylelabs.cloud/api/public/content/9201741-4x5?t=w540" class="slide" alt="Lodge Meadow 6 Woonkamer">
-                    <img src="https://api.landalmakelaardij.nl/uploads/object/1024x/d4c1450ec43a42351e6a86611526c83524a24dc9.jpg" class="slide" alt="Lodge Meadow 6 Overzicht">
-                    <img src="https://mss-p-014-delivery.stylelabs.cloud/api/public/content/9201595-original?t=w1024" class="slide" alt="Lodge Meadow 6 Interieur">
+                    <img src="https://mss-p-014-delivery.stylelabs.cloud/api/public/content/9201634-4x3?t=cw800" class="slide active" alt="Lodge Meadow 6 Buiten" loading="lazy">
+                    <img src="https://mss-p-014-delivery.stylelabs.cloud/api/public/content/9201741-4x5?t=w540" class="slide" alt="Lodge Meadow 6 Woonkamer" loading="lazy">
+                    <img src="https://api.landalmakelaardij.nl/uploads/object/1024x/d4c1450ec43a42351e6a86611526c83524a24dc9.jpg" class="slide" alt="Lodge Meadow 6 Overzicht" loading="lazy">
+                    <img src="https://mss-p-014-delivery.stylelabs.cloud/api/public/content/9201595-original?t=w1024" class="slide" alt="Lodge Meadow 6 Interieur" loading="lazy">
                 </div>
                 <button class="slider-btn prev" aria-label="Vorige foto" onclick="moveSlide('slider-brielle', -1)">&#10094;</button>
                 <button class="slider-btn next" aria-label="Volgende foto" onclick="moveSlide('slider-brielle', 1)">&#10095;</button>
@@ -340,7 +359,8 @@
                 <h3>Lodge Meadow 6 - Brielle</h3>
                 <div class="tags"><span class="tag">6 Personen</span><span class="tag">Midden in Natuur</span><span class="tag">Landal Park</span></div>
                 <p>Een moderne en sfeervolle houten lodge (Nummer 31) die perfect opgaat in de omgeving van Voorne-Putten. Word wakker met het gezang van vogels, omringd door veel groen en de historische charme van Brielle om de hoek.</p>
-                <a href="#" target="_blank" class="btn">Prijzen & Beschikbaarheid</a>
+                <!-- Dode link gerepareerd -->
+                <a href="#contact" class="btn">Prijzen & Beschikbaarheid</a>
             </div>
         </div>
     </section>
@@ -357,7 +377,8 @@
                 <p>Omdat het internet vaak vol staat met duizenden opties waardoor je door de bomen het bos niet meer ziet, hebben wij onze eigen mooiste plekjes in Ouddorp, Herkingen en Brielle alvast voor je geselecteerd.</p>
             </div>
 
-            <div class="text-block" style="border-left-color: var(--accent-terra);">
+            <!-- Inline style vervangen door class text-block-alt -->
+            <div class="text-block text-block-alt">
                 <h3>Hoe wij werken</h3>
                 <p>Puur Natuur Lodges is onze <strong>onafhankelijke, digitale etalage</strong>. Wij werken samen met betrouwbare vakantieparken (zoals Summio en Landal) die het beheer en de verhuur van onze huisjes faciliteren via een partner-programma.</p>
                 <p>Dat betekent dat wij de mooiste plekjes in Zuid-Holland met trots presenteren. Als je besluit te boeken via onze links, word je doorgestuurd naar het park zelf en worden we daarvoor beloond met een kleine commissie. Dit kost jou helemaal niets extra, maar helpt ons om deze lodges met liefde te blijven onderhouden!</p>
@@ -394,10 +415,19 @@
                     <input type="hidden" name="_captcha" value="false">
                     <input type="hidden" name="_next" value="https://huisjeindebranding.vercel.app/#contact">
                     
-                    <input type="text" name="Naam" placeholder="Jouw Naam" required>
-                    <input type="email" name="Email" placeholder="Jouw E-mailadres" required>
-                    <textarea rows="5" name="Bericht" placeholder="Waar kunnen we je mee helpen?" required></textarea>
+                    <!-- Toegankelijkheid toegevoegd met labels -->
+                    <label for="naamInput" style="display: none;">Jouw Naam</label>
+                    <input type="text" id="naamInput" name="Naam" placeholder="Jouw Naam" required aria-label="Jouw Naam">
+                    
+                    <label for="emailInput" style="display: none;">Jouw E-mailadres</label>
+                    <input type="email" id="emailInput" name="Email" placeholder="Jouw E-mailadres" required aria-label="Jouw E-mailadres">
+                    
+                    <label for="berichtInput" style="display: none;">Waar kunnen we je mee helpen?</label>
+                    <textarea rows="5" id="berichtInput" name="Bericht" placeholder="Waar kunnen we je mee helpen?" required aria-label="Jouw bericht"></textarea>
+                    
                     <button type="submit" class="btn" style="width: 100%;">Bericht Verzenden</button>
+                    <!-- Waarschuwing voor spam -->
+                    <p style="font-size: 0.75rem; margin-top: 15px; color: #4a6a75; text-align: center;"><strong>Tip voor livegang:</strong> FormSubmit raadt aan om je e-mailadres te vervangen door hun <em>Random String</em> om spam tegen te gaan.</p>
                 </form>
             </div>
         </div>
@@ -465,13 +495,12 @@
             }
         });
 
-        // --- Slider Logica (Alleen voor Desktop, mobiel is native swipe) ---
+        // --- Slider Logica (Aangepast: Werkt nu overal met 2 pijltjes!) ---
         function moveSlide(sliderId, direction) {
-            if(window.innerWidth <= 900) return;
-
             const slider = document.getElementById(sliderId);
             const slides = slider.querySelectorAll('.slide');
             let activeIndex = Array.from(slides).findIndex(slide => slide.classList.contains('active'));
+            
             slides[activeIndex].classList.remove('active');
             activeIndex = (activeIndex + direction + slides.length) % slides.length;
             slides[activeIndex].classList.add('active');
