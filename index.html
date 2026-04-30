@@ -31,6 +31,12 @@
     }
     </script>
 
+    <!-- PAGESPEED OPTIMALISATIES: Preconnects voor razendsnelle image downloads -->
+    <link rel="preconnect" href="https://assets.plaece.nl" crossorigin>
+    <link rel="preconnect" href="https://a0.muscache.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.bookingexperts.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.bookzoapi.nl" crossorigin>
+
     <!-- PAGESPEED OPTIMALISATIES: Preload de belangrijkste elementen bovenaan de pagina -->
     <link rel="preload" as="image" href="https://assets.plaece.nl/kuma-goereeoverflakkee/uploads/media/60a64b1adf234/homepage-header.jpg" fetchpriority="high">
     <link rel="preload" as="image" href="logo.png?v=2">
@@ -71,15 +77,17 @@
             position: relative;
         }
 
-        /* --- PRELOADER --- */
+        /* --- PRELOADER (Nu Pure CSS en Non-Blocking voor PageSpeed) --- */
         #preloader {
             position: fixed; inset: 0; background-color: var(--bg-body);
             z-index: 999999; display: flex; align-items: center; justify-content: center;
-            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
-            transform-origin: top;
+            pointer-events: none; /* Zorgt dat Google bots de content eronder direct zien */
+            animation: preloaderFadeOut 0.8s cubic-bezier(0.77, 0, 0.175, 1) 0.2s forwards;
         }
-        #preloader img { animation: pulse 2s infinite ease-in-out; }
-        body.loaded #preloader { transform: translateY(-100%); pointer-events: none; }
+        #preloader img { animation: pulse 1s infinite ease-in-out; }
+        @keyframes preloaderFadeOut {
+            to { transform: translateY(-100%); opacity: 0; visibility: hidden; }
+        }
         @keyframes pulse { 0% { opacity: 0.5; transform: scale(0.95); } 50% { opacity: 1; transform: scale(1); } 100% { opacity: 0.5; transform: scale(0.95); } }
 
         /* --- CUSTOM MAGNETIC CURSOR --- */
@@ -136,7 +144,21 @@
             border-radius: 50px;
         }
 
-        /* --- TEKST SPLIT ANIMATIES --- */
+        /* --- CSS ANIMATIES VOOR HERO (Voor razendsnelle LCP in PageSpeed) --- */
+        .hero-title, .hero-desc, .hero-btn {
+            opacity: 0;
+            animation: fadeUpIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+        .hero-title { animation-delay: 0.1s; }
+        .hero-desc { animation-delay: 0.3s; }
+        .hero-btn { animation-delay: 0.5s; }
+
+        @keyframes fadeUpIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- TEKST SPLIT ANIMATIES (Voor de rest van de site) --- */
         .word-wrap { display: inline-block; overflow: hidden; vertical-align: top; padding-right: 0.2em; margin-right: -0.2em; padding-bottom: 0.1em; margin-bottom: -0.1em;}
         .word { display: inline-block; transform: translateY(110%); transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1); }
         .zichtbaar .word { transform: translateY(0); }
@@ -189,11 +211,7 @@
         
         .hero-content { max-width: 650px; position: relative; z-index: 2; }
         .hero-content h1 { font-size: 4.8rem; line-height: 1.05; margin-bottom: 25px; letter-spacing: -1px; }
-        .hero-content p { font-size: 1.25rem; margin-bottom: 45px; color: var(--text-dark); font-weight: 400; opacity: 0; transform: translateY(30px); transition: opacity 0.6s 0.1s, transform 0.6s 0.1s; }
-        body.loaded .hero-content p { opacity: 0.9; transform: translateY(0); }
-        
-        .hero-content .btn { opacity: 0; transform: translateY(30px); transition: opacity 0.6s 0.2s, transform 0.6s 0.2s; }
-        body.loaded .hero-content .btn { opacity: 1; transform: translateY(0); }
+        .hero-content p { font-size: 1.25rem; margin-bottom: 45px; color: var(--text-dark); font-weight: 400; }
 
         /* --- COLLECTIE & HUISJES --- */
         .collectie { padding: 120px 5vw; max-width: 1300px; margin: 0 auto; position: relative; z-index: 1; }
@@ -218,7 +236,7 @@
         
         .slide { 
             flex: 0 0 100%; height: 100%; object-fit: cover; object-position: center center; 
-            scroll-snap-align: start; filter: saturate(1.05) contrast(1.02); transition: filter 0.8s ease, transform 0.4s ease;
+            scroll-snap-align: start; filter: saturate(1.05) contrast(1.02); transition: filter 0.8s ease, transform 0.4s ease; cursor: pointer;
         }
         .huisje-foto-container:hover .slide.active { filter: saturate(1.2) contrast(1.05); transform: scale(1.02); }
 
@@ -465,7 +483,7 @@
 </head>
 <body>
 
-    <!-- PAGESPEED OPTIMALISATIE: Preloader logo met vaste grootte voor betere CLS -->
+    <!-- PAGESPEED OPTIMALISATIE: Preloader logo met vaste grootte voor betere CLS, pure CSS sturing voor non-blocking LCP -->
     <div id="preloader"><img src="logo.png?v=2" alt="Laden..." width="80" height="80" style="width: 80px; height: auto;"></div>
     
     <!-- Verticale Scroll Balk -->
@@ -489,13 +507,14 @@
     </header>
 
     <section id="home" class="hero">
-        <!-- PAGESPEED OPTIMALISATIE: Explicit width/height toegevoegd, decoding="sync" verwijderd -->
+        <!-- PAGESPEED OPTIMALISATIE: Explicit width/height toegevoegd -->
         <img src="https://assets.plaece.nl/kuma-goereeoverflakkee/uploads/media/60a64b1adf234/homepage-header.jpg" alt="Zuid-Holland Natuur" class="hero-bg" id="hero-bg-parallax" fetchpriority="high" width="1920" height="1080">
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <h1 class="split-text">Ontsnap aan de waan van de dag.</h1>
-            <p>Ontdek zorgvuldig geselecteerde lodges in Zuid-Holland waar de tijd even stilstaat. Van huisjes aan het water tot verstopte parels in het groen.</p>
-            <a href="#collectie" class="btn">Vind jouw hideaway</a>
+            <!-- PAGESPEED OPTIMALISATIE: Animatie omgezet naar pure CSS i.p.v. JavaScript delay voor directe LCP weergave -->
+            <h1 class="hero-title">Ontsnap aan de waan van de dag.</h1>
+            <p class="hero-desc">Ontdek zorgvuldig geselecteerde lodges in Zuid-Holland waar de tijd even stilstaat. Van huisjes aan het water tot verstopte parels in het groen.</p>
+            <a href="#collectie" class="btn hero-btn">Vind jouw hideaway</a>
         </div>
     </section>
 
@@ -698,17 +717,8 @@
         function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
 
-        // --- 2. PRELOADER LOGICA ---
-        // PAGESPEED OPTIMALISATIE: We gebruiken nu DOMContentLoaded in plaats van window.load
-        // Dit zorgt ervoor dat Google de LCP meting kan afronden voordat alle trage resources geladen zijn.
-        document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                document.body.classList.add('loaded');
-                document.querySelectorAll('.hero-content .split-text').forEach(el => el.classList.add('zichtbaar'));
-            }, 50); // Een minimale pauze van 50ms om de browser de animatie te laten renderen.
-        });
-
-        // --- 3. SPLIT TEXT SETUP ---
+        // --- 2. TEKST SPLIT ANIMATIES (Voor elementen lager op de pagina) ---
+        // Let op: De Hero sectie is nu onafhankelijk van dit script voor optimale PageSpeed LCP!
         document.querySelectorAll('.split-text').forEach(el => {
             const words = el.innerText.split(' ');
             el.innerHTML = '';
@@ -724,7 +734,7 @@
             });
         });
 
-        // --- 4. MAGNETIC CURSOR LOGICA ---
+        // --- 3. MAGNETIC CURSOR LOGICA ---
         if (window.matchMedia("(pointer: fine)").matches) {
             const cursorDot = document.getElementById('cursor-dot');
             const cursorOutline = document.getElementById('cursor-outline');
@@ -765,7 +775,7 @@
             });
         }
 
-        // --- 5. INTERSECTION OBSERVER ---
+        // --- 4. INTERSECTION OBSERVER ---
         document.addEventListener('DOMContentLoaded', () => {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -784,7 +794,7 @@
             checkCookies();
         });
 
-        // --- 6. HAMBURGER MENU ---
+        // --- 5. HAMBURGER MENU ---
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('nav-menu');
         const navLinks = document.querySelectorAll('.nav-menu a');
@@ -792,7 +802,7 @@
         hamburger.addEventListener('click', () => { hamburger.classList.toggle('active'); navMenu.classList.toggle('active'); });
         navLinks.forEach(link => { link.addEventListener('click', () => { hamburger.classList.remove('active'); navMenu.classList.remove('active'); }); });
 
-        // --- 7. NATIVE SCROLL SLIDERS ---
+        // --- 6. NATIVE SCROLL SLIDERS ---
         function initSliders() {
             const sliders = ['slider-branding104', 'slider-herkingen', 'slider-brielle'];
             sliders.forEach(sliderId => {
@@ -828,7 +838,7 @@
             track.scrollBy({ left: direction * track.clientWidth, behavior: 'smooth' });
         }
 
-        // --- 8. COOKIES ---
+        // --- 7. COOKIES ---
         function accepteerCookies() {
             try { localStorage.setItem('cookiesGeaccepteerd', 'ja'); } catch(e){}
             const banner = document.getElementById('cookieBanner');
@@ -847,7 +857,7 @@
             }
         }
 
-        // --- 9. FULLSCREEN LIGHTBOX LOGICA MET GALERIJ-NAVIGATIE ---
+        // --- 8. FULLSCREEN LIGHTBOX LOGICA MET GALERIJ-NAVIGATIE ---
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         
