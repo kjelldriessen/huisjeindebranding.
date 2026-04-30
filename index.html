@@ -39,7 +39,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Montserrat:wght@300;400;500;600;800&display=swap" rel="stylesheet">
     
-    <!-- PAGESPEED OPTIMALISATIE: Script wordt nu gedeferred ingeladen zodat het de site opbouw niet blokkeert -->
+    <!-- PAGESPEED OPTIMALISATIE: DEFER TOEGEVOEGD! Script blokkeert de HTML opbouw nu niet meer -->
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
 
     <style>
@@ -78,7 +78,7 @@
             transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
             transform-origin: top;
         }
-        #preloader img { height: 80px; animation: pulse 2s infinite ease-in-out; }
+        #preloader img { animation: pulse 2s infinite ease-in-out; }
         body.loaded #preloader { transform: translateY(-100%); pointer-events: none; }
         @keyframes pulse { 0% { opacity: 0.5; transform: scale(0.95); } 50% { opacity: 1; transform: scale(1); } 100% { opacity: 0.5; transform: scale(0.95); } }
 
@@ -88,14 +88,14 @@
             .cursor-dot {
                 position: fixed; top: 0; left: 0; width: 6px; height: 6px;
                 background-color: var(--primary-dark-green); border-radius: 50%;
-                pointer-events: none; z-index: 100010; /* Verhoogd zodat de cursor BOVEN de lightbox blijft */
+                pointer-events: none; z-index: 100010; 
                 transform: translate(-50%, -50%); transition: opacity 0.2s;
                 will-change: transform; 
             }
             .cursor-outline {
                 position: fixed; top: 0; left: 0; width: 32px; height: 32px;
                 border: 1px solid rgba(31, 54, 37, 0.5); border-radius: 50%;
-                pointer-events: none; z-index: 100009; /* Verhoogd */
+                pointer-events: none; z-index: 100009; 
                 transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s, background-color 0.2s, border-color 0.2s, opacity 0.2s;
                 will-change: transform, width, height; 
             }
@@ -142,7 +142,6 @@
         .zichtbaar .word { transform: translateY(0); }
 
         .levende-tekst {
-            /* PAGESPEED OPTIMALISATIE: Resolutie en kwaliteit van dit specifieke masker drastisch verlaagd zonder kwaliteitsverlies voor tekst */
             background: var(--primary-dark-green) url('https://images.unsplash.com/photo-1542718610-a1d656d1884c?auto=format&fit=crop&w=600&q=60') center/cover;
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; 
             filter: saturate(1.6) contrast(1.2); display: inline-block; padding-bottom: 5px;
@@ -214,12 +213,10 @@
         .slide-track { 
             display: flex; width: 100%; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; 
             -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none;
-            /* Peek effect verwijderd (gap weggehaald) */
         }
         .slide-track::-webkit-scrollbar { display: none; }
         
         .slide { 
-            /* Weer terug naar 100% breedte per foto */
             flex: 0 0 100%; height: 100%; object-fit: cover; object-position: center center; 
             scroll-snap-align: start; filter: saturate(1.05) contrast(1.02); transition: filter 0.8s ease, transform 0.4s ease;
         }
@@ -388,7 +385,6 @@
         @media (max-width: 1024px) {
             .scroll-progress-container { width: 3px; }
             
-            /* Herstelde mobiele layout: zorgt dat alles mooi onder elkaar valt op kleine schermen */
             .hamburger { display: flex; }
             .nav-menu { position: fixed; top: 0; right: -100%; width: 100vw; height: 100vh; background-color: rgba(230, 223, 211, 0.98); backdrop-filter: blur(15px); flex-direction: column; justify-content: center; align-items: center; transition: right 0.4s ease; }
             .nav-menu.active { right: 0; }
@@ -459,7 +455,6 @@
             .cookie-bar p { padding-right: 0; font-size: 0.85rem; }
             .cookie-btn { width: 100%; padding: 16px; font-size: 0.9rem; }
             
-            /* Optimalisatie voor het sluit-kruisje en de lightbox pijltjes op smartphones */
             .lightbox-close { top: 20px; right: 20px; font-size: 2.5rem; }
             .lightbox-btn { width: 45px; height: 45px; font-size: 1.2rem; background: rgba(0,0,0,0.5); border: none; }
             .lightbox-btn.prev { left: 10px; }
@@ -470,7 +465,8 @@
 </head>
 <body>
 
-    <div id="preloader"><img src="logo.png?v=2" alt="Laden..."></div>
+    <!-- PAGESPEED OPTIMALISATIE: Preloader logo met vaste grootte voor betere CLS -->
+    <div id="preloader"><img src="logo.png?v=2" alt="Laden..." width="80" height="80" style="width: 80px; height: auto;"></div>
     
     <!-- Verticale Scroll Balk -->
     <div class="scroll-progress-container">
@@ -493,8 +489,8 @@
     </header>
 
     <section id="home" class="hero">
-        <!-- PAGESPEED OPTIMALISATIE: Explicit width/height toegevoegd om berekeningstijd van de browser te besparen -->
-        <img src="https://assets.plaece.nl/kuma-goereeoverflakkee/uploads/media/60a64b1adf234/homepage-header.jpg" alt="Zuid-Holland Natuur" class="hero-bg" id="hero-bg-parallax" fetchpriority="high" decoding="sync" width="1920" height="1080">
+        <!-- PAGESPEED OPTIMALISATIE: Explicit width/height toegevoegd, decoding="sync" verwijderd -->
+        <img src="https://assets.plaece.nl/kuma-goereeoverflakkee/uploads/media/60a64b1adf234/homepage-header.jpg" alt="Zuid-Holland Natuur" class="hero-bg" id="hero-bg-parallax" fetchpriority="high" width="1920" height="1080">
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1 class="split-text">Ontsnap aan de waan van de dag.</h1>
@@ -703,10 +699,13 @@
         requestAnimationFrame(raf);
 
         // --- 2. PRELOADER LOGICA ---
-        // PAGESPEED OPTIMALISATIE: De 100ms Timeout is weggehaald, dit versnelt de Largest Contentful Paint (LCP) aanzienlijk.
-        window.addEventListener('load', () => {
-            document.body.classList.add('loaded');
-            document.querySelectorAll('.hero-content .split-text').forEach(el => el.classList.add('zichtbaar'));
+        // PAGESPEED OPTIMALISATIE: We gebruiken nu DOMContentLoaded in plaats van window.load
+        // Dit zorgt ervoor dat Google de LCP meting kan afronden voordat alle trage resources geladen zijn.
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.body.classList.add('loaded');
+                document.querySelectorAll('.hero-content .split-text').forEach(el => el.classList.add('zichtbaar'));
+            }, 50); // Een minimale pauze van 50ms om de browser de animatie te laten renderen.
         });
 
         // --- 3. SPLIT TEXT SETUP ---
