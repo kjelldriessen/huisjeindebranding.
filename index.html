@@ -31,19 +31,16 @@
     }
     </script>
 
-    <!-- PAGESPEED: Preconnects voor kritieke domeinen -->
+    <!-- PAGESPEED: Kritieke preconnects. Overtollige externe CDNs verwijderd om netwerkverzoeken vrij te maken -->
     <link rel="preconnect" href="https://assets.plaece.nl" crossorigin>
-    <link rel="preconnect" href="https://a0.muscache.com" crossorigin>
-    <link rel="preconnect" href="https://cdn.bookingexperts.com" crossorigin>
-    <link rel="preconnect" href="https://cdn.bookzoapi.nl" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <!-- PAGESPEED: Preload Hero Image & Logo voor snelle LCP -->
+    <!-- PAGESPEED: Preload Hero Image & Logo voor bliksemsnelle LCP -->
     <link rel="preload" as="image" href="https://assets.plaece.nl/kuma-goereeoverflakkee/uploads/media/60a64b1adf234/homepage-header.jpg" fetchpriority="high">
     <link rel="preload" as="image" href="logo.png?v=2">
     
-    <!-- PAGESPEED: Asynchroon inladen van Google Fonts (Blokkeert de render niet meer) -->
+    <!-- PAGESPEED: Asynchroon inladen van Google Fonts (Blokkeert de render niet) -->
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Montserrat:wght@300;400;500;600;800&display=swap">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Montserrat:wght@300;400;500;600;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Montserrat:wght@300;400;500;600;800&display=swap"></noscript>
@@ -77,18 +74,18 @@
             position: relative;
         }
 
-        /* --- PAGESPEED: GEOPTIMALISEERDE PRELOADER --- */
+        /* --- PAGESPEED: PRELOADER (Versneld naar 0.3s zonder delay voor betere LCP) --- */
         #preloader {
             position: fixed; inset: 0; background-color: var(--bg-body);
             z-index: 999999; display: flex; align-items: center; justify-content: center;
             pointer-events: none; 
-            animation: preloaderFadeOut 0.4s cubic-bezier(0.77, 0, 0.175, 1) 0.1s forwards;
+            animation: preloaderFadeOut 0.3s ease-out forwards;
         }
         #preloader img { animation: pulse 1s infinite ease-in-out; width: 80px; height: 80px; object-fit: contain; }
         @keyframes preloaderFadeOut { to { transform: translateY(-100%); opacity: 0; visibility: hidden; } }
         @keyframes pulse { 0%, 100% { opacity: 0.5; transform: scale(0.95); } 50% { opacity: 1; transform: scale(1); } }
 
-        /* --- CUSTOM MAGNETIC CURSOR (Alleen voor fijne aanwijzers) --- */
+        /* --- CUSTOM MAGNETIC CURSOR --- */
         @media (pointer: fine) {
             body, a, button, input, textarea { cursor: none !important; }
             .cursor-dot, .cursor-outline {
@@ -124,7 +121,7 @@
         *:focus-visible { outline: 2px solid var(--accent-gold); outline-offset: 4px; border-radius: 4px; }
         .btn:focus-visible, .cookie-btn:focus-visible, .slider-btn:focus-visible { outline-offset: 2px; border-radius: 50px; }
 
-        /* CSS-only animaties voor LCP elementen */
+        /* CSS-only animaties voor LCP elementen (Snelheid!) */
         .hero-title, .hero-desc, .hero-btn { opacity: 0; animation: fadeUpIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
         .hero-title { animation-delay: 0.1s; } .hero-desc { animation-delay: 0.2s; } .hero-btn { animation-delay: 0.3s; }
         @keyframes fadeUpIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -133,7 +130,8 @@
         .word { display: inline-block; transform: translateY(110%); transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1); }
         .zichtbaar .word { transform: translateY(0); }
         .levende-tekst {
-            background: var(--primary-dark-green) url('https://images.unsplash.com/photo-1542718610-a1d656d1884c?auto=format&fit=crop&w=400&q=50') center/cover;
+            /* PAGESPEED: Masker foto enorm verkleind (w=200, q=30) */
+            background: var(--primary-dark-green) url('https://images.unsplash.com/photo-1542718610-a1d656d1884c?auto=format&fit=crop&w=200&q=30') center/cover;
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; 
             filter: saturate(1.6) contrast(1.2); display: inline-block; padding-bottom: 5px;
         }
@@ -169,12 +167,6 @@
         .hero-content h1 { font-size: 4.8rem; line-height: 1.05; margin-bottom: 25px; letter-spacing: -1px; }
         .hero-content p { font-size: 1.25rem; margin-bottom: 45px; color: var(--text-dark); font-weight: 400; }
 
-        /* --- PAGESPEED: CONTENT VISIBILITY VOOR OFF-SCREEN ELEMENTEN --- */
-        .collectie, #contact, footer {
-            content-visibility: auto;
-            contain-intrinsic-size: 1000px;
-        }
-
         /* --- COLLECTIE & HUISJES --- */
         .collectie { padding: 120px 5vw; max-width: 1300px; margin: 0 auto; position: relative; z-index: 1; }
         .sectie-titel { text-align: center; font-size: 4.5rem; margin-bottom: 20px; letter-spacing: -0.5px; } 
@@ -182,7 +174,7 @@
         .huisje-rij { display: flex; align-items: center; gap: 0; margin-bottom: 120px; }
         .huisje-rij.omgekeerd { flex-direction: row-reverse; }
 
-        /* Aspect ratio voor CLS preventie */
+        /* PAGESPEED: Keiharde aspect-ratio op sliders voor CLS score */
         .huisje-foto-container { 
             flex: 1.3; position: relative; width: 100%; aspect-ratio: 3/2; overflow: hidden; border-radius: 12px;
             background-color: var(--light-green-bg); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
@@ -195,7 +187,7 @@
         .slide-track::-webkit-scrollbar { display: none; }
         
         .slide { 
-            flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; object-position: center center; 
+            flex: 0 0 100%; width: 100%; height: auto; aspect-ratio: 3/2; object-fit: cover; object-position: center center; 
             scroll-snap-align: start; filter: saturate(1.05) contrast(1.02); transition: filter 0.8s ease, transform 0.4s ease; cursor: pointer;
         }
         .huisje-foto-container:hover .slide.active { filter: saturate(1.2) contrast(1.05); transform: scale(1.02); }
@@ -301,21 +293,21 @@
         .cookie-bar { 
             position: fixed; left: 0; bottom: 0; width: 100%; background: var(--primary-dark-green); color: var(--white); 
             padding: 20px 5vw; display: flex; justify-content: space-between; align-items: center; 
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.15); z-index: 100001; /* Z-index hoog */
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.15); z-index: 100001;
             transform: translateY(120%); transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); 
         }
         .cookie-bar.show { transform: translateY(0); }
         .cookie-bar p { font-size: 0.95rem; margin: 0; opacity: 0.9; padding-right: 20px;}
         .cookie-btn { 
             background: var(--accent-gold); color: var(--primary-dark-green); border: none; 
-            padding: 12px 30px; min-height: 48px; min-width: 48px; /* A11Y Target size */
+            padding: 12px 30px; min-height: 48px; min-width: 48px;
             display: inline-flex; align-items: center; justify-content: center;
             cursor: pointer; text-transform: uppercase; font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; border-radius: 50px; 
             transition: transform 0.3s, background 0.3s; white-space: nowrap; flex-shrink: 0; pointer-events: auto !important; 
         }
         .cookie-btn:hover { transform: scale(1.05); background: var(--white); }
 
-        /* --- VERTICAL SCROLL PROGRESS (PAGESPEED: GPU geoptimaliseerd via scaleY) --- */
+        /* --- VERTICAL SCROLL PROGRESS --- */
         .scroll-progress-container { position: fixed; top: 0; right: 0; width: 4px; height: 100vh; background-color: rgba(31, 54, 37, 0.05); z-index: 9998; pointer-events: none; }
         .scroll-progress-bar { width: 100%; height: 100%; background-color: var(--accent-gold); transform-origin: top; transform: scaleY(0); will-change: transform; border-radius: 0 0 4px 4px; }
 
@@ -330,7 +322,7 @@
         .lightbox-btn:hover { background: var(--accent-gold); border-color: var(--accent-gold); color: var(--primary-dark-green); transform: translateY(-50%) scale(1.1); }
         .lightbox-btn.prev { left: 4vw; } .lightbox-btn.next { right: 4vw; }
 
-        /* --- RESPONSIVE LAYOUT (Mobiel Geoptimaliseerd) --- */
+        /* --- RESPONSIVE LAYOUT --- */
         @media (max-width: 1024px) {
             .scroll-progress-container { width: 3px; }
             .hamburger { display: flex; }
@@ -347,7 +339,6 @@
             .hero-content h1 { font-size: 3.5rem; }
 
             .huisje-rij, .huisje-rij.omgekeerd { flex-direction: column; margin-bottom: 80px; box-shadow: 0 15px 40px rgba(0,0,0,0.06); border-radius: 16px; background: var(--bg-sand); }
-            /* PAGESPEED: Aspect-ratio behouden op mobiel */
             .huisje-foto-container { height: auto; aspect-ratio: 3/2; border-radius: 16px 16px 0 0; box-shadow: none; flex: none; width: 100%;}
             
             .slider-btn { width: 45px; height: 45px; font-size: 1.1rem; }
@@ -401,7 +392,6 @@
 </head>
 <body>
 
-    <!-- PAGESPEED: Preloader logo verbergt na initialisatie zonder JS overhead -->
     <div id="preloader"><img src="logo.png?v=2" alt="Laden..." width="150" height="75"></div>
     
     <div class="scroll-progress-container">
@@ -447,8 +437,8 @@
             <div class="huisje-rij">
                 <div class="huisje-foto-container reveal-target" id="slider-branding104">
                     <div class="slide-track">
-                        <!-- PAGESPEED: Aspect-Ratio perfect in sync met expliciete dimensies -->
-                        <img src="https://a0.muscache.com/im/pictures/prohost-api/Hosting-980271721982717540/original/621c1713-d1cf-4211-8cf9-098e900f6906.jpeg?im_w=1200" class="slide active" alt="Branding 104 Bungalow Buiten" loading="lazy" decoding="async" width="1200" height="800">
+                        <!-- PAGESPEED: Airbnb foto's kleiner ingeladen via CDN query (im_w=720) in plaats van 1200px voor lagere payload -->
+                        <img src="https://a0.muscache.com/im/pictures/prohost-api/Hosting-980271721982717540/original/621c1713-d1cf-4211-8cf9-098e900f6906.jpeg?im_w=720" class="slide active" alt="Branding 104 Bungalow Buiten" loading="lazy" decoding="async" width="1200" height="800">
                         <img src="https://cdn.bookingexperts.com/uploads/image/image/268707/cover_2._Woonkamer__5_.jpg" class="slide" alt="Woonkamer" loading="lazy" decoding="async" width="1200" height="800">
                         <img src="https://cdn.bookingexperts.com/uploads/image/image/268704/cover_2._Woonkamer__1_.jpg" class="slide" alt="Zithoek" loading="lazy" decoding="async" width="1200" height="800">
                         <img src="https://cdn.bookingexperts.com/uploads/image/image/268718/cover_3._Keuken__5_.jpg" class="slide" alt="Keuken" loading="lazy" decoding="async" width="1200" height="800">
@@ -472,6 +462,7 @@
             <div class="huisje-rij omgekeerd">
                 <div class="huisje-foto-container reveal-target" id="slider-herkingen">
                     <div class="slide-track">
+                        <!-- Voor Bookzo: Verzoek om deze op je originele server/CDN kleiner te maken dan 1400px! -->
                         <img src="https://cdn.bookzoapi.nl/summiozeedijk/145_1400.webp" class="slide active" alt="Slaapkamer" loading="lazy" decoding="async" width="1200" height="800">
                         <img src="https://cdn.bookzoapi.nl/summiozeedijk/143_1400.webp" class="slide" alt="Woonkamer" loading="lazy" decoding="async" width="1200" height="800">
                         <img src="https://cdn.bookzoapi.nl/summiozeedijk/144_1400.webp" class="slide" alt="Keuken" loading="lazy" decoding="async" width="1200" height="800">
@@ -499,7 +490,6 @@
             <div class="huisje-rij">
                 <div class="huisje-foto-container reveal-target" id="slider-brielle">
                     <div class="slide-track">
-                        <!-- PAGESPEED: Dimensies ingevuld om exact in de aspect-ratio 3/2 te vallen -->
                         <img src="https://s3.eu-central-1.amazonaws.com/media.vakantiehuistekoop.nl/media/63292/vakantiehuisje-kopen-zwartewaal-modern-architectuur-2025.webp028___media_library_original_1600_1070.jpg" class="slide active" alt="Buiten" loading="lazy" decoding="async" width="1600" height="1066">
                         <img src="https://mss-p-014-delivery.stylelabs.cloud/api/public/content/9201741-4x5?t=w540" class="slide" alt="Woonkamer" loading="lazy" decoding="async" width="1200" height="800">
                         <img src="https://api.landalmakelaardij.nl/uploads/object/1024x/d4c1450ec43a42351e6a86611526c83524a24dc9.jpg" class="slide" alt="Overzicht" loading="lazy" decoding="async" width="1200" height="800">
@@ -585,7 +575,6 @@
         </div>
     </footer>
 
-    <!-- A11Y Geoptimaliseerde Cookie Bar -->
     <div class="cookie-bar" id="cookieBanner">
         <p>Wij gebruiken essentiële cookies om de site soepel te laten werken. Door verder te gaan ga je hiermee akkoord.</p>
         <button class="cookie-btn" onclick="accepteerCookies()">Akkoord</button>
@@ -594,30 +583,37 @@
     <div class="lightbox" id="lightbox">
         <button class="lightbox-close" id="close-lightbox" aria-label="Sluit foto">&times;</button>
         <button class="lightbox-btn prev" id="lightbox-prev" aria-label="Vorige foto">&#10094;</button>
-        <img src="" alt="Uitvergrote foto" id="lightbox-img" loading="lazy" decoding="async">
+        <!-- PAGESPEED: Lightbox had nog geen width/height -->
+        <img src="" alt="Uitvergrote foto" id="lightbox-img" loading="lazy" decoding="async" width="1200" height="800">
         <button class="lightbox-btn next" id="lightbox-next" aria-label="Volgende foto">&#10095;</button>
     </div>
 
-    <!-- PAGESPEED: Alle scripts asynchroon ingeladen en onderaan de <body> voor bliksemsnelle LCP -->
+    <!-- PAGESPEED: Scripts zijn nu verplaatst naar het absolute einde van de body -->
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
 
     <script>
+        // PAGESPEED: We stellen niet-visuele scripts uit via requestIdleCallback zodat
+        // de Main Thread tijd heeft voor de "Largest Contentful Paint" (LCP)
         document.addEventListener('DOMContentLoaded', () => {
-            initLenis();
-            initSplitText();
-            initIntersectionObserver();
-            initSliders();
-            initLightbox();
             initNavigation();
-            checkCookies();
+            initLenis();
+
+            const defer = window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
             
-            // CPU Optimalisatie: De zware muiseffecten worden keihard uitgeschakeld op telefoons/tablets
-            if (window.innerWidth > 1024 && window.matchMedia("(any-pointer: fine)").matches) {
-                initMagneticCursor();
-            }
+            defer(() => {
+                initSplitText();
+                initIntersectionObserver();
+                initSliders();
+                initLightbox();
+                checkCookies();
+                
+                if (window.innerWidth > 1024 && window.matchMedia("(any-pointer: fine)").matches) {
+                    initMagneticCursor();
+                }
+            });
         });
 
-        // --- 1. LENIS SMOOTH SCROLL MET GPU ACCELERATIE ---
+        // --- 1. LENIS SMOOTH SCROLL ---
         let lenisInstance;
         function initLenis() {
             if (typeof Lenis !== 'undefined') {
@@ -625,7 +621,7 @@
                     duration: 1.2, 
                     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
                     smooth: true,
-                    smoothTouch: false // CPU EN UX REDDER: Native scroll op mobiel voor hogere PageSpeed Score
+                    smoothTouch: false 
                 });
                 
                 const header = document.getElementById('main-header');
@@ -638,7 +634,6 @@
                 lenisInstance.on('scroll', (e) => {
                     const scrollPos = e.animatedScroll;
                     
-                    // Voorkom Layout Thrashing: Alleen classes togglen wanneer écht nodig
                     const shouldScrolled = scrollPos > 50;
                     if (shouldScrolled !== isScrolled) {
                         isScrolled = shouldScrolled;
@@ -652,8 +647,6 @@
                     }
                     
                     lastScrollY = scrollPos;
-                    
-                    // PAGESPEED GPU Boost: scaleY gebruiken i.p.v. height voorkomt herberekening van DOM elementen
                     if (progressBar) progressBar.style.transform = `scaleY(${e.progress})`;
                 });
 
@@ -662,11 +655,11 @@
             }
         }
 
-        // --- 2. SPLIT TEXT ANIMATIES ---
+        // --- 2. SPLIT TEXT ANIMATIES (PAGESPEED: DocumentFragment gebruikt tegen thrashing) ---
         function initSplitText() {
             document.querySelectorAll('.split-text').forEach(el => {
-                const words = el.innerText.split(' ');
-                el.innerHTML = '';
+                const words = el.textContent.trim().split(/\s+/); 
+                const fragment = document.createDocumentFragment();
                 words.forEach((word, index) => {
                     const wrapper = document.createElement('span');
                     wrapper.className = 'word-wrap';
@@ -675,8 +668,10 @@
                     inner.style.transitionDelay = `${index * 0.08}s`;
                     inner.innerHTML = word + '&nbsp;';
                     wrapper.appendChild(inner);
-                    el.appendChild(wrapper);
+                    fragment.appendChild(wrapper);
                 });
+                el.innerHTML = '';
+                el.appendChild(fragment);
             });
         }
 
@@ -753,7 +748,7 @@
             }
         }
 
-        // --- 6. OPTIMIZED SLIDERS ---
+        // --- 6. OPTIMIZED SLIDERS (PAGESPEED: Geen DOM berekeningen via clientWidth meer) ---
         function initSliders() {
             const sliders = ['slider-branding104', 'slider-herkingen', 'slider-brielle'];
             sliders.forEach(sliderId => {
@@ -765,17 +760,17 @@
                 const dotsContainer = document.getElementById(sliderId.replace('slider-', 'dots-'));
 
                 if(dotsContainer && slides.length > 0) {
-                    slides.forEach((_, index) => {
+                    const fragment = document.createDocumentFragment();
+                    slides.forEach((slide, index) => {
                         const dot = document.createElement('div');
-                        dot.classList.add('dot');
-                        if(index === 0) dot.classList.add('active');
-                        dot.addEventListener('click', () => { track.scrollTo({ left: index * track.clientWidth, behavior: 'smooth' }); });
-                        dotsContainer.appendChild(dot);
+                        dot.className = index === 0 ? 'dot active' : 'dot';
+                        dot.addEventListener('click', () => { 
+                            slide.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' }); 
+                        });
+                        fragment.appendChild(dot);
                     });
+                    dotsContainer.appendChild(fragment);
 
-                    // PAGESPEED FIX: Layout Thrashing Opgelost
-                    // In plaats van tijdens scrollen continu clientWidth te checken (wat de CPU opslokt), 
-                    // gebruikt dit nu IntersectionObserver om te zien welke slide in beeld is.
                     const slideObserver = new IntersectionObserver((entries) => {
                         entries.forEach(entry => {
                             if (entry.isIntersecting) {
@@ -785,7 +780,7 @@
                                 if(dots[index]) dots[index].classList.add('active');
                             }
                         });
-                    }, { root: track, threshold: 0.5 });
+                    }, { root: track, threshold: 0.6 });
                     
                     slides.forEach(slide => slideObserver.observe(slide));
                 }
@@ -796,7 +791,21 @@
             const slider = document.getElementById(sliderId);
             if(!slider) return;
             const track = slider.querySelector('.slide-track');
-            track.scrollBy({ left: direction * track.clientWidth, behavior: 'smooth' });
+            const slides = Array.from(track.querySelectorAll('.slide'));
+            if (slides.length === 0) return;
+            
+            const dotsContainer = document.getElementById(sliderId.replace('slider-', 'dots-'));
+            const activeDot = dotsContainer.querySelector('.dot.active');
+            const dots = Array.from(dotsContainer.querySelectorAll('.dot'));
+            let currentIndex = dots.indexOf(activeDot);
+            
+            if (currentIndex === -1) currentIndex = 0;
+            
+            let nextIndex = currentIndex + direction;
+            if (nextIndex < 0) nextIndex = 0;
+            if (nextIndex >= slides.length) nextIndex = slides.length - 1;
+            
+            slides[nextIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
         }
 
         // --- 7. COOKIES ---
