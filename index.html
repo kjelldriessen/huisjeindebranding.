@@ -36,9 +36,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <!-- PAGESPEED: Preload Hero Image & Logo voor bliksemsnelle LCP -->
+    <!-- PAGESPEED: Preload Hero Image & Logo voor bliksemsnelle LCP, beide met fetchpriority high -->
     <link rel="preload" as="image" href="https://assets.plaece.nl/kuma-goereeoverflakkee/uploads/media/60a64b1adf234/homepage-header.jpg" fetchpriority="high">
-    <link rel="preload" as="image" href="logo.png?v=2">
+    <link rel="preload" as="image" href="logo.png?v=2" fetchpriority="high">
     
     <!-- PAGESPEED: Asynchroon inladen van Google Fonts (Blokkeert de render niet) -->
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Montserrat:wght@300;400;500;600;800&display=swap">
@@ -392,7 +392,8 @@
 </head>
 <body>
 
-    <div id="preloader"><img src="logo.png?v=2" alt="Laden..." width="150" height="75"></div>
+    <!-- PAGESPEED: fetchpriority="high" op logo voor de allereerste paint -->
+    <div id="preloader"><img src="logo.png?v=2" alt="Laden..." width="150" height="75" fetchpriority="high"></div>
     
     <div class="scroll-progress-container">
         <div class="scroll-progress-bar" id="scroll-progress"></div>
@@ -403,7 +404,8 @@
     <div class="cursor-outline" id="cursor-outline"></div>
 
     <header id="main-header">
-        <a href="#home" class="logo-box"><img src="logo.png?v=2" alt="Puur Natuur Lodges Logo" class="logo-img" width="150" height="75"></a>
+        <!-- PAGESPEED: fetchpriority="high" op header logo -->
+        <a href="#home" class="logo-box"><img src="logo.png?v=2" alt="Puur Natuur Lodges Logo" class="logo-img" width="150" height="75" fetchpriority="high"></a>
         <button class="hamburger" id="hamburger" aria-label="Menu openen" aria-expanded="false" style="background:none; border:none;">
             <span></span><span></span><span></span>
         </button>
@@ -437,7 +439,6 @@
             <div class="huisje-rij">
                 <div class="huisje-foto-container reveal-target" id="slider-branding104">
                     <div class="slide-track">
-                        <!-- PAGESPEED: Airbnb foto's kleiner ingeladen via CDN query (im_w=720) in plaats van 1200px voor lagere payload -->
                         <img src="https://a0.muscache.com/im/pictures/prohost-api/Hosting-980271721982717540/original/621c1713-d1cf-4211-8cf9-098e900f6906.jpeg?im_w=720" class="slide active" alt="Branding 104 Bungalow Buiten" loading="lazy" decoding="async" width="1200" height="800">
                         <img src="https://cdn.bookingexperts.com/uploads/image/image/268707/cover_2._Woonkamer__5_.jpg" class="slide" alt="Woonkamer" loading="lazy" decoding="async" width="1200" height="800">
                         <img src="https://cdn.bookingexperts.com/uploads/image/image/268704/cover_2._Woonkamer__1_.jpg" class="slide" alt="Zithoek" loading="lazy" decoding="async" width="1200" height="800">
